@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POTATO SMP | Minecraft Server Indonesia</title>
+    
+    <link rel="icon" type="image/jpeg" href="https://haykalfirdaus.github.io/potatosmp/potatologo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --orange: #ff6b35;
+            --white: #ffffff;
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 20, 0.6);
+            --text-muted: #aaa;
+            --wa: #25d366;
+            --discord: #5865F2;
+            --glow: 0 0 25px rgba(255, 107, 53, 0.4);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: white; overflow-x: hidden; line-height: 1.6; }
+
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 107, 53, 0.05) 0%, transparent 80%);
+            z-index: -1; pointer-events: none;
+        }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 6%; background: rgba(0,0,0,0.85);
+            position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--orange); box-shadow: var(--glow);
+        }
+        .nav-logo { display: flex; align-items: center; gap: 12px; font-weight: 900; font-family: 'Montserrat'; font-size: 1.2rem; }
+        .nav-logo img { width: 38px; border-radius: 8px; border: 1px solid var(--orange); box-shadow: var(--glow); }
+        .menu-btn { font-size: 32px; cursor: pointer; color: var(--orange); }
+
+        .sidebar { 
+            position: fixed; top: 0; right: -100%; width: 320px; height: 100%; 
+            background: #0a0a0a; z-index: 2000; transition: 0.5s cubic-bezier(0.77,0,0.175,1); 
+            padding: 50px 25px; border-left: 3px solid var(--orange);
+        }
+        .sidebar.active { right: 0; }
+        .sidebar-logo { margin-bottom: 30px; letter-spacing: 2px; font-family: 'Montserrat'; text-align: center; font-size: 1.2rem; font-weight: 900; color: var(--orange); }
+        .sidebar-btn { 
+            display: block; width: 100%; padding: 14px; margin-bottom: 12px; 
+            border-radius: 12px; text-align: center; text-decoration: none; 
+            font-weight: 700; font-size: 0.85rem; transition: 0.3s; border: none; cursor: pointer;
+        }
+        .btn-side-wa { background: var(--wa); color: white; }
+        .btn-side-dc { background: var(--discord); color: white; }
+        .btn-side-store { background: var(--orange); color: black; box-shadow: var(--glow); font-weight: 900; }
+        .btn-side-link { background: #1a1a1a; color: white; border: 1px solid #333; }
+
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1500; display: none; }
+        .overlay.active { display: block; }
+
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), var(--bg-dark)), url('https://haykalfirdaus.github.io/potatosmp/potato1.jpg') no-repeat center center/cover;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 140px 20px 80px;
+        }
+        .server-tag { background: rgba(255, 107, 53, 0.1); color: var(--orange); padding: 8px 25px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; margin-bottom: 25px; border: 1px solid var(--orange); text-transform: uppercase; letter-spacing: 3px; box-shadow: var(--glow); }
+        .hero h1 { font-family: 'Montserrat'; font-size: clamp(3rem, 12vw, 5rem); font-weight: 900; text-transform: uppercase; margin-bottom: 25px; line-height: 1; }
+        .potato-text { color: var(--orange); text-shadow: var(--glow); }
+        .smp-text { color: var(--white); }
+        .hero .desc-container { max-width: 850px; margin-bottom: 45px; }
+        .hero p { color: #ccc; font-size: 1rem; line-height: 1.8; margin-bottom: 10px; }
+        
+        .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: 50px; }
+        .btn { padding: 16px 35px; border-radius: 15px; font-weight: 700; text-decoration: none; transition: 0.4s; cursor: pointer; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 10px; border: none; }
+        .btn-main { background: var(--orange); color: #000; box-shadow: var(--glow); }
+        .btn-wa { background: var(--wa); color: white; }
+        .btn-dc { background: var(--discord); color: white; }
+
+        .stats-grid { display: flex; gap: 20px; width: 100%; max-width: 1000px; flex-wrap: wrap; justify-content: center; }
+        .stat-card { background: rgba(255, 255, 255, 0.03); padding: 30px; border-radius: 25px; flex: 1; min-width: 260px; border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); transition: 0.3s; }
+        .stat-card h4 { font-size: 2.5rem; font-family: 'Montserrat'; font-weight: 900; color: white; margin-bottom: 5px; }
+        .stat-card p { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
+
+        .section { padding: 100px 8%; max-width: 1200px; margin: auto; text-align: center; }
+        .section-title { font-family: 'Montserrat'; font-size: 2.5rem; font-weight: 900; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 3px; position: relative; }
+        .section-title::after { content: ""; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background: var(--orange); box-shadow: var(--glow); }
+        
+        .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+        .tutor-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 107, 53, 0.1); border-radius: 25px; padding: 30px; text-align: left; }
+        .tutor-card h3 { color: var(--orange); font-family: 'Montserrat'; margin-bottom: 15px; font-size: 1.1rem; }
+        .tutor-card ol { padding-left: 20px; font-size: 0.85rem; color: #ccc; }
+        .tutor-card ol li { margin-bottom: 10px; }
+
+        .portal-card { background: var(--bg-card); border-radius: 40px; padding: 50px; border: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 50px; flex-wrap: wrap; text-align: left; backdrop-filter: blur(10px); }
+        .portal-logo img { width: 180px; border-radius: 30px; border: 4px solid var(--orange); box-shadow: var(--glow); }
+        .portal-info { flex: 1; min-width: 280px; }
+
+        .ip-row { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 16px 25px; background: rgba(0,0,0,0.6); border-radius: 20px; margin-bottom: 12px;
+            cursor: pointer; transition: 0.3s; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .ip-row:hover { border-color: var(--orange); background: rgba(255, 107, 53, 0.08); }
+        .ip-row span { color: var(--text-muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .ip-row strong { color: white; font-family: 'Montserrat'; letter-spacing: 1px; font-size: 0.85rem; }
+
+        .list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-top: 50px; }
+        .card-list { background: var(--bg-card); padding: 45px; border-radius: 40px; text-align: left; border: 1px solid rgba(255,255,255,0.05); }
+        .card-list h3 { color: var(--orange); margin-bottom: 35px; font-size: 1.4rem; font-family: 'Montserrat'; border-left: 5px solid var(--orange); padding-left: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .card-list li { margin-bottom: 22px; display: flex; gap: 20px; align-items: flex-start; }
+        .icon-sq { min-width: 42px; height: 42px; background: rgba(255, 107, 53, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 1px solid rgba(255, 107, 53, 0.2); }
+        .list-text b { display: block; color: white; font-size: 1rem; margin-bottom: 4px; }
+        .list-text span { color: var(--text-muted); font-size: 0.85rem; display: block; line-height: 1.5; }
+
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
+        .store-card { background: linear-gradient(145deg, #111, #080808); padding: 50px 30px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.05); transition: 0.5s; text-align: center; }
+        .store-card h3 { font-family: 'Montserrat'; font-size: 1.6rem; margin-bottom: 10px; color: var(--orange); }
+        .store-card .price { font-size: 1.5rem; font-weight: bold; color: white; margin-bottom: 20px; }
+        .price-list { text-align: left; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(255, 107, 53, 0.2); }
+        .price-list div { display: flex; justify-content: space-between; margin-bottom: 8px; color: #ccc; font-size: 0.9rem; }
+        .price-list div:last-child { margin-bottom: 0; }
+        .price-list strong { color: white; font-size: 0.95rem; }
+        .store-card ul { text-align: left; color: #ccc; font-size: 0.85rem; margin-bottom: 30px; list-style: none; }
+        .store-card ul li { margin-bottom: 10px; padding-left: 15px; position: relative; }
+        .store-card ul li::before { content: "•"; color: var(--orange); position: absolute; left: 0; font-weight: bold; }
+
+        .info-box { background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.3); padding: 25px; border-radius: 20px; text-align: left; max-width: 900px; margin: 0 auto 40px; }
+        .info-box h4 { color: var(--orange); margin-bottom: 10px; font-size: 1.2rem; font-family: 'Montserrat'; }
+        .info-box p { color: #ddd; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 40px; }
+        .gallery-item { border-radius: 35px; overflow: hidden; height: 320px; border: 3px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover { border-color: var(--orange); box-shadow: var(--glow); }
+
+        .vote-section { background: rgba(255, 107, 53, 0.05); border: 2px solid var(--orange); border-radius: 40px; padding: 50px; margin-top: 50px; text-align: left; }
+        .vote-section h3 { color: var(--orange); font-family: 'Montserrat'; font-size: 1.8rem; margin-bottom: 20px; text-align: center; }
+        .vote-section p { margin-bottom: 10px; }
+
+        footer { padding: 100px 8% 50px; text-align: center; background: #030303; border-top: 2px solid var(--orange); }
+        .footer-logo { font-size: 1.8rem; font-weight: 900; margin-bottom: 25px; font-family: 'Montserrat'; }
+        footer a { color: var(--orange); text-decoration: none; font-weight: 600; }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 3000;
+            display: none; justify-content: center; align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: var(--bg-dark); padding: 30px; border-radius: 20px;
+            border: 2px solid var(--orange); box-shadow: var(--glow);
+            width: 90%; max-width: 400px; position: relative;
+        }
+        .modal-close {
+            position: absolute; top: 15px; right: 20px; color: #fff;
+            font-size: 1.5rem; cursor: pointer; transition: 0.3s;
+        }
+        .modal-close:hover { color: var(--orange); }
+        .modal-content h3 { color: var(--orange); margin-bottom: 20px; font-family: 'Montserrat'; text-align: center; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; color: #ccc; margin-bottom: 5px; font-size: 0.9rem; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px; border-radius: 10px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255, 107, 53, 0.3);
+            color: white; font-family: 'Poppins'; outline: none; transition: 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus { border-color: var(--orange); box-shadow: 0 0 10px rgba(255, 107, 53, 0.2); }
+        .form-group select option { background: var(--bg-dark); color: white; }
+
+        @media (max-width: 768px) {
+            .list-grid, .gallery-grid, .tutorial-grid { grid-template-columns: 1fr; }
+            .portal-card { flex-direction: column; text-align: center; padding: 40px 20px; }
+            .hero h1 { font-size: 3rem; }
+            .hero-btns { flex-direction: column; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-logo">POTATO SMP</div>
+        <a href="#home" class="sidebar-btn btn-side-link" onclick="toggleSidebar()">🏠 BERANDA</a>
+        <a href="#portal" class="sidebar-btn btn-side-link" onclick="toggleSidebar()">🌐 KONEKSI SERVER</a>
+        <a href="#gamemodes" class="sidebar-btn btn-side-link" onclick="toggleSidebar()">🎮 GAMEMODE</a>
+        <a href="#store" class="sidebar-btn btn-side-store" onclick="toggleSidebar()">🛒 STORE SERVER</a>
+        <a href="https://whatsapp.com/channel/0029VbCPghX8KMqozpSyn724" target="_blank" class="sidebar-btn btn-side-wa">💚 SALURAN WHATSAPP</a>
+        <a href="https://discord.gg/PZ8gG2nkfb" target="_blank" class="sidebar-btn btn-side-dc">💎 JOIN DISCORD</a>
+        <a href="https://chat.whatsapp.com/DsOfXHhMbOPLukvvU7iYPk" target="_blank" class="sidebar-btn btn-side-wa">💬 GRUP WHATSAPP</a>
+    </div>
+
+    <nav>
+        <div class="nav-logo">
+            <img src="https://haykalfirdaus.github.io/potatosmp/potatologo.jpg" alt="Logo">
+            <span><span class="potato-text">POTATO</span> <span class="smp-text">SMP</span></span>
+        </div>
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="server-tag">Minecraft Indonesia</div>
+        <h1>SERVER MINECRAFT <span class="potato-text">POTATO</span> <span class="smp-text">SMP</span></h1>
+        
+        <div class="desc-container">
+            <p><strong>potatosmp.fun | 19132</strong></p>
+            <p>Potato SMP adalah server Minecraft Indonesia dengan tema Survival Economy yang seru dan kompetitif. Di sini kamu bisa bermain, berkembang, dan bersaing bersama player lain dalam sistem ekonomi yang menarik.</p>
+            <p>Kata "SMP" merupakan singkatan dari Survival Multiplayer, di mana petualangan dimulai bersama komunitas.</p>
+        </div>
+        
+        <div class="hero-btns">
+            <a href="#portal" class="btn btn-main" id="joinBtn">🎮 MAIN SEKARANG</a>
+            <a href="https://whatsapp.com/channel/0029VbCPghX8KMqozpSyn724" target="_blank" class="btn btn-wa">💚 SALURAN WA</a>
+            <a href="https://discord.gg/PZ8gG2nkfb" target="_blank" class="btn btn-dc">💎 JOIN DISCORD</a>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card"><h4 id="playerStatus" style="color: #aaa;">Memuat...</h4><p>Players Active</p></div>
+            <div class="stat-card"><h4>1.20 - 1.26+</h4><p>Server Version</p></div>
+            <div class="stat-card"><h4>JAVA & BE</h4><p>Cross Platform</p></div>
+        </div>
+    </section>
+
+    <section class="section" id="portal">
+        <h2 class="section-title">CARA BERGABUNG</h2>
+        <div class="tutorial-grid">
+            <div class="tutor-card">
+                <h3>📱 MOBILE (BEDROCK)</h3>
+                <ol><li>Buka Minecraft > Play > Servers</li><li>Klik <b>Add Server</b></li><li>Isi IP & Port di bawah</li><li>Klik Save/Play</li></ol>
+            </div>
+            <div class="tutor-card">
+                <h3>💻 PC (JAVA)</h3>
+                <ol><li>Multiplayer > Add Server</li><li>Masukkan IP di bawah</li><li>Klik Done</li><li>Join Server</li></ol>
+            </div>
+        </div>
+
+        <h2 class="section-title">PORTAL KONEKSI</h2>
+        <div class="portal-card">
+            <div class="portal-logo"><img src="https://haykalfirdaus.github.io/potatosmp/potatologo.jpg" alt="Logo"></div>
+            <div class="portal-info">
+                <div class="ip-row copy-el">
+                    <span>SERVER IP</span>
+                    <strong>potatosmp.fun 📋</strong>
+                </div>
+                <div class="ip-row copy-el">
+                    <span>PORT</span>
+                    <strong>19132 📋</strong>
+                </div>
+                <div class="ip-row"><span>VERSI BEDROCK</span><strong>1.21 - 1.26+</strong></div>
+                <div class="ip-row"><span>VERSI JAVA</span><strong>1.20 - 1.26+</strong></div>
+                <div class="ip-row"><span>SUPPORT</span><strong>Java, Bedrock, Crack</strong></div>
+                <a href="minecraft://?addExternalServer=PotatoSMP|potatosmp.fun:19132" class="btn btn-main" style="width: 100%; justify-content: center; margin-top: 25px; border-radius: 18px;">Tambahkan Ke Minecraft</a>
+            </div>
+        </div>
+
+        <div class="list-grid">
+            <div class="card-list">
+                <h3>🚫 ATURAN SERVER</h3>
+                <ul>
+                    <li><div class="icon-sq">🔨</div><div class="list-text"><b>NO GRIEFING</b><span>Dilarang rusuh/griefing base player lain.</span></div></li>
+                    <li><div class="icon-sq">👁️</div><div class="list-text"><b>NO X-RAY</b><span>Dilarang menggunakan X-ray dalam bentuk apapun.</span></div></li>
+                    <li><div class="icon-sq">📦</div><div class="list-text"><b>NO DUPE</b><span>Dilarang melakukan duplikasi item.</span></div></li>
+                    <li><div class="icon-sq">💢</div><div class="list-text"><b>NO TOXIC</b><span>Jaga lisan, dilarang berkata kasar atau menghina.</span></div></li>
+                    <li><div class="icon-sq">🔞</div><div class="list-text"><b>NO CABUL</b><span>Konten dewasa dilarang keras di seluruh area.</span></div></li>
+                    <li><div class="icon-sq">🤝</div><div class="list-text"><b>RAMAH & SOPAN</b><span>Harus ramah dan sopan terhadap sesama player.</span></div></li>
+                    <li><div class="icon-sq">💬</div><div class="list-text"><b>NO SPAM</b><span>Dilarang spam chat atau promosi.</span></div></li>
+                    <li><div class="icon-sq">🚫</div><div class="list-text"><b>NO CHEAT</b><span>Dilarang menggunakan cheat/hack apapun.</span></div></li>
+                    <li><div class="icon-sq">⚠️</div><div class="list-text"><b>NO NGEMIS STAFF</b><span>Dilarang ngemis jadi admin/staff.</span></div></li>
+                </ul>
+            </div>
+
+            <div class="card-list">
+                <h3>☘️ FITUR UNGGULAN</h3>
+                <ul>
+                    <li><div class="icon-sq">🛒</div><div class="list-text"><b>Shop/Sell</b><span>Jual beli item dengan mudah.</span></div></li>
+                    <li><div class="icon-sq">🌐</div><div class="list-text"><b>PWarp</b><span>Teleport ke tempat player lain.</span></div></li>
+                    <li><div class="icon-sq">🎁</div><div class="list-text"><b>Daily Reward</b><span>Hadiah harian untuk player aktif.</span></div></li>
+                    <li><div class="icon-sq">💰</div><div class="list-text"><b>Bansos</b><span>Bantuan sosial dari server.</span></div></li>
+                    <li><div class="icon-sq">👷</div><div class="list-text"><b>Job</b><span>Sistem pekerjaan untuk cuan.</span></div></li>
+                    <li><div class="icon-sq">🎒</div><div class="list-text"><b>Backpack</b><span>Tas tambahan untuk inventory.</span></div></li>
+                    <li><div class="icon-sq">⚡</div><div class="list-text"><b>QuickShop</b><span>Buat toko sendiri dengan cepat.</span></div></li>
+                    <li><div class="icon-sq">🛡️</div><div class="list-text"><b>Skills</b><span>Tingkatkan kemampuan karakter.</span></div></li>
+                    <li><div class="icon-sq">🏦</div><div class="list-text"><b>Auction House</b><span>Lelang item dengan player lain.</span></div></li>
+                    <li><div class="icon-sq">🎲</div><div class="list-text"><b>RTP</b><span>Random teleport ke lokasi acak.</span></div></li>
+                    <li><div class="icon-sq">💎</div><div class="list-text"><b>Ranks</b><span>Sistem ranking dengan benefit.</span></div></li>
+                    <li><div class="icon-sq">🗺️</div><div class="list-text"><b>Claim Land</b><span>Klaim dan lindungi area kamu.</span></div></li>
+                    <li><div class="icon-sq">🏠</div><div class="list-text"><b>SetHome</b><span>Set home untuk teleport cepat.</span></div></li>
+                </ul>
+            </div>
+            
+            <div class="card-list" style="grid-column: 1 / -1;">
+                <h3>🌍 EVENT SERVER</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div class="icon-sq" style="font-size: 1.8rem;">☄️</div>
+                        <div class="list-text"><b style="color: white; font-size: 1rem; margin-bottom: 4px; display: block;">/meteor</b><span style="color: #aaa; font-size: 0.85rem;">Saksikan hujan meteor yang jatuh ke bumi membawa material berharga.</span></div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div class="icon-sq" style="font-size: 1.8rem;">🍀</div>
+                        <div class="list-text"><b style="color: white; font-size: 1rem; margin-bottom: 4px; display: block;">/luckyrain</b><span style="color: #aaa; font-size: 0.85rem;">Hujan penuh keberuntungan, dapatkan drop item menarik dari langit!</span></div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div class="icon-sq" style="font-size: 1.8rem;">🌧️</div>
+                        <div class="list-text"><b style="color: white; font-size: 1rem; margin-bottom: 4px; display: block;">/acidrain</b><span style="color: #aaa; font-size: 0.85rem;">Hati-hati! Hujan asam beracun yang dapat mengurangi darah jika tidak berteduh.</span></div>
+                    </div>
+                    <div style="display: flex; gap: 15px; align-items: flex-start;">
+                        <div class="icon-sq" style="font-size: 1.8rem;">🩸</div>
+                        <div class="list-text"><b style="color: white; font-size: 1rem; margin-bottom: 4px; display: block;">/bloodmoon</b><span style="color: #aaa; font-size: 0.85rem;">Bulan merah mengerikan, monster menjadi lebih kuat dengan drop hadiah langka!</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vote-section">
+            <h3>🗳️ VOTE SERVER & DAPATKAN RANK VOTE GRATIS 4 JAM, 50K MONEY DAN 2× VOTE KEY</h3>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://minecraft-mp.com/server-s353692" target="_blank" class="btn btn-main" style="font-size: 1.1rem; padding: 18px 40px; border-radius: 20px;">VOTE SEKARANG & RAIH HADIAH</a>
+                <p style="margin-top: 15px; color: #ccc;">Bisa vote server lebih dari 1× dan dapatkan banyak hadiah.</p>
+            </div>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 30px; border-radius: 20px; border: 1px solid rgba(255, 107, 53, 0.2);">
+                <h4 style="color: var(--orange); margin-bottom: 15px; font-size: 1.2rem; font-family: 'Montserrat';">CARA VOTE 🍄</h4>
+                <ul style="list-style: none; color: #ccc; margin-bottom: 25px; padding-left: 0;">
+                    <li style="margin-bottom: 8px;">°• Tekan menu vote</li>
+                    <li style="margin-bottom: 8px;">°• Isi nama Minecraft kalian</li>
+                    <li style="margin-bottom: 8px;">°• Tekan tombol vote</li>
+                </ul>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 25px;">
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 12px; border-left: 3px solid var(--orange);">
+                        <strong style="color: white;">BEDROCK 🪨:</strong> <span style="color: #ccc;">Awalan nama isi "." (contoh: .Kentang6814)</span>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 12px; border-left: 3px solid var(--orange);">
+                        <strong style="color: white;">JAVA ☁️:</strong> <span style="color: #ccc;">Tidak perlu titik</span>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.3); padding: 20px; border-radius: 15px;">
+                    <h4 style="color: var(--orange); margin-bottom: 10px; font-size: 1.1rem; font-family: 'Montserrat';">NOTE 📄</h4>
+                    <p style="color: #ddd; font-size: 0.95rem; line-height: 1.6;">Harap saat vote harus dengan login di server biar dapat reward nya. Vote bisa berkali-kali dan dapatkan lebih banyak reward caranya vote server setiap 1 kali sehari.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gamemodes">
+        <h2 class="section-title">GAMEMODE SERVER</h2>
+        <div class="tutorial-grid">
+            <div class="tutor-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🌍</div>
+                <h3 style="text-align: center;">SURVIVAL MIX</h3>
+                <p style="color: #aaa; font-size: 0.85rem;">Bertahan hidup dengan perpaduan berbagai fitur seru dan ekonomi yang kompetitif.</p>
+            </div>
+            <div class="tutor-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">💤</div>
+                <h3 style="text-align: center;">AFK ZONE</h3>
+                <p style="color: #aaa; font-size: 0.85rem;">Area khusus untuk bersantai dan mendapatkan reward secara otomatis saat kamu tidak aktif.</p>
+            </div>
+            <div class="tutor-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">⛏️</div>
+                <h3 style="text-align: center;">MINING SIM</h3>
+                <p style="color: #aaa; font-size: 0.85rem;">Tambang sumber daya berharga di area khusus tanpa batas untuk memperkaya dirimu.</p>
+            </div>
+            <div class="tutor-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🌾</div>
+                <h3 style="text-align: center;">FARMING AREA</h3>
+                <p style="color: #aaa; font-size: 0.85rem;">Bercocok tanam dan panen hasil bumimu di lahan subur yang telah disediakan.</p>
+            </div>
+            <div class="tutor-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">⚔️</div>
+                <h3 style="text-align: center;">PVP ARENA</h3>
+                <p style="color: #aaa; font-size: 0.85rem;">Tantang player lain dalam pertarungan sengit di arena dan buktikan siapa yang terkuat.</p>
+            </div>
+            <div class="tutor-card" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 15px;">💣</div>
+                <h3 style="text-align: center;">CPVP FIGHT</h3>
+                <p style="color: #aaa; font-size: 0.85rem;">Pertarungan mematikan menggunakan Crystal PvP untuk kamu yang berjiwa hardcore.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="store">
+        <h2 class="section-title">OFFICIAL STORE</h2>
+        
+        <div class="info-box">
+            <h4>INFO PENTING ⚠️</h4>
+            <p>Harga upgrade rank adalah harga selisih rank yang mau di-upgrade dan rank kamu sekarang. Contoh: Jika kamu memiliki Rank Elite 1 Bulan (18k) dan mau upgrade ke Rank Legend 1 Bulan (29k), harga upgrade-nya adalah <strong>11k</strong>.</p>
+        </div>
+
+        <p style="margin-bottom: 30px; color: #aaa;">Pilih rank yang cocok untuk memperkuat petualanganmu di server!</p>
+        <div class="store-grid">
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">⚔️</div>
+                <h3>SILVER</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 5.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 7.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 10.000</strong></div>
+                </div>
+                <ul>
+                    <li>/feed</li>
+                    <li>/anvil</li>
+                    <li>/enderchest</li>
+                    <li>Claim Limit: 4</li>
+                    <li>SetHome: 4</li>
+                    <li>Block Limit: 12K</li>
+                    <li>Player Vault: 1</li>
+                </ul>
+                <button onclick="openCheckout('Rank Silver', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+            
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🌟</div>
+                <h3>GOLDEN</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 9.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 13.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 16.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Silver</li>
+                    <li>/tp</li>
+                    <li>/nick</li>
+                    <li>/eskull</li>
+                    <li>Claim Limit: 6</li>
+                    <li>SetHome: 7</li>
+                    <li>Block Limit: 20K</li>
+                    <li>Player Vault: 2</li>
+                </ul>
+                <button onclick="openCheckout('Rank Golden', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🏅</div>
+                <h3>ELITE</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 18.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 25.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 30.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Golden</li>
+                    <li>/fly</li>
+                    <li>/repair</li>
+                    <li>/heal</li>
+                    <li>/compass</li>
+                    <li>/itemlore</li>
+                    <li>Claim Limit: 7</li>
+                    <li>SetHome: 10</li>
+                    <li>Block Limit: 35K</li>
+                    <li>Player Vault: 2</li>
+                </ul>
+                <button onclick="openCheckout('Rank Elite', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🌀</div>
+                <h3>LEGEND</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 29.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 40.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 51.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Elite</li>
+                    <li>/itemname</li>
+                    <li>/vanish</li>
+                    <li>/speed</li>
+                    <li>Claim Limit: 10</li>
+                    <li>SetHome: 15</li>
+                    <li>Block Limit: 50K</li>
+                    <li>Player Vault: 3</li>
+                </ul>
+                <button onclick="openCheckout('Rank Legend', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🎣</div>
+                <h3>SLAYER</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 39.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 64.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 80.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Legend</li>
+                    <li>/time set day</li>
+                    <li>/time set night</li>
+                    <li>/time set noon</li>
+                    <li>/enchant</li>
+                    <li>/burn</li>
+                    <li>/vanish</li>
+                    <li>Claim Limit: 14</li>
+                    <li>SetHome: 20</li>
+                    <li>Block Limit: 75K</li>
+                    <li>Player Vault: 4</li>
+                </ul>
+                <button onclick="openCheckout('Rank Slayer', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🧊</div>
+                <h3>FROZEN</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 57.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 78.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 130.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Slayer</li>
+                    <li>/god</li>
+                    <li>/invsee</li>
+                    <li>/jump</li>
+                    <li>Claim Limit: 18</li>
+                    <li>SetHome: 25</li>
+                    <li>Block Limit: 100K</li>
+                    <li>Player Vault: 5</li>
+                </ul>
+                <button onclick="openCheckout('Rank Frozen', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🚩</div>
+                <h3>MYTHIC</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 78.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 100.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 170.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Frozen</li>
+                    <li>/near</li>
+                    <li>/weather set sun</li>
+                    <li>/weather set rain</li>
+                    <li>/weather set thunder</li>
+                    <li>/exp</li>
+                    <li>Claim Limit: 24</li>
+                    <li>SetHome: 35</li>
+                    <li>Block Limit: 150K</li>
+                    <li>Player Vault: 6</li>
+                </ul>
+                <button onclick="openCheckout('Rank Mythic', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🌂</div>
+                <h3>IMMORTAL</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 99.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 135.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 225.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Mythic</li>
+                    <li>/beezoka</li>
+                    <li>/gma (Adventure)</li>
+                    <li>/gmsp (Spectator)</li>
+                    <li>/kill (Diri sendiri)</li>
+                    <li>Claim Limit: 30</li>
+                    <li>SetHome: 50</li>
+                    <li>Block Limit: 200K</li>
+                    <li>Player Vault: 8</li>
+                </ul>
+                <button onclick="openCheckout('Rank Immortal', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🌿</div>
+                <h3>CELESTIAL</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 120.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 195.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 289.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Immortal</li>
+                    <li>/effect</li>
+                    <li>/tp paksa</li>
+                    <li>Claim Land: 8</li>
+                    <li>Claim Limit: 40</li>
+                    <li>SetHome: 75</li>
+                    <li>Block Limit: 275K</li>
+                    <li>Player Vault: 10</li>
+                </ul>
+                <button onclick="openCheckout('Rank Celestial', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🌻</div>
+                <h3>LUNARLIGHT</h3>
+                <div class="price-list">
+                    <div><span>1 Bulan:</span><strong>Rp 145.000</strong></div>
+                    <div><span>3 Bulan:</span><strong>Rp 301.000</strong></div>
+                    <div><span>1 Tahun:</span><strong>Rp 398.000</strong></div>
+                </div>
+                <ul>
+                    <li>Semua fitur Celestial</li>
+                    <li>/attribute</li>
+                    <li>/potion</li>
+                    <li>Claim Limit: 50</li>
+                    <li>SetHome: 125</li>
+                    <li>Block Limit: 500K</li>
+                    <li>Player Vault: 15</li>
+                </ul>
+                <button onclick="openCheckout('Rank Lunarlight', true)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+            
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">💰</div>
+                <h3>MONEY</h3>
+                <div class="price">Rp 3.000</div>
+                <ul style="text-align: center;">
+                    <li style="padding-left: 0; position: relative;">100k Money in-game</li>
+                </ul>
+                <style>.store-card:nth-last-child(2) ul li::before { display: none; }</style>
+                <button onclick="openCheckout('Money In-game', false)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+
+            <div class="store-card">
+                <div style="font-size: 2.5rem; margin-bottom: 15px;">🛡️</div>
+                <h3>SKILLS</h3>
+                <div class="price">Rp 2.500</div>
+                <ul style="text-align: center;">
+                    <li style="padding-left: 0; position: relative;">2 Level Skill</li>
+                </ul>
+                <style>.store-card:last-child ul li::before { display: none; }</style>
+                <button onclick="openCheckout('Level Skill', false)" class="btn btn-main" style="width: 100%; justify-content: center;">BELI VIA ADMIN</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="gallery">
+        <h2 class="section-title">GALLERY SERVER</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="https://haykalfirdaus.github.io/potatosmp/potato1.jpg" alt="Potato SMP 1"></div>
+            <div class="gallery-item"><img src="https://haykalfirdaus.github.io/potatosmp/potato2.jpg" alt="Potato SMP 2"></div>
+            <div class="gallery-item"><img src="https://haykalfirdaus.github.io/potatosmp/potato3.jpg" alt="Potato SMP 3"></div>
+            <div class="gallery-item"><img src="https://haykalfirdaus.github.io/potatosmp/potato4.jpg" alt="Potato SMP 4"></div>
+        </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo"><span style="color:var(--orange)">POTATO</span> SMP</div>
+      <p>Server Minecraft Survival Economy Indonesia.</p>
+      <div style="margin-bottom: 30px;">
+        <a href="syarat-ketentuan.html">Syarat & Ketentuan</a> |
+        <a href="https://discord.gg/PZ8gG2nkfb" target="_blank">Discord</a> |
+        <a href="https://whatsapp.com/channel/0029VbCPghX8KMqozpSyn724" target="_blank">WhatsApp Channel</a> |
+        <a href="https://chat.whatsapp.com/DsOfXHhMbOPLukvvU7iYPk" target="_blank">Group Chat</a>
+      </div>
+      <p style="font-size: 0.75rem; color: #444;">© 2024 - 2026 Potato SMP Network.</p>
+    </footer>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeCheckout()">&times;</span>
+            <h3 id="modalTitle">Beli Rank</h3>
+            <div class="form-group">
+                <label>Nickname Minecraft:</label>
+                <input type="text" id="ignInput" placeholder="Masukkan Nickname" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label>Platform:</label>
+                <select id="platformSelect">
+                    <option value="Java">Java</option>
+                    <option value="Bedrock">Bedrock</option>
+                </select>
+            </div>
+            <div class="form-group" id="durationGroup">
+                <label>Durasi Beli:</label>
+                <select id="durationSelect">
+                    <option value="1 Bulan">1 Bulan</option>
+                    <option value="3 Bulan">3 Bulan</option>
+                    <option value="1 Tahun">1 Tahun</option>
+                </select>
+            </div>
+            <button class="btn btn-main" style="width: 100%; justify-content: center; margin-top: 15px;" onclick="processCheckout()">Lanjut ke WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+    async function updateStatus(){
+      const el = document.getElementById('playerStatus');
+      try {
+        const res = await fetch('https://api.mcsrvstat.us/bedrock/3/potatosmp.fun:19132');
+        const data = await res.json();
+        if (data.online) {
+            el.innerHTML = `<span style="color:#25d366">${data.players.online}</span>`;
+        } else {
+            const resJava = await fetch('https://api.mcsrvstat.us/3/potatosmp.fun:19132');
+            const dataJava = await resJava.json();
+            if(dataJava.online) {
+                el.innerHTML = `<span style="color:#25d366">${dataJava.players.online}</span>`;
+            } else {
+                el.innerHTML = '<span style="color:#ff4444">OFFLINE</span>';
+            }
+        }
+      } catch (e) {
+        el.innerHTML = '<span style="color:#ff4444">OFFLINE</span>';
+      }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    document.querySelectorAll('.copy-el').forEach(el => {
+        el.addEventListener('click', () => {
+            const strong = el.querySelector('strong');
+            const text = strong.textContent.replace(' 📋','');
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Tersalin: ' + text);
+            });
+        });
+    });
+
+    function toggleSidebar() { 
+        document.getElementById('sidebar').classList.toggle('active'); 
+        document.getElementById('overlay').classList.toggle('active'); 
+    }
+
+    let currentItem = "";
+    let isItemRank = true;
+
+    function openCheckout(itemName, isRank) {
+        currentItem = itemName;
+        isItemRank = isRank;
+        document.getElementById('modalTitle').innerText = "Beli " + itemName;
+        document.getElementById('checkoutModal').classList.add('active');
+        
+        if (isRank) {
+            document.getElementById('durationGroup').style.display = 'block';
+        } else {
+            document.getElementById('durationGroup').style.display = 'none';
+        }
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutModal').classList.remove('active');
+        document.getElementById('ignInput').value = '';
+    }
+
+    function processCheckout() {
+        const ign = document.getElementById('ignInput').value;
+        const platform = document.getElementById('platformSelect').value;
+        const duration = document.getElementById('durationSelect').value;
+        
+        if (!ign.trim()) {
+            alert("Harap isi Nickname Minecraft terlebih dahulu!");
+            return;
+        }
+
+        let text = `Halo admin, saya mau beli ${currentItem}.\n\n- Nickname: ${ign}\n- Platform: ${platform}`;
+        if (isItemRank) {
+            text += `\n- Durasi: ${duration}`;
+        }
+
+        const waUrl = `https://wa.me/6282340319193?text=${encodeURIComponent(text)}`;
+        window.open(waUrl, '_blank');
+        closeCheckout();
+    }
+
+    updateStatus();
+    setInterval(updateStatus, 15000);
+    </script>
+</body>
+</html>
