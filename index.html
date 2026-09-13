@@ -145,7 +145,7 @@ document.addEventListener("keydown",function(e){
 });
 
 
-const POTATOLIVE={API_BASE:"https://api.potatosmp.fun",API_KEY:"PASTE_YOUR_API_KEY_HERE"};
+const POTATOLIVE={API_BASE:"https://api.potatosmp.fun",API_KEY:"fqxlbiJZW1OnqeTNF5iGetAA9oA91lnncTb1p6px3RU"};
 async function liveFetch(path){const r=await fetch(POTATOLIVE.API_BASE+path,{cache:"no-store",headers:{"X-API-Key":POTATOLIVE.API_KEY}});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}
 function livePlayers(d){const box=$("livePlayers"),count=$("liveCount");if(!box||!count)return;const a=Array.isArray(d.players)?d.players:[];count.textContent=(d.online??a.length)+" ONLINE";box.innerHTML=a.length?a.map(x=>'<div class="live-row"><i class="live-dot"></i><span>'+String(x.name||"Player").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))+'</span></div>').join(""): '<div class="live-empty">Tidak ada player online.</div>'}
 function liveChat(d){const box=$("liveChat");if(!box)return;const a=Array.isArray(d)?d:(d.messages||d.chat||[]);box.innerHTML=a.slice(-20).map(x=>'<div class="live-msg"><b>'+String(x.player||x.name||"Server").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))+'</b>: '+String(x.message||x.text||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))+'</div>').join("")||'<div class="live-empty">Belum ada chat.</div>';box.scrollTop=box.scrollHeight}
