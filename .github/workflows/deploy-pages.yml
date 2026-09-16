@@ -1,0 +1,51 @@
+name: Potato SMP - Pasang ZIP dan Status Player
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - website-potato-smp--main.zip
+      - .github/workflows/deploy-pages.yml
+  schedule:
+    - cron: '2-59/5 * * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: potato-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Ekstrak ZIP dan siapkan website
+        run: |
+          unzip -q website-potato-smp--main.zip -d "$RUNNER_TEMP/potato-zip"
+          project_dir="$RUNNER_TEMP/potato-zip/website-potato-smp--main"
+          mkdir -p _site
+          cp "$project_dir/index.html" "$project_dir/CNAME" _site/
+          cp -R "$project_dir/assets" _site/
+          node --test "$project_dir/scripts/status-source.test.mjs"
+          node "$project_dir/scripts/update-status.mjs" _site/status.json
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Terbitkan website
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
