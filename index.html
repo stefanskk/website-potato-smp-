@@ -1,0 +1,1997 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#faf7f2">
+<title>Potato SMP — Server Survival Java &amp; Bedrock</title>
+<meta name="description" content="Server Minecraft survival Indonesia. Java dan Bedrock bisa masuk lewat satu IP. Cek status live, rank, dan panduan masuk di sini.">
+<link rel="icon" href="data:image/webp;base64,UklGRkYEAABXRUJQVlA4IDoEAAAwFQCdASpAAEAAPnkwk0ckoqGhLBqsyJAPCWwAnTMABy+zfKB8p9efze5pHmsSeoDbf/zL0Aect6Kv9P6YHUR/rdwKf+AYIK9fRGtbk0nyc/lX+v9gw6var9wrWhRN30SyehyBQh6081FflBuoTY4TyBThEXZuMd75Xyd0DUtRUwsFxEsurQVmcV4hSFh+MVR4hw2VShHRXaqYde/WxObs3gPI29OLs/mjd4JPLTkMyoKAAP7x2RBRvt82zlLDQhgNLzHpH/+Cn/4Kf9TP2t//T28CwcRd+0o8hOBPR4iTH87SsUH6M7x6S/D2Q5lTmr1KN9ksk7rBfT1LOzNRzCU72w89/zjUCQXfWviavHHlPzADlqlPUsz5DA6H1QP75J/h9OQi3MUgsFsfezVAtR6qUX8OA+jBp4hVZmtw/R18kJmLkEXgYKgZRTkcB9R2KT6YuRzo3BxjIajk0o0EtOcWAKXJ2sCHcsSrKlt00tulWEroKLcfg5c6FufnqZjORs1bwDeSYQVV8N9vzplAZjvnBrfekkcQhzWSqwINfI77WlC3g+mrNuM9w9v40O6nWlK+l9Sn1TewW8H+zfTmgnFwJs1Xlpet6cxree2GMttn8B7Ntky9JKCQZsZy2Yiad5bgXfm0DyQk9yEcTl+IRC0odvZXtlAAnZCCGQblG1MjKCGhr8waTKdUE9duKn83V43eN5uckJUjgrOvsdKu7GUsZpMW/sSjoytlCTxzJjKCZTcfySkqcvhTS2UnwAR/48LjTOxJpX5SxQZbOs5pyMX9d43qg4Fj4niobLRqHGKMGPeL8njrK13+4ySud4LhXQNW7QzcbElJKMui7Oz6VnTSFAQO0eWvBllvZTNrTJa+iN+5LTXAcHLWuBvnEfFC78KOEi606/vwDiUEUtzC1OzqvymZ56dqAvHkFaQuXqGnPvk/u/6OIKkCv5+XmRR7Ar+BkPSnD+vxSGuvRaJRzeLQMW940GsP1+nqeD1jJOTrFNi1pXueo3GEkzMMkzE29TPRgsBP2B6haOW6Hl1tbckadmG5Kye4FMLDKrjhGzvBj9O6SJ8ArwaIsJt9BQDeN4wezwQR6X+xRGFQ3nrYZLbpvzLl2Ft0G3195uRbDyz4iV47LVYMrr+cIYex8km0NdrMoWChz2nylq3DzdLOywsegYwUmJ3ZzbOUui7gzUonoolekYjhjbwX7NF4EP8BKyN3WETH/gretwNLO7PZZAXW6OHM2s9I26UyzCGCRu4j4bL0ZdY6EPivZ8bHNUXVI1v0QEpzCj7y5bgCDcISb+/zp1dEVws4yT5wnmESkdcqk0wmrfJIl9RMYVU0zeeGnNaA0gQCJIQEDQoxd5KQOqS2Epi5oA4tyDZfN6qBWfUTNRSiLdTmGCjB5rG2+MyhqdmAXa2aE9lLHj/cgEyJSLZlbvZYQF6i0AAAAA==">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* ============ TOKENS ============ */
+:root{
+ --ink:#14110b;--ink2:#3a3229;--muted:#6f6455;--faint:#a2978a;
+ --card:#fff;--canvas:#faf7f2;--line:rgba(20,17,11,.075);--line2:rgba(20,17,11,.13);
+ --p1:#f97316;--p2:#fb923c;--p3:#fbbf24;--acc:#f59e0b;--warm:#f59e0b;--ok:#16a34a;--bad:#dc2626;
+ --grad:linear-gradient(135deg,#f97316,#fb923c 45%,#fbbf24);
+ --gradd:linear-gradient(135deg,#c2410c,#ea580c 55%,#f97316);
+ --gradt:linear-gradient(115deg,#c2410c,#ea580c 40%,#d97706);
+ --deep:#c2410c;
+ --shw:0 20px 44px -22px rgba(234,88,12,.5);
+ --r1:12px;--r2:18px;--r3:26px;--r4:34px;
+ --sh1:0 1px 2px rgba(20,17,11,.05),0 8px 24px -14px rgba(20,17,11,.18);
+ --sh2:0 2px 6px rgba(20,17,11,.05),0 28px 56px -28px rgba(20,17,11,.28);
+ --shp:0 10px 28px -10px rgba(249,115,22,.55);
+ --nav-h:64px;
+ --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+ margin:0;min-height:100%;background:var(--canvas);color:var(--ink);
+ font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+ font-size:15px;line-height:1.6;letter-spacing:-.011em;overflow-x:hidden;overflow-anchor:none;
+}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{margin:0;line-height:1.05;letter-spacing:-.035em;font-weight:800}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+::selection{background:#f97316;color:#fff}
+:focus-visible{outline:2px solid var(--p1);outline-offset:3px;border-radius:8px}
+.svg-sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ico{width:1em;height:1em;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* ============ AURORA BACKDROP ============ */
+.bg{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none;background:var(--canvas)}
+.bg b{position:absolute;display:block;border-radius:50%;filter:blur(74px);opacity:.42;will-change:transform}
+.bg .b1{width:52vw;height:52vw;min-width:360px;min-height:360px;left:-12vw;top:-16vw;background:radial-gradient(circle,#fb923c,transparent 68%);animation:drift1 24s ease-in-out infinite}
+.bg .b2{width:46vw;height:46vw;min-width:320px;min-height:320px;right:-10vw;top:-6vw;background:radial-gradient(circle,#fcd34d,transparent 68%);animation:drift2 29s ease-in-out infinite}
+.bg .b3{width:42vw;height:42vw;min-width:300px;min-height:300px;left:30vw;top:38vw;background:radial-gradient(circle,#fda4af,transparent 68%);opacity:.3;animation:drift3 34s ease-in-out infinite}
+.bg .b4{width:34vw;height:34vw;min-width:240px;min-height:240px;right:6vw;top:62vw;background:radial-gradient(circle,#fde68a,transparent 68%);opacity:.32;animation:drift1 27s ease-in-out infinite reverse}
+.bg .grid{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(20,17,11,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(20,17,11,.045) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 25%,transparent 75%);mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 25%,transparent 75%)}
+.bg .veil{position:absolute;inset:0;background:radial-gradient(ellipse 70% 55% at 50% 30%,rgba(255,253,250,.86),transparent 70%),linear-gradient(180deg,rgba(250,247,242,.22) 0%,rgba(250,247,242,.74) 48%,#faf7f2 100%)}
+.bg .noise{position:absolute;inset:0;opacity:.5;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E")}
+@keyframes drift1{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(6vw,4vw,0) scale(1.12)}66%{transform:translate3d(-4vw,7vw,0) scale(.94)}}
+@keyframes drift2{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-7vw,6vw,0) scale(1.15)}}
+@keyframes drift3{0%,100%{transform:translate3d(0,0,0) scale(1)}40%{transform:translate3d(-8vw,-5vw,0) scale(1.1)}75%{transform:translate3d(5vw,3vw,0) scale(.92)}}
+
+/* cursor glow */
+.glow{position:fixed;z-index:0;width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .5s;background:radial-gradient(circle,rgba(249,115,22,.16),transparent 62%);will-change:transform}
+.glow.on{opacity:1}
+
+/* scroll progress */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;opacity:0;transition:opacity .3s;transform:scaleX(0);transform-origin:0 50%;background:var(--gradd);z-index:90;will-change:transform}
+
+/* ============ SHELL ============ */
+.wrap{width:min(1160px,calc(100% - 32px));margin:0 auto}
+.screen{display:none;padding:calc(var(--nav-h) + 46px) 0 90px}
+.screen.active{display:block;animation:screenIn .5s var(--ease) both}
+@keyframes screenIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#home.active{padding-top:0}
+
+/* ============ HEADER ============ */
+.hdr{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:80;width:min(1160px,calc(100% - 24px));height:var(--nav-h);display:flex;align-items:center;gap:10px;padding:8px 8px 8px 12px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.72);backdrop-filter:blur(18px) saturate(180%);-webkit-backdrop-filter:blur(18px) saturate(180%);box-shadow:var(--sh1);transition:box-shadow .4s,background .4s,transform .4s var(--ease)}
+.hdr.stuck{box-shadow:var(--sh2);background:rgba(255,255,255,.86)}
+.hdr.hide{transform:translateX(-50%) translateY(-130%)}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand img{width:38px;height:38px;border-radius:11px;object-fit:cover;box-shadow:0 4px 14px rgba(245,158,11,.3)}
+.brand .bn{display:flex;flex-direction:column;line-height:1}
+.brand .bn b{font-size:14px;font-weight:800;letter-spacing:-.02em}
+.brand .bn i{font-size:9px;font-style:normal;font-weight:600;letter-spacing:.16em;color:var(--faint);margin-top:3px}
+.brand:hover img{animation:pop .5s var(--ease)}
+@keyframes pop{50%{transform:scale(1.14) rotate(-6deg)}}
+
+.nav{position:relative;display:flex;align-items:center;gap:2px;margin:0 auto}
+.nav a{position:relative;z-index:1;padding:9px 14px;border-radius:12px;font-size:13.5px;font-weight:600;color:var(--muted);transition:color .25s}
+.nav a:hover{color:var(--ink)}
+.nav a:after{content:"";position:absolute;left:14px;right:14px;bottom:4px;height:2px;border-radius:2px;background:var(--gradd);transform:scaleX(0);transition:transform .35s var(--ease)}
+.nav a:hover:after{transform:scaleX(1)}
+.nav a.on:after{transform:scaleX(0)}
+.nav a.on{color:var(--ink)}
+.navpill{position:absolute;z-index:0;top:0;left:0;height:100%;border-radius:12px;background:rgba(20,17,11,.055);opacity:0;transition:transform .42s var(--ease),width .42s var(--ease),opacity .3s}
+.hact{display:flex;align-items:center;gap:8px;flex:none}
+.prog.on{opacity:1}
+.chip{display:flex;align-items:center;gap:7px;max-width:150px;padding:9px 13px;border-radius:12px;border:1px solid var(--line2);background:#fff;font-size:12.5px;font-weight:700;transition:.25s var(--ease)}
+.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip:hover{transform:translateY(-2px);box-shadow:var(--sh1);border-color:rgba(249,115,22,.4)}
+.burger{display:none;width:42px;height:42px;border-radius:12px;border:1px solid var(--line2);background:#fff;place-items:center}
+.burger i{display:block;width:16px;height:1.8px;border-radius:2px;background:var(--ink);transition:.35s var(--ease)}
+.burger i+i{margin-top:4px}
+.burger.x i:nth-child(1){transform:translateY(5.8px) rotate(45deg)}
+.burger.x i:nth-child(2){opacity:0;transform:scaleX(.2)}
+.burger.x i:nth-child(3){transform:translateY(-5.8px) rotate(-45deg)}
+
+/* mobile sheet */
+.sheet{position:fixed;inset:0;z-index:79;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:calc(var(--nav-h) + 26px) 16px 30px;background:rgba(250,247,242,.86);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.sheet.open{display:block;animation:fade .3s both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet nav{display:grid;gap:8px;max-width:520px;margin:0 auto}
+.sheet a{display:flex;align-items:center;gap:13px;padding:13px 16px;border-radius:var(--r2);border:1px solid var(--line);background:#fff;font-weight:700;box-shadow:var(--sh1);opacity:0;transform:translateY(16px);animation:mIn .48s var(--ease) forwards}
+.sheet a .ico{font-size:19px;color:var(--p1)}
+.sheet a small{margin-left:auto;font-size:11px;font-weight:600;color:var(--faint)}
+@keyframes mIn{to{opacity:1;transform:none}}
+
+/* ============ BUTTONS ============ */
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 22px;border-radius:14px;font-size:14px;font-weight:700;letter-spacing:-.01em;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s,background .3s,border-color .3s;isolation:isolate}
+.btn .ico{font-size:17px;transition:transform .35s var(--ease)}
+.btn.pri{color:#1a1205;background:var(--grad);background-size:180% 180%;box-shadow:var(--shw);animation:gradFlow 7s ease infinite}
+@keyframes gradFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.btn.pri:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.45) 42%,transparent 62%);transform:translateX(-110%)}
+.btn.pri:hover:before{animation:sheen .85s var(--ease)}
+@keyframes sheen{to{transform:translateX(110%)}}
+.btn.pri:hover{transform:translateY(-3px);box-shadow:0 20px 44px -14px rgba(234,88,12,.62)}
+.btn.sec{background:#fff;border:1px solid var(--line2);box-shadow:var(--sh1)}
+.btn.sec:hover{transform:translateY(-3px);border-color:rgba(249,115,22,.5);box-shadow:var(--shw)}
+.btn.gho{background:rgba(20,17,11,.045)}
+.btn.gho:hover{background:rgba(20,17,11,.08)}
+.btn:hover .ico.mv{transform:translateX(4px)}
+.btn:active{transform:translateY(-1px) scale(.985)}
+.btn.sm{min-height:40px;padding:0 15px;font-size:12.5px;border-radius:11px}
+.btn.wide{width:100%}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);transform:scale(0);animation:rip .62s ease-out forwards;pointer-events:none}
+.btn.sec .rip,.btn.gho .rip{background:rgba(249,115,22,.26)}
+@keyframes rip{to{transform:scale(2.6);opacity:0}}
+
+/* ============ SHARED BITS ============ */
+.kick{display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;border:1px solid rgba(234,88,12,.2);background:rgba(255,255,255,.8);box-shadow:0 6px 20px -10px rgba(234,88,12,.5),inset 0 1px 0 #fff;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);backdrop-filter:blur(8px)}
+.kick .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(22,163,74,.55);animation:ring 2.1s infinite}
+@keyframes ring{70%{box-shadow:0 0 0 9px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+.gr{background:var(--gradt);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{0%{background-position:0% 0}100%{background-position:220% 0}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r3);box-shadow:var(--sh1),inset 0 1px 0 #fff}
+.muted{color:var(--muted)}
+.lead{color:var(--muted);font-size:15px;line-height:1.7}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:0 0 22px}
+.sec-head h2{font-size:clamp(26px,4.2vw,40px)}
+.wd{display:inline-block;opacity:0;transform:translateY(.55em) rotate(1.6deg);animation:wdIn .72s var(--ease) forwards}
+@keyframes wdIn{to{opacity:1;transform:none}}
+.sec-head p{max-width:400px;font-size:14px;color:var(--muted)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;padding:5px 11px;border-radius:999px;border:1px solid rgba(234,88,12,.22);background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(251,191,36,.12));font-size:10.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--deep)}
+
+/* page head (inner) */
+.phead{position:relative;margin-bottom:30px}
+.back{display:inline-flex;align-items:center;gap:7px;margin-bottom:18px;padding:8px 14px 8px 11px;border-radius:999px;border:1px solid var(--line2);background:#fff;font-size:12.5px;font-weight:700;box-shadow:var(--sh1);transition:.3s var(--ease)}
+.back:hover{transform:translateX(-4px);border-color:rgba(249,115,22,.45)}
+.phead .eyebrow{margin-bottom:18px;vertical-align:middle}
+.phead h2{font-size:clamp(30px,5.4vw,50px);margin-bottom:12px}
+.phead .lead{max-width:560px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);filter:blur(6px);transition:opacity .75s var(--ease),transform .75s var(--ease),filter .75s var(--ease)}
+.rv.in{opacity:1;transform:none;filter:none}
+.rv-s{opacity:0;transform:translateY(20px) scale(.97);filter:blur(4px);transition:opacity .6s var(--ease),transform .6s var(--ease),filter .6s var(--ease)}
+.rv-s.in{opacity:1;transform:none;filter:none}
+</style>
+<style>
+/* ============ HERO ============ */
+.hero{position:relative;min-height:min(92vh,760px);display:grid;place-items:center;text-align:center;padding:calc(var(--nav-h) + 60px) 0 78px}
+.hero-in{position:relative;z-index:2;max-width:880px}
+.hero h1{font-size:clamp(32px,5.6vw,57px);letter-spacing:-.04em;margin:20px 0 0}
+.hero-sub{margin:14px 0 0;font-size:clamp(15px,2.3vw,21px);font-weight:700;letter-spacing:-.02em;color:var(--ink2);opacity:0;animation:fadeUp .8s var(--ease) .44s forwards}
+.hero-sub b{background:var(--gradt);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln>span{display:block;transform:translateY(105%);animation:lineUp .95s var(--ease) forwards}
+@keyframes lineUp{to{transform:none}}
+.hero .lead{max-width:540px;margin:16px auto 0;font-size:15.5px;opacity:0;animation:fadeUp .8s var(--ease) .58s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.hero .kick{opacity:0;animation:fadeUp .7s var(--ease) .15s forwards}
+.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:30px;opacity:0;animation:fadeUp .8s var(--ease) .68s forwards}
+.hero-meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:26px;opacity:0;animation:fadeUp .8s var(--ease) .82s forwards}
+.hero-meta span{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.8);font-size:12.5px;font-weight:600;color:var(--ink2);backdrop-filter:blur(8px)}
+.hero-meta .ico{font-size:14px;color:var(--p1)}
+.hero-meta b{font-weight:800}
+/* floating glass cards */
+.float{position:absolute;z-index:1;display:flex;align-items:center;gap:11px;padding:13px 16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.78);backdrop-filter:blur(14px);box-shadow:var(--sh2);font-size:12.5px;font-weight:700;opacity:0;will-change:transform}
+.float small{display:block;font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--faint);text-transform:uppercase}
+.float .fi{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--gradd);color:#fff;font-size:16px}
+.float.f1{top:25%;left:0;animation:fIn .9s var(--ease) 1s forwards,bob 6s ease-in-out 2s infinite}
+.float.f2{top:45%;right:0;animation:fIn .9s var(--ease) 1.15s forwards,bob 7s ease-in-out 2.2s infinite reverse}
+.float.f3{bottom:13%;left:3%;animation:fIn .9s var(--ease) 1.3s forwards,bob 8s ease-in-out 2.4s infinite}
+.float.f4{bottom:19%;right:1%;animation:fIn .9s var(--ease) 1.45s forwards,bob 6.5s ease-in-out 2.6s infinite reverse}
+.float.f2 .fi{background:linear-gradient(135deg,#b45309,#f59e0b)}
+.float.f3 .fi{background:linear-gradient(135deg,#dc2626,#f97316)}
+.float.f4 .fi{background:linear-gradient(135deg,#15803d,#65a30d)}
+@keyframes fIn{to{opacity:1}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+.spark{position:absolute;z-index:1;width:7px;height:7px;border-radius:50%;background:var(--p1);opacity:.45;animation:twinkle 4s ease-in-out infinite}
+.spark:nth-child(2){background:var(--acc);animation-delay:.9s}
+.spark:nth-child(3){background:var(--p3);animation-delay:1.8s}
+.spark:nth-child(4){background:var(--warm);animation-delay:2.6s}
+@keyframes twinkle{0%,100%{transform:scale(.4);opacity:.15}50%{transform:scale(1.5);opacity:.75}}
+.scroll-hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);display:grid;place-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:.22em;color:var(--muted);opacity:0;animation:fadeUp .8s 1.6s forwards}
+.scroll-hint i{display:block;width:2px;height:38px;border-radius:2px;background:linear-gradient(var(--deep),transparent);animation:slideDown 1.9s ease-in-out infinite}
+@keyframes slideDown{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============ TICKER ============ */
+.ticker{position:relative;overflow:hidden;margin:6px 0 60px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.55);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.ticker ul{display:flex;width:max-content;min-height:20px;animation:marq 34s linear infinite}
+.ticker:hover ul{animation-play-state:paused}
+.ticker li{display:flex;align-items:center;gap:12px;padding:0 20px;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+.ticker li:after{content:"";width:5px;height:5px;border-radius:50%;background:var(--p1);opacity:.6}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ============ CONNECT PANEL ============ */
+.connect{position:relative;overflow:hidden;padding:30px;border-radius:var(--r4);color:var(--ink);background:#fff;border:1px solid rgba(234,88,12,.16);box-shadow:var(--sh2),inset 0 1px 0 #fff}
+.connect:before{content:"";position:absolute;inset:-10%;background:radial-gradient(circle at 10% 4%,rgba(249,115,22,.16),transparent 46%),radial-gradient(circle at 92% 92%,rgba(251,191,36,.2),transparent 48%),radial-gradient(circle at 64% 20%,rgba(234,88,12,.1),transparent 52%);animation:glowDrift 16s ease-in-out infinite;will-change:transform}
+@keyframes glowDrift{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-3%,2%,0) scale(1.08)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.connect>*{position:relative;z-index:1}
+.connect-top{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:22px}
+.connect-top h3{font-size:22px}
+.connect-top p{font-size:13px;color:var(--muted)}
+.live{display:flex;align-items:center;gap:9px;margin-left:auto;padding:9px 15px;border-radius:999px;border:1px solid var(--line2);background:#fff;box-shadow:var(--sh1);font-size:12.5px;font-weight:700}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:ring 2s infinite}
+.live.off i{background:var(--bad);animation:none}
+.live.wait i{background:var(--warm)}
+.conn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cbox{position:relative;overflow:hidden;padding:16px;border-radius:var(--r2);border:1px solid var(--line);background:linear-gradient(160deg,#fffaf3,#fff6ea);transition:.35s var(--ease)}
+.cbox:hover{transform:translateY(-4px);border-color:rgba(234,88,12,.3);box-shadow:var(--shw)}
+.cbox small{display:block;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--deep)}
+.cbox b{display:block;margin:7px 0 12px;font-size:17px;letter-spacing:-.02em;word-break:break-all}
+.cbox .cp{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;border:1px solid var(--line2);background:#fff;font-size:11.5px;font-weight:700;transition:.25s}
+.cbox .cp:hover{background:var(--grad);border-color:transparent;color:#1a1205}
+.cbox .cp.done{background:#bbf7d0;border-color:#86efac;color:#14532d}
+.cbox .tag{display:inline-block;padding:6px 11px;border-radius:9px;background:rgba(234,88,12,.1);color:var(--deep);font-size:11.5px;font-weight:700}
+.skel{display:inline-block;width:64px;height:12px;border-radius:6px;background:linear-gradient(90deg,rgba(20,17,11,.08),rgba(20,17,11,.2),rgba(20,17,11,.08));background-size:200% 100%;animation:shim 1.3s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+.bars{display:flex;align-items:flex-end;gap:3px;height:18px}
+.bars i{width:3px;border-radius:2px;background:rgba(255,255,255,.75);animation:eq 1.15s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.16s}.bars i:nth-child(3){animation-delay:.32s}.bars i:nth-child(4){animation-delay:.48s}.bars i:nth-child(5){animation-delay:.64s}
+@keyframes eq{0%,100%{height:5px}50%{height:17px}}
+
+/* ============ BENTO ============ */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.bt{--mx:50%;--my:50%;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:176px;padding:20px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);text-align:left;transition:transform .45s var(--ease),box-shadow .45s,border-color .35s}
+.bt:before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .4s;background:radial-gradient(420px circle at var(--mx) var(--my),rgba(249,115,22,.16),transparent 45%)}
+.bt:hover{transform:translateY(-6px);box-shadow:var(--shw);border-color:rgba(234,88,12,.34)}
+.bt:hover:before{opacity:1}
+.bt>*{position:relative;z-index:1}
+.bt .bi{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(140deg,rgba(249,115,22,.14),rgba(251,191,36,.16));color:var(--deep);font-size:21px;transition:.45s var(--ease)}
+.bt:hover .bi{transform:rotate(-8deg) scale(1.08);background:var(--gradd);color:#fff}
+.bt em{position:absolute;top:18px;right:20px;font-size:11px;font-weight:800;font-style:normal;letter-spacing:.1em;color:var(--faint)}
+.bt h3{margin-top:auto;font-size:17px}
+.bt p{font-size:13px;color:var(--muted);line-height:1.5}
+.bt .go{display:inline-flex;align-items:center;gap:6px;margin-top:4px;font-size:12px;font-weight:700;color:var(--deep);opacity:0;transform:translateY(6px);transition:.35s var(--ease)}
+.bt:hover .go{opacity:1;transform:none}
+.bt.w2{grid-column:span 2}
+.bt.h2{grid-row:span 2;min-height:363px}
+.bt.feat{color:#1a1205;background:linear-gradient(150deg,#ffd9a8,#fdba74 55%,#fcd34d);border-color:rgba(234,88,12,.24)}
+.bt.feat p{color:rgba(26,18,5,.7)}
+.bt.feat em{color:rgba(26,18,5,.45)}
+.bt.feat .bi{background:rgba(255,255,255,.7);color:var(--deep)}
+.bt.feat .go{color:#9a3412}
+.bt.feat:hover .bi{background:#fff;color:var(--deep)}
+.orb{position:absolute;right:-30px;bottom:-40px;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.75),transparent 66%);animation:bob 9s ease-in-out infinite}
+
+/* ============ RANK RAIL ============ */
+.rail{display:flex;align-items:stretch;gap:11px;overflow-x:auto;padding:4px 2px 16px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rk{position:relative;overflow:hidden;flex:none;display:flex;flex-direction:column;width:214px;padding:20px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);scroll-snap-align:start;text-align:left;transition:transform .42s var(--ease),box-shadow .42s}
+.rk:hover{transform:translateY(-7px) scale(1.015);box-shadow:var(--shw)}
+.rk .glowbar{position:absolute;inset:0 0 auto;height:4px;background:var(--rc,var(--p1))}
+.rk .crown{display:grid;place-items:center;width:42px;height:42px;margin-bottom:14px;border-radius:13px;font-size:20px;color:#fff;background:linear-gradient(135deg,var(--rc),var(--rc2));box-shadow:0 8px 20px -8px var(--rc)}
+.rk h4{font-size:18px}
+.rk .pr{margin-top:6px;font-size:22px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.rk .pr small{font-size:11px;font-weight:600;color:var(--faint)}
+.rk .li{margin:12px 0 16px;display:grid;gap:6px}
+.rk .btn{margin-top:auto}
+.rk .li span{display:flex;gap:7px;font-size:12px;color:var(--muted)}
+.rk .li .ico{font-size:13px;color:var(--ok);margin-top:2px}
+.rk:after{content:"";position:absolute;right:-50px;top:-50px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,var(--rc),transparent 68%);opacity:.14;transition:.5s var(--ease)}
+.rk:hover:after{transform:scale(1.45)}
+
+/* ============ CTA BANNER ============ */
+.cta{position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;padding:38px;border-radius:var(--r4);color:#1a1205;background:linear-gradient(135deg,#f97316,#fb923c 50%,#fcd34d)}
+.cta:before{content:"";position:absolute;inset:0;background:radial-gradient(620px circle at 12% 118%,rgba(255,255,255,.45),transparent 58%)}
+.cta:after{content:"";position:absolute;right:-90px;top:-90px;width:320px;height:320px;border:1.5px solid rgba(255,255,255,.55);border-radius:50%;animation:bob 10s ease-in-out infinite}
+.cta>*{position:relative;z-index:1}
+.cta h2{font-size:clamp(26px,4.4vw,40px);margin-bottom:12px}
+.cta p{font-size:14.5px;color:rgba(26,18,5,.72);max-width:420px}
+.cta nav{display:grid;gap:9px}
+.cta nav a{display:flex;align-items:center;gap:11px;padding:14px 17px;border-radius:var(--r2);border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.4);font-size:13.5px;font-weight:700;backdrop-filter:blur(8px);transition:.32s var(--ease)}
+.cta nav a:hover{background:#fff;color:#9a3412;transform:translateX(6px);border-color:#fff;box-shadow:var(--sh2)}
+.cta nav a .ico:last-child{margin-left:auto}
+
+/* ============ STATS ============ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.st{padding:22px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);transition:.4s var(--ease)}
+.st:hover{transform:translateY(-5px);box-shadow:var(--shw);border-color:rgba(234,88,12,.25)}
+.st b{display:block;font-size:34px;font-weight:800;letter-spacing:-.04em;background:var(--gradt);-webkit-background-clip:text;background-clip:text;color:transparent}
+.st small{display:block;margin-top:4px;font-size:12.5px;font-weight:600;color:var(--muted)}
+
+/* ============ FOOTER ============ */
+.ft{margin-top:80px;padding:30px 0 38px;border-top:1px solid var(--line);background:linear-gradient(180deg,transparent,rgba(251,191,36,.07))}
+.ft-top{display:flex;flex-wrap:wrap;align-items:center;gap:18px;padding-bottom:22px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.ft-brand{display:flex;align-items:center;gap:13px}
+.ft-mark{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--gradd);color:#fff;font-size:20px;font-weight:800;box-shadow:var(--shw)}
+.ft-brand b{display:block;font-size:15px;letter-spacing:-.01em}
+.ft-brand>div>span{display:block;margin-top:2px;font-size:12.5px;color:var(--muted)}
+.ft-act{display:flex;gap:8px;margin-left:auto;flex-wrap:wrap}
+.ft-in{display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+.ft-in p{font-size:12.5px;color:var(--faint)}
+.ft nav{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
+.ft nav a{padding:7px 12px;border-radius:9px;font-size:12.5px;font-weight:600;color:var(--muted);transition:.25s}
+.ft nav a:hover{background:rgba(20,17,11,.05);color:var(--ink)}
+</style>
+<style>
+/* ============ GENERIC PANELS ============ */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+.pad{padding:24px}
+.tile{position:relative;overflow:hidden;padding:22px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);transition:transform .42s var(--ease),box-shadow .42s,border-color .35s}
+.tile:hover{transform:translateY(-5px);box-shadow:var(--shw);border-color:rgba(234,88,12,.3)}
+.tile .ti{display:grid;place-items:center;width:44px;height:44px;margin-bottom:14px;border-radius:14px;background:linear-gradient(140deg,rgba(249,115,22,.14),rgba(251,191,36,.16));color:var(--deep);font-size:20px;transition:.4s var(--ease)}
+.tile:hover .ti{transform:rotate(-8deg) scale(1.08);background:var(--gradd);color:#fff}
+.tile h4{font-size:16.5px;margin-bottom:6px}
+.tile p{font-size:13px;color:var(--muted);line-height:1.55}
+.tile .num{position:absolute;top:18px;right:20px;font-size:11px;font-weight:800;color:var(--faint);letter-spacing:.08em}
+
+/* ============ SERVER ============ */
+.addr{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:12px}
+.ad{position:relative;overflow:hidden;padding:22px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1)}
+.ad small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.ad b{display:block;margin:9px 0 16px;font-size:clamp(20px,3.4vw,27px);letter-spacing:-.03em;word-break:break-all}
+.ad .cp{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 16px;border-radius:12px;background:var(--grad);color:#1a1205;font-size:12.5px;font-weight:700;box-shadow:var(--shw);transition:.3s var(--ease)}
+.ad .cp:hover{transform:translateY(-2px);box-shadow:0 18px 38px -14px rgba(234,88,12,.6)}
+.ad .cp.done{background:#bbf7d0;color:#14532d}
+.ad .wm{position:absolute;right:-16px;bottom:-22px;font-size:96px;opacity:.07;color:var(--deep)}
+.status-box{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding:22px;border-radius:var(--r3);color:var(--ink);background:linear-gradient(135deg,#fffaf3,#fff4e4);border:1px solid rgba(234,88,12,.18);box-shadow:var(--sh1)}
+.status-box:before{content:"";position:absolute;inset:-14%;background:radial-gradient(circle at 14% 16%,rgba(249,115,22,.14),transparent 48%),radial-gradient(circle at 86% 92%,rgba(251,191,36,.18),transparent 50%);animation:glowDrift 18s ease-in-out infinite;will-change:transform}
+.status-box>*{position:relative;z-index:1}
+.status-box .sb-ico{display:grid;place-items:center;width:50px;height:50px;border-radius:16px;background:var(--gradd);color:#fff;font-size:23px;box-shadow:var(--shw)}
+.status-box h4{font-size:18px}
+.status-box p{font-size:13px;color:var(--muted)}
+.status-box .btn{margin-left:auto}
+
+/* ============ CARD GLOW + SPOTLIGHT ============ */
+.fc,.tile,.hcard{--mx:50%;--my:50%}
+.fc:before,.tile:before,.hcard:before{content:"";position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .4s;pointer-events:none;background:radial-gradient(360px circle at var(--mx) var(--my),rgba(249,115,22,.11),transparent 46%)}
+.fc:hover:before,.tile:hover:before,.hcard:hover:before{opacity:1}
+.fc>*,.tile>*,.hcard>*{position:relative;z-index:1}
+.fc:after,.tile:after,.hcard:after{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;padding:1.3px;background:linear-gradient(135deg,#f97316,#fbbf24 50%,#f97316);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;opacity:0;transition:opacity .38s;pointer-events:none}
+.fc:hover:after,.tile:hover:after,.hcard:hover:after{opacity:1}
+
+/* ============ DONASI ============ */
+.donbox{position:relative;overflow:hidden;padding:32px 26px;border-radius:var(--r4);text-align:center;background:linear-gradient(140deg,#fed7aa,#fcd34d 58%,#fef3c7);border:1px solid rgba(234,88,12,.22);box-shadow:var(--sh2)}
+.don-ring{position:absolute;left:50%;top:40%;width:250px;height:250px;margin:-125px 0 0 -125px;border:1.5px solid rgba(255,255,255,.8);border-radius:50%;animation:ringPulse 4s ease-out infinite;pointer-events:none}
+.don-ring.r2{animation-delay:2s}
+@keyframes ringPulse{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.55);opacity:0}}
+.don-in{position:relative;z-index:1}
+.don-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;margin-bottom:22px;border-radius:999px;background:rgba(255,255,255,.75);font-size:10.5px;font-weight:800;letter-spacing:.12em;color:#9a3412}
+.donbox small{display:block;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#9a3412}
+.donbox b{display:block;margin:9px 0 18px;font-size:clamp(25px,5.2vw,38px);font-weight:800;letter-spacing:-.02em;color:#1a1205}
+.don-apps{display:flex;justify-content:center;gap:8px;margin-bottom:22px}
+.don-apps span{padding:8px 16px;border-radius:999px;background:#fff;border:1px solid rgba(234,88,12,.18);font-size:12.5px;font-weight:800;box-shadow:var(--sh1)}
+.donbox .btn+.btn{margin-top:9px}
+/* ============ BANTUAN ============ */
+.hcard{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:22px;border-radius:var(--r3);border:1px solid var(--line);background:#fff;box-shadow:var(--sh1);animation:cardIn .45s var(--ease) both;transition:transform .4s var(--ease),box-shadow .4s,border-color .35s}
+.hcard:hover{transform:translateY(-5px);box-shadow:var(--shw);border-color:rgba(234,88,12,.3)}
+.hcard .hi{display:grid;place-items:center;width:44px;height:44px;margin-bottom:15px;border-radius:14px;background:linear-gradient(140deg,rgba(249,115,22,.13),rgba(251,191,36,.18));color:var(--deep);font-size:20px;transition:.4s var(--ease)}
+.hcard:hover .hi{background:var(--gradd);color:#fff;transform:rotate(-8deg) scale(1.07)}
+.hcard h4{font-size:16.5px;margin-bottom:7px}
+.hcard p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:17px}
+.hcard .btn{margin-top:auto;align-self:flex-start}
+
+/* ============ FEATURES ============ */
+.stats.s3{grid-template-columns:repeat(3,1fr)}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fc{position:relative;overflow:hidden;display:flex;gap:13px;padding:16px;border-radius:var(--r2);border:1px solid var(--line);background:#fff;box-shadow:var(--sh1);animation:cardIn .42s var(--ease) both;transition:transform .35s var(--ease),box-shadow .35s,border-color .3s}
+.fc:hover{transform:translateY(-4px);box-shadow:var(--shw);border-color:rgba(234,88,12,.3)}
+.fc .fi{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:linear-gradient(140deg,rgba(249,115,22,.13),rgba(251,191,36,.18));color:var(--deep);font-size:18px;transition:.35s var(--ease)}
+.fc:hover .fi{background:var(--gradd);color:#fff;transform:rotate(-8deg) scale(1.06)}
+.fc b{display:block;font-size:14px;letter-spacing:-.012em}
+.fc p{margin-top:4px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.fc .soon{display:inline-block;margin-left:7px;padding:3px 7px;border-radius:999px;background:rgba(234,88,12,.16);color:#7c2d12;font-size:9px;font-weight:800;letter-spacing:.09em;vertical-align:middle}
+.fteaser{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px 22px;padding:24px;margin-bottom:12px;border-radius:var(--r3);border:1px solid rgba(234,88,12,.18);background:linear-gradient(140deg,#fffaf3,#fff4e4);box-shadow:var(--sh1)}
+.fteaser .ft-copy{grid-column:1;grid-row:1}
+.fteaser>.btn{grid-column:2;grid-row:1;justify-self:end}
+.fchips{grid-row:2}
+.fteaser .ft-copy h3{font-size:21px;margin-bottom:7px}
+.fteaser .ft-copy p{font-size:13.5px;color:var(--muted);max-width:420px}
+.fchips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px}
+.fchips span{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid rgba(234,88,12,.18);background:#fff;font-size:12px;font-weight:700;box-shadow:var(--sh1)}
+.fchips .ico{font-size:13px;color:var(--deep)}
+.fchips .more{background:var(--grad);border-color:transparent;color:#1a1205}
+
+/* ============ STORE ============ */
+.rank-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rc{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:22px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);transition:transform .45s var(--ease),box-shadow .45s}
+.rc:hover{transform:translateY(-7px);box-shadow:var(--shw)}
+.rc .bar{position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--rc),var(--rc2))}
+.rc:after{content:"";position:absolute;right:-60px;top:-60px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,var(--rc),transparent 66%);opacity:.13;transition:.55s var(--ease)}
+.rc:hover:after{transform:scale(1.5)}
+.rc-top{display:flex;align-items:center;gap:12px;margin-bottom:16px;position:relative;z-index:1}
+.rc-top .cr{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;color:#fff;font-size:21px;background:linear-gradient(135deg,var(--rc),var(--rc2));box-shadow:0 10px 22px -10px var(--rc);transition:.45s var(--ease)}
+.rc:hover .cr{transform:rotate(-8deg) scale(1.07)}
+.rc-top h4{font-size:19px}
+.rc-top span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.durs{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;margin-bottom:14px;border-radius:12px;background:rgba(20,17,11,.045)}
+.durs button{padding:8px 4px;border-radius:9px;font-size:10.5px;font-weight:700;color:var(--muted);transition:.28s var(--ease)}
+.durs button.on{background:#fff;color:var(--ink);box-shadow:var(--sh1)}
+.price{position:relative;z-index:1;display:flex;align-items:baseline;gap:7px;margin-bottom:16px}
+.price b{font-size:31px;font-weight:800;letter-spacing:-.04em}
+.price small{font-size:12px;color:var(--faint);font-weight:600}
+.price b.flip{animation:flip .38s var(--ease)}
+@keyframes flip{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+.perks{position:relative;z-index:1;display:grid;gap:7px;margin-bottom:18px}
+.perks span{display:flex;gap:8px;font-size:12.5px;color:var(--muted);line-height:1.45}
+.perks .ico{flex:none;font-size:14px;color:var(--ok);margin-top:2px}
+.rc .btn{position:relative;z-index:1;margin-top:auto}
+.free-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.free{position:relative;overflow:hidden;padding:24px;border-radius:var(--r3);color:#fff}
+.free.v{color:#052e16;background:linear-gradient(140deg,#d1fae5,#a7f3d0 60%,#fef3c7);border:1px solid rgba(5,150,105,.2)}
+.free.m{color:#1a1205;background:linear-gradient(140deg,#fdba74,#fcd34d 60%,#fde68a);border:1px solid rgba(234,88,12,.2)}
+.free:before{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border:1.5px solid rgba(255,255,255,.75);border-radius:50%;animation:bob 9s ease-in-out infinite}
+.free>*{position:relative;z-index:1}
+.free .tagf{display:inline-block;padding:6px 12px;margin-bottom:14px;border-radius:999px;background:rgba(255,255,255,.7);font-size:10.5px;font-weight:800;letter-spacing:.13em}
+.free h4{font-size:22px;margin-bottom:8px}
+.free p{font-size:13.5px;color:rgba(5,46,22,.72);line-height:1.6}
+.free.m p{color:rgba(26,18,5,.72)}
+.free.m li{color:rgba(26,18,5,.9)}
+.free.m .tagf{background:rgba(26,18,5,.14)}
+.free.m .btn{background:#9a3412;color:#fff}
+.free ul{display:grid;gap:7px;margin:14px 0 18px}
+.free li{display:flex;gap:9px;font-size:13px;color:rgba(5,46,22,.9)}
+.free li .ico{flex:none;margin-top:3px}
+.free.v .btn{background:#047857;color:#fff}
+.free .btn:hover{transform:translateY(-3px)}
+
+/* ============ VOTE ============ */
+.vote-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}
+.vsteps{display:grid;gap:10px;counter-reset:v}
+.vstep{display:flex;gap:14px;padding:17px;border-radius:var(--r2);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);transition:.35s var(--ease)}
+.vstep:hover{transform:translateX(6px);border-color:rgba(234,88,12,.32);box-shadow:var(--shw)}
+.vstep i{counter-increment:v;display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:10px;background:var(--gradd);color:#fff;font-size:13px;font-weight:800;font-style:normal}
+.vstep i:before{content:counter(v,decimal-leading-zero)}
+.vstep b{display:block;font-size:14.5px;margin-bottom:3px}
+.vstep p{font-size:13px;color:var(--muted)}
+.reward{display:flex;align-items:center;gap:12px;padding:15px;border-radius:var(--r2);border:1px dashed var(--line2);background:rgba(249,115,22,.045)}
+.reward .ri{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:var(--gradd);color:#fff;font-size:17px}
+.reward b{font-size:14px}
+.reward small{display:block;font-size:12px;color:var(--muted)}
+
+/* ============ PROFILE STRIP ============ */
+.pstrip{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);margin-bottom:12px}
+.pstrip .av{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--gradd);color:#fff;font-size:18px;font-weight:800}
+.pstrip small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.pstrip b{font-size:16px}
+.pstrip .pmeta{display:flex;gap:7px;margin-left:auto;flex-wrap:wrap}
+.pstrip .pmeta span{padding:7px 12px;border-radius:999px;background:rgba(20,17,11,.05);font-size:11.5px;font-weight:700}
+
+/* ============ GUIDE ============ */
+.track{position:relative;display:grid;gap:12px;padding-left:34px}
+.track:before{content:"";position:absolute;left:13px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--deep),var(--p3),transparent)}
+.tstep{position:relative;padding:20px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);transition:.4s var(--ease)}
+.tstep:hover{transform:translateX(7px);border-color:rgba(234,88,12,.32);box-shadow:var(--shw)}
+.tstep:before{content:"";position:absolute;left:-27px;top:26px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--deep);box-shadow:0 0 0 4px rgba(249,115,22,.18)}
+.tstep span{font-size:10.5px;font-weight:800;letter-spacing:.14em;color:var(--deep)}
+.tstep h4{font-size:17px;margin:7px 0 6px}
+.tstep p{font-size:13.5px;color:var(--muted)}
+.tstep code{padding:3px 8px;border-radius:7px;background:rgba(20,17,11,.06);font-family:ui-monospace,Menlo,monospace;font-size:12.5px;font-weight:600}
+
+/* ============ COMMUNITY ============ */
+.com{--cc:#16a34a;--cb:#15803d;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:26px;border-radius:var(--r3);color:var(--ink);background:#fff;border:1px solid var(--line);box-shadow:var(--sh1);min-height:210px;transition:transform .4s var(--ease),box-shadow .4s}
+.com:after{content:"";position:absolute;inset:0 0 auto;height:4px;background:var(--cc)}
+.com:hover{transform:translateY(-5px);box-shadow:var(--sh2)}
+.com.wa{--cc:#25d366;--cb:#15803d}
+.com.ch{--cc:#0f766e;--cb:#0f766e}
+.com.dc{--cc:#5865f2;--cb:#4338ca}
+.com.tt{--cc:#1f2937;--cb:#1f2937}
+.com:before{content:"";position:absolute;right:-60px;bottom:-70px;width:210px;height:210px;border-radius:50%;background:var(--cc);opacity:.08;transition:.6s var(--ease)}
+.com:hover:before{transform:scale(1.45)}
+.com>*{position:relative;z-index:1}
+.com .ci{display:grid;place-items:center;width:46px;height:46px;margin-bottom:16px;border-radius:14px;background:var(--cc);color:#fff;font-size:21px;box-shadow:0 10px 22px -12px var(--cc);transition:.4s var(--ease)}
+.com:hover .ci{transform:rotate(-8deg) scale(1.07)}
+.com h4{font-size:19px;margin-bottom:7px}
+.com p{font-size:13.5px;color:var(--muted);margin-bottom:18px}
+.com .btn{margin-top:auto;align-self:flex-start;background:var(--cb);color:#fff;box-shadow:0 12px 26px -14px var(--cb)}
+
+/* ============ RULES ============ */
+.filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.filters button{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border-radius:12px;border:1px solid var(--line2);background:#fff;font-size:12.5px;font-weight:700;color:var(--muted);transition:.3s var(--ease)}
+.filters button i{width:8px;height:8px;border-radius:50%}
+.filters button:hover{transform:translateY(-2px)}
+.filters button.on{color:#1a1205;background:var(--grad);border-color:transparent;box-shadow:var(--shw)}
+.rnote{display:flex;gap:14px;align-items:flex-start;padding:18px;margin-bottom:14px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1)}
+.rnote .rni{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:13px;font-size:19px}
+.rnote b{display:block;font-size:15px;margin-bottom:4px}
+.rnote p{font-size:13px;color:var(--muted)}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.rule{position:relative;overflow:hidden;padding:20px;border-radius:var(--r3);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);animation:cardIn .45s var(--ease) both;transition:transform .4s var(--ease),box-shadow .4s}
+.rule:hover{transform:translateY(-5px);box-shadow:var(--sh2)}
+.rule[hidden]{display:none}
+@keyframes cardIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+.rule .rtop{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.rule .rn{font-size:11px;font-weight:800;letter-spacing:.1em;color:var(--faint)}
+.rule .lv{margin-left:auto;padding:5px 10px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.1em}
+.lv.l1{background:rgba(22,163,74,.13);color:#047857}
+.lv.l2{background:rgba(245,158,11,.15);color:#b45309}
+.lv.l3{background:rgba(220,38,38,.13);color:#b91c1c}
+.rule h4{font-size:15.5px;margin-bottom:7px}
+.rule p{font-size:13px;color:var(--muted);line-height:1.55}
+.rule .sanc{display:block;margin-top:12px;padding-top:12px;border-top:1px dashed var(--line2);font-size:12px;color:var(--ink2)}
+.rule .sanc b{font-weight:700;color:var(--faint);letter-spacing:.06em;font-size:10.5px;text-transform:uppercase;display:block;margin-bottom:3px}
+
+/* ============ FAQ ============ */
+.tabs{display:flex;flex-wrap:wrap;gap:7px;padding-bottom:6px;margin-bottom:18px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{display:inline-flex;align-items:center;gap:8px;flex:none;min-height:42px;padding:0 16px;border-radius:12px;border:1px solid var(--line2);background:#fff;font-size:12.5px;font-weight:700;color:var(--muted);transition:.3s var(--ease)}
+.tabs button:hover{transform:translateY(-2px);color:var(--ink)}
+.tabs button.on{color:#1a1205;background:var(--grad);border-color:transparent;box-shadow:var(--shw)}
+.qa{display:grid;gap:9px}
+.q{overflow:hidden;border-radius:var(--r2);border:1px solid var(--line);background:var(--card);box-shadow:var(--sh1);animation:cardIn .4s var(--ease) both}
+.q>button{display:flex;align-items:center;gap:13px;width:100%;padding:17px 19px;text-align:left;font-size:14.5px;font-weight:700;transition:.25s}
+.q>button:hover{background:rgba(249,115,22,.05)}
+.q>button .ch{margin-left:auto;flex:none;font-size:17px;color:var(--faint);transition:transform .4s var(--ease)}
+.q.open>button .ch{transform:rotate(180deg);color:var(--deep)}
+.q .ans{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s var(--ease)}
+.q.open .ans{grid-template-rows:1fr}
+.q .ans>div{overflow:hidden}
+.q .ans p{padding:0 19px 18px;font-size:13.5px;color:var(--muted);line-height:1.65}
+.q .ans code{padding:2px 7px;border-radius:6px;background:rgba(249,115,22,.12);color:var(--deep);font-weight:700;font-size:12.5px}
+
+/* ============ FORM / LOGIN ============ */
+.form{display:grid;gap:14px}
+.field label{display:block;margin-bottom:7px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.field input,.field select{width:100%;min-height:50px;padding:0 15px;border-radius:14px;border:1px solid var(--line2);background:#fff;font-size:14.5px;font-weight:600;transition:.28s}
+.field input:focus,.field select:focus{outline:0;border-color:var(--deep);box-shadow:0 0 0 4px rgba(249,115,22,.16)}
+.field .hint{margin-top:6px;font-size:11.5px;color:var(--faint)}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:5px;padding:5px;border-radius:15px;background:rgba(20,17,11,.05)}
+.seg button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px;border-radius:11px;font-size:13px;font-weight:700;color:var(--muted);transition:.3s var(--ease)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:var(--sh1)}
+.prev{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:24px;border-radius:var(--r3);color:#1a1205;background:linear-gradient(140deg,#fed7aa,#fcd34d 62%,#fef3c7);border:1px solid rgba(234,88,12,.2)}
+.pv-foot{margin-top:auto;padding-top:22px;display:grid;gap:9px}
+.pv-foot span{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:rgba(26,18,5,.72);line-height:1.5}
+.pv-foot .ico{flex:none;margin-top:2px;font-size:14px;color:#9a3412}
+.prev:before{content:"";position:absolute;inset:-12%;background:radial-gradient(circle at 22% 12%,rgba(255,255,255,.75),transparent 48%),radial-gradient(circle at 82% 80%,rgba(249,115,22,.22),transparent 52%);animation:glowDrift 14s ease-in-out infinite;will-change:transform}
+.prev>*{position:relative;z-index:1}
+.prev .pv-av{display:grid;place-items:center;width:62px;height:62px;margin-bottom:16px;border-radius:19px;background:var(--gradd);color:#fff;font-size:26px;font-weight:800;box-shadow:var(--shw)}
+.prev small{font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#9a3412}
+.prev b{display:block;margin:5px 0 16px;font-size:26px;letter-spacing:-.03em;word-break:break-all}
+.prev .pv-row{display:flex;gap:7px;flex-wrap:wrap}
+.prev .pv-row span{padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.72);border:1px solid rgba(234,88,12,.16);font-size:12px;font-weight:700}
+.note{display:flex;gap:10px;padding:14px;border-radius:var(--r2);background:rgba(249,115,22,.06);font-size:12.5px;color:var(--ink2);line-height:1.55}
+.note .ico{flex:none;font-size:16px;color:var(--deep);margin-top:1px}
+
+/* ============ ORDER ============ */
+.bill{display:grid;gap:10px;padding:20px;border-radius:var(--r3);border:1px dashed var(--line2);background:rgba(20,17,11,.02)}
+.bill .row{display:flex;align-items:center;gap:12px;font-size:13.5px}
+.bill .row span{color:var(--muted)}
+.bill .row b{margin-left:auto;font-weight:700}
+.bill .tot{padding-top:12px;margin-top:2px;border-top:1px solid var(--line2);font-size:16px}
+.bill .tot b{font-size:26px;letter-spacing:-.03em;background:var(--gradt);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ============ TOAST / MODAL / CONFETTI ============ */
+.toast{position:fixed;left:50%;bottom:26px;z-index:120;display:flex;align-items:center;gap:11px;max-width:min(430px,calc(100% - 28px));padding:14px 19px;border-radius:16px;color:var(--ink);background:#fff;border:1px solid var(--line2);border-left:4px solid #f97316;box-shadow:0 22px 50px -18px rgba(20,17,11,.35);font-size:13.5px;font-weight:600;transform:translate(-50%,140%);opacity:0;transition:transform .5s var(--ease),opacity .4s;pointer-events:none}
+.toast.show{transform:translate(-50%,0);opacity:1}
+.toast .ico{font-size:17px;color:#16a34a}
+.modal{position:fixed;inset:0;z-index:130;display:none;place-items:center;padding:18px;background:rgba(20,17,11,.38);backdrop-filter:blur(7px)}
+.modal.show{display:grid;animation:fade .28s both}
+.modal .box{width:min(430px,100%);padding:28px;border-radius:var(--r4);background:#fff;box-shadow:0 40px 90px -30px rgba(20,17,11,.5);animation:boxIn .45s var(--ease) both;text-align:center}
+@keyframes boxIn{from{opacity:0;transform:translateY(22px) scale(.95)}to{opacity:1;transform:none}}
+.modal .mi{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 18px;border-radius:19px;background:var(--gradd);color:#fff;font-size:25px;animation:bob 3.4s ease-in-out infinite}
+.modal h3{font-size:21px;margin-bottom:9px}
+.modal p{font-size:13.5px;color:var(--muted);margin-bottom:22px}
+.modal .mrow{display:grid;gap:8px}
+.cfx{position:fixed;inset:0;z-index:140;pointer-events:none;overflow:hidden}
+.cfx i{position:absolute;width:9px;height:14px;border-radius:2px;animation:cfall linear forwards}
+@keyframes cfall{0%{transform:translateY(0) rotate(0);opacity:1}100%{transform:translateY(105vh) rotate(680deg);opacity:0}}
+
+/* page wipe */
+.wipe{position:fixed;inset:0;z-index:110;pointer-events:none;background:var(--gradd);transform:scaleY(0);transform-origin:bottom}
+.wipe.go{animation:wipe .62s var(--ease)}
+@keyframes wipe{0%{transform:scaleY(0);transform-origin:bottom}45%{transform:scaleY(1);transform-origin:bottom}46%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:top}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1000px){
+ .nav{display:none}.burger{display:grid}.hact{margin-left:auto}
+ .bento{grid-template-columns:repeat(2,1fr)}.bt.w2,.bt.h2{grid-column:span 1;grid-row:span 1;min-height:176px}
+ .rank-grid,.rules,.grid3{grid-template-columns:repeat(2,1fr)}
+ .grid4,.stats,.conn-grid{grid-template-columns:repeat(2,1fr)}
+ .cta{grid-template-columns:1fr}
+ .vote-hero{grid-template-columns:1fr}
+ 
+}
+@media(max-width:1180px){.float{display:none}}
+@media(max-width:1000px){.fgrid{grid-template-columns:repeat(2,1fr)}.fteaser{grid-template-columns:1fr}.fteaser>.btn{grid-column:1;grid-row:3;justify-self:stretch}.stats.s3{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.fgrid{grid-template-columns:1fr}.stats.s3{grid-template-columns:repeat(3,1fr)}.stats.s3 .st{padding:14px 10px}.stats.s3 .st b{font-size:21px}.stats.s3 .st small{font-size:10.5px;line-height:1.35}}
+@media(max-width:720px){
+ .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+ body{font-size:14.5px}
+ :root{--nav-h:58px;--r3:22px;--r4:26px}
+ .hdr{top:8px;width:calc(100% - 16px);padding:7px 7px 7px 10px;border-radius:17px}
+ .brand img{width:34px;height:34px}
+ .chip{max-width:112px;font-size:11.5px;padding:8px 11px}
+ .hero{min-height:auto;padding:calc(var(--nav-h) + 54px) 0 30px}
+ .float,.spark{display:none}
+ .scroll-hint{display:none}
+ .connect{padding:20px}
+ .grid2,.free-grid,.addr{grid-template-columns:1fr}
+ .rank-grid,.rules,.grid3,.grid4,.stats{grid-template-columns:1fr 1fr}
+ .cta{padding:26px}
+ .status-box .btn{margin-left:0;width:100%}
+ .pstrip .pmeta{margin-left:0;width:100%}
+ .track{padding-left:26px}
+ .tstep:before{left:-19px}
+}
+@media(max-width:480px){
+ .bento{grid-template-columns:1fr}
+ .rank-grid,.rules,.grid3,.grid4,.stats,.conn-grid{grid-template-columns:1fr}
+ .hero-cta{flex-direction:column}
+ .hero-cta .btn{width:100%}
+ .brand .bn i{display:none}
+ .brand .bn b{font-size:12.5px}
+ .ft nav{margin-left:0}
+}
+@media(hover:none){
+ .bt:hover,.tile:hover,.rc:hover,.rk:hover,.st:hover,.q>button:hover,.vstep:hover,.tstep:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+ .hero h1 .ln>span,.hero .lead,.hero .kick,.hero-cta,.hero-meta,.float{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<svg class="svg-sprite" aria-hidden="true"><defs>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.4 2.4 3.6 5.4 3.6 9S14.4 19.6 12 21c-2.4-1.4-3.6-5.4-3.6-9S9.6 5.4 12 3z"/></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24"><path d="M3.5 17.5h17M4.5 17.5 3 7l5.2 3.8L12 4.5l3.8 6.3L21 7l-1.5 10.5"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+<symbol id="i-checkc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.2 2.6 2.6 5-5.6"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2.6"/><path d="M5 15V6.2A2.2 2.2 0 0 1 7.2 4H16"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4.5 12h14m-6-6 6 6-6 6"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5 11 13"/><path d="M18 14.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3.5"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="11" rx="4"/><path d="M7 11v3M5.5 12.5h3M15.6 11.8h.01M18 14.2h.01"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4.5h10.5a3 3 0 0 1 3 3v12H8a3 3 0 0 1-3-3z"/><path d="M5 16.5a3 3 0 0 1 3-3h10.5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 14.5a3 3 0 0 1-3 3H9.5L4.5 21V7a3 3 0 0 1 3-3H17a3 3 0 0 1 3 3z"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2.5"/><path d="M8.6 8.5h6.8M8.6 12.5h6.8M8.6 16.5h3.4"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.6a2.5 2.5 0 0 1 4.9.7c0 1.7-2.4 2.1-2.4 3.5"/><path d="M12 17.3h.01"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="M13.2 3 5.5 13.2h5.6L10.3 21 18.5 10.8h-5.6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.2 5 6.2v5.6c0 4.4 2.9 7.5 7 9 4.1-1.5 7-4.6 7-9V6.2z"/><path d="m9.3 12.2 1.9 1.9 3.6-4"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9.2" cy="8.2" r="3.3"/><path d="M3.2 19.8c0-3.4 2.7-5.6 6-5.6s6 2.2 6 5.6"/><path d="M16.2 5.4a3.3 3.3 0 0 1 0 5.6M17.8 14.8c1.9.8 3.2 2.6 3.2 5"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m11 3 1.9 4.8L17.7 9.7l-4.8 1.9L11 16.4 9.1 11.6 4.3 9.7 9.1 7.8z"/><path d="m18 14.5.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z"/></symbol>
+<symbol id="i-gem" viewBox="0 0 24 24"><path d="M6.5 3.5h11l3.2 6L12 20.5 3.3 9.5z"/><path d="M3.3 9.5h17.4M9 3.5 6.6 9.5 12 20.5l5.4-11-2.4-6"/></symbol>
+<symbol id="i-wheat" viewBox="0 0 24 24"><path d="M12 21v-9.5"/><path d="M12 11.5c-3 0-4.2-1.9-4.2-4.2 3 0 4.2 1.9 4.2 4.2zM12 11.5c3 0 4.2-1.9 4.2-4.2-3 0-4.2 1.9-4.2 4.2z"/><path d="M12 16.5c-3 0-4.2-1.9-4.2-4.2 3 0 4.2 1.9 4.2 4.2zM12 16.5c3 0 4.2-1.9 4.2-4.2-3 0-4.2 1.9-4.2 4.2z"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.2a8.4 8.4 0 1 1-9.8-10.3 7 7 0 0 0 9.8 10.3z"/></symbol>
+<symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="12" cy="6.6" rx="7" ry="3.1"/><path d="M5 6.6v5c0 1.7 3.1 3.1 7 3.1s7-1.4 7-3.1v-5"/><path d="M5 11.6v5c0 1.7 3.1 3.1 7 3.1s7-1.4 7-3.1v-5"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3.8 11 12 4l8.2 7"/><path d="M6.2 9.8V19a1 1 0 0 0 1 1h9.6a1 1 0 0 0 1-1V9.8"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="m6.5 9.5 5.5 5.5 5.5-5.5"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M4.6 20c0-3.9 3.3-6.4 7.4-6.4S19.4 16.1 19.4 20"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="6.5" y="2.8" width="11" height="18.4" rx="3"/><path d="M10.6 18.4h2.8"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7.2 19a4.4 4.4 0 0 1-.6-8.75 5.9 5.9 0 0 1 11.3 1.43A3.7 3.7 0 0 1 17.4 19z"/></symbol>
+<symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.5" y="8.5" width="17" height="4.6" rx="1.4"/><path d="M5.2 13.1V19a1 1 0 0 0 1 1h11.6a1 1 0 0 0 1-1v-5.9M12 8.5V20"/><path d="M12 8.5S10.6 4 8.4 4a2.3 2.3 0 0 0 0 4.5zM12 8.5S13.4 4 15.6 4a2.3 2.3 0 0 1 0 4.5z"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.5 2.6 5.5 6 .8-4.4 4.2 1.1 6-5.3-2.9-5.3 2.9 1.1-6L3.4 9.8l6-.8z"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11.2v5.6M12 7.6h.01"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.6" y="10" width="14.8" height="10" rx="3"/><path d="M8.2 10V7.6a3.8 3.8 0 0 1 7.6 0V10"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3.4 3.3 10.6l7.3 2.9 2.9 7.3z"/><path d="m10.6 13.5 3.6-3.6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.2v5.2l3.3 2"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 4.2 2.8 20h18.4z"/><path d="M12 10.2v4M12 17.4h.01"/></symbol>
+<symbol id="i-signal" viewBox="0 0 24 24"><path d="M3.4 9.4a14 14 0 0 1 17.2 0M6.8 12.9a9.4 9.4 0 0 1 10.4 0M10.2 16.3a4.6 4.6 0 0 1 3.6 0"/><path d="M12 19.6h.01"/></symbol>
+<symbol id="i-music" viewBox="0 0 24 24"><circle cx="8.5" cy="17.5" r="3"/><path d="M11.5 17.5V4.2c1 3.2 3.2 4.8 6.4 4.9"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="12.6" rx="3"/><path d="m8.5 21 3.2-3.9"/></symbol>
+<symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m5.8 5.8 12.4 12.4"/></symbol>
+<symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9.4 17.6h5.2M10.2 20.4h3.6"/><path d="M12 3.6a5.5 5.5 0 0 1 3.3 9.9c-.5.4-.8 1-.8 1.6H9.5c0-.6-.3-1.2-.8-1.6A5.5 5.5 0 0 1 12 3.6z"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3.5" y="6.2" width="17" height="12.6" rx="3"/><path d="M3.5 10.6h17M16.4 14.8h.01"/></symbol>
+<symbol id="i-life" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.4"/><path d="m6 6 3.6 3.6M18 6l-3.6 3.6M18 18l-3.6-3.6M6 18l3.6-3.6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M3.5 11.6h17M9.6 7.5v4.1"/></symbol>
+<symbol id="i-bank" viewBox="0 0 24 24"><path d="M3.5 9.6 12 4.6l8.5 5"/><path d="M5.8 11v7.4M10 11v7.4M14 11v7.4M18.2 11v7.4M3.5 19.6h17"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 19.8C7.2 16.4 4.2 13.5 4.2 10.4A3.6 3.6 0 0 1 12 7.9a3.6 3.6 0 0 1 7.8 2.5c0 3.1-3 6-7.8 9.4z"/></symbol>
+<symbol id="i-bot" viewBox="0 0 24 24"><rect x="4.5" y="8.2" width="15" height="11" rx="3"/><path d="M12 4.6v3.6M9.2 13h.01M14.8 13h.01M9.8 16.2h4.4"/></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><ellipse cx="7.6" cy="9.2" rx="1.7" ry="2.2"/><ellipse cx="12" cy="7.8" rx="1.7" ry="2.3"/><ellipse cx="16.4" cy="9.2" rx="1.7" ry="2.2"/><path d="M12 12.4c2.5 0 4.4 1.7 4.4 3.8 0 1.6-1.2 2.7-2.8 2.3-1-.2-2.2-.2-3.2 0-1.6.4-2.8-.7-2.8-2.3 0-2.1 1.9-3.8 4.4-3.8z"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4.2 19.4V5.2M4.2 19.4h15.6"/><path d="m7.6 15.2 3.4-3.9 2.9 2.5 4.4-5.9"/></symbol>
+<symbol id="i-tag" viewBox="0 0 24 24"><path d="M11.4 3.6h8.2v8.2l-8.4 8.4a1.6 1.6 0 0 1-2.2 0l-6-6a1.6 1.6 0 0 1 0-2.2z"/><path d="M16.1 7.9h.01"/></symbol>
+<symbol id="i-ticket" viewBox="0 0 24 24"><path d="M3.6 9.6V7.2A1.6 1.6 0 0 1 5.2 5.6h13.6a1.6 1.6 0 0 1 1.6 1.6v2.4a2.4 2.4 0 0 0 0 4.8v2.4a1.6 1.6 0 0 1-1.6 1.6H5.2a1.6 1.6 0 0 1-1.6-1.6v-2.4a2.4 2.4 0 0 0 0-4.8z"/><path d="M14 5.6v12.8"/></symbol>
+<symbol id="i-swap" viewBox="0 0 24 24"><path d="M4.2 8.6h12.2m-3-3 3 3-3 3"/><path d="M19.8 15.4H7.6m3-3-3 3 3 3"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3.6a8.4 8.4 0 0 0 0 16.8c1.4 0 2-.9 2-1.8 0-1.3-1.1-1.6-1.1-2.6 0-.9.7-1.5 1.7-1.5h1.6c2.4 0 4.2-1.9 4.2-4.3 0-4.1-3.7-6.6-8.4-6.6z"/><path d="M7.8 10.6h.01M10.2 7.6h.01M13.8 7.6h.01M16.4 10.6h.01"/></symbol>
+<symbol id="i-sit" viewBox="0 0 24 24"><circle cx="9.2" cy="5.4" r="2"/><path d="M7.2 9.4h3.6l2.6 5.2h4.2"/><path d="M7.2 9.4 5.8 20.2M13.4 14.6 12 20.2"/></symbol>
+<symbol id="i-case" viewBox="0 0 24 24"><rect x="3.5" y="7.6" width="17" height="11.8" rx="2.5"/><path d="M9.2 7.6V6.2a1.8 1.8 0 0 1 1.8-1.8h2a1.8 1.8 0 0 1 1.8 1.8v1.4M3.5 12.6h17"/></symbol>
+<symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 20.6c3.2 0 5.8-2.4 5.8-5.4 0-3.5-2.5-5.2-3.5-8.1-1.2 1-1.5 2.3-1.5 3.3-1-1-1.5-2.5-1.5-4.2-2.5 1.5-5 3.8-5 9 0 3 2.5 5.4 5.7 5.4z"/></symbol>
+<symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="10.6" r="2.1"/><path d="M12 8.5c0-1.9 1-3.2 2.5-3.2 1.1 0 1.8.8 1.8 1.8 0 1.5-1.5 2.5-4.3 2.5M12 8.5c0-1.9-1-3.2-2.5-3.2-1.1 0-1.8.8-1.8 1.8 0 1.5 1.5 2.5 4.3 2.5M12 12.7v7.8"/></symbol>
+<symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.6"/><circle cx="18" cy="6" r="2.6"/><path d="M8.6 18h5.4a3.4 3.4 0 0 0 0-6.8h-4a3.4 3.4 0 0 1 0-6.8h5.4"/></symbol>
+</defs></svg>
+
+<div class="bg" aria-hidden="true"><b class="b1"></b><b class="b2"></b><b class="b3"></b><b class="b4"></b><span class="grid"></span><span class="veil"></span><span class="noise"></span></div>
+<div class="glow" id="glow" aria-hidden="true"></div>
+<div class="prog" id="prog" aria-hidden="true"></div>
+<div class="wipe" id="wipe" aria-hidden="true"></div>
+
+<header class="hdr" id="hdr">
+  <a class="brand" href="#home" data-go="home" aria-label="Potato SMP beranda">
+    <img src="data:image/webp;base64,UklGRvwPAABXRUJQVlA4IPAPAADwSACdASqwALAAPmEskkYkIqGhqHQLwIAMCWYG+Oa74EGMYnSfh79t5wNmfyf9x84HhfHm7u/Nns8/x/6+e4z9H+wB+qvnaer/90/UV+1f7a+7t/iv2t99/+P9Qn+Z/8rrRP2+9hr9vPTj/Zn4bf7H/2P3O9sO6VcwN7cZYj9jxG/F7KX/quGDAF+bcQH9D/avNV/4HJ/fX/9p7A38k/rf/f9ZDTa+Z/7X2EP1uNGLVjFo/6WXwy1NfEMqXRjMKrX7fr9Hy4gsKynZcPOLGv1xPkOu6+VJ/BA27EiuO+s8rVji9uRps2qtWh07t68cHRti0UcYPvsm+3s2WNqSV985KbXhp9Ctg6DK/Qf9GN81UDjZvwkaZoeinAdo2b26nJ515ikCZSqQH4LC9LD1O2sw9TrMfo6PGm7O7hy2U0dQllcuo24PgRle6B5wIWVPRfTgvUs18aAEeeXfNx0PBL9r+VRZ3hBSPf5/EP6wD7W0aqfyQFKC89Ck+anP8oahtBokSqh9Sj5T7XlMa2L79EyzSai3CfituajmIeZ9GO9/7CyeEevXNXlDpCTpJ1UEg9BW/WKZ5w4E4nZmAkMm8xrLsE7gU3OJJzDdMnfKzyZLCY+I4D4ifkGwTBqZ1OMN0Y9gAsWWoguHl2jU4bMMNi/GHwrTueFuqSy56jRNLKPgUxAERFiNFj8RvX5PfzhmcVHqkF5JbihAU8MWYnzjWuo8Yv5PoPEGzc+rss1Dxu/mFBUo7CESor7FTWb5ctPn+NzFksvI9R1qX414DOiQhBmAAP7wYvFbf8bw/8Un/8Un/jeH/qtP/laf/K09lQWhcSZ/OhJuKGE6GTMEubYcMnTAP/Cd/eZFMx9B2q9mbRVSbqjNQBOt6MvH2Tb+fZz2g3mbCHD14dDCNRF9sabaL7I6FnnlSGBb3ztf7A57Orc4drInQc8tEJWdr+hHvMatbdDlec7wWtozNdLBU0PT9AtvAnKJwxPb+Ed7Rf1A3HwXakNK7Gga6bK+untsC31PLYwf+Phaxb1pH1wujS/M0xa9fJRrZYmdQVrsbKeqeQUSFIhxu6UOmNAZ201zi7k1MH8oB02bzMrReBRA3+sLonBm3Is0GLFoLqIIxuXoqBK1nre7SkObXi/gXqncEx/MbdggaIu071UU0MMPyPmCWqWxwBwWBk3IMkcS0ZGcaX4dqnukvM0wXTR4JajBDe2yA33+LKPAGoQbNr/xbdlaJdYA69IlagmQ5DMe82kznJc8LENPFHBNZRZWiEiFVxYWcn2bVy0tun9nC1VdlktbMpJGjmd9NHYCPMLDmstNyBCDHk3d008lmd4SgLq7ECB9y/RwE6a2pO0bWLAeiqueF197Ikwp0jGmQs13C2/hQX6a++ER0iWhuQwCY/h2xG/+t4Af7IgPOJuAJZRdUeNFZv7IQYg5nqDzTj4vXgjNg/EDFU7qfWwMAY3R+xicGw+nnxFhJHel6HWjzhX6ZRWk+IzEL/8xIBJJDCaqWivcxP8x3hsIh8sa9dlW2PAwIjnZbYNp8mIVCjkHNWujlq5JA5lB7awhDAoe/ZWdFVz3HEMSh99TTp4olDlYBkKLYyE7+tXaW74zAc51MVyn6VXhKAU2B++hK2ITY6yMboNXWJrKo2KTXCX9IvMVHi82EyyUAjxO0OE2OnxuODYmHO8VP+GEesr8rzNL/BMh7QqA3qBTtF/3UJRHqvcqE0T9ZR81MZ6GZRRbhyvWioIwmfNaAueMFqJNHhkXS1nGOjPD/yHdlFCV/E5PhC1NjpVh3p/9CjZ9aZ1NQ1aZjOqQybmuystlxgS3aRiJfeBAvCa1dLrgdmLFiLIlLvW6WXw8tatYBzfpmCn3kroll1DnE21PpozYnjMAaNi9yqdAuEzeSipeNlcMcsRNb/n23ziAqb+qxLHTSl2E0OyO24/QUeVd6liAjqVQT45//0c3BOHDjfX2LpkEmsg/nVaJuUAgcbPEyfxIagwRcMXUw3f3qrqdqSi5N8Qe8tDfxp+yxllT3le7RUkGtMK/xfiZH18okbeENQEEGYO16z8N5PyG/G1OQAWrtWN5blfoB945zeOTlhCuYNLE+F2Z3TA31PZ2tsckHqlJCzlPUXbLn+NlO29WAm34wqnS1WENoOoknNiy2VO6SNBdue4QBK3tN0QwGicVuIN+cPNsmqXKhA8kNDQpv1HRb80qcl1v2fazN8mmuUVorJY8Hd9EGUw7t16l1GvZc/QH678nPG5ZSsXzPcTVUlNNTltfWoXxjoq3vxQ2oqM8kRNywex0reAauYMqzbheuIhrrVJGIZreiDGvL7R2CPpVH0N91I1WAdfi+8FBb96HO6DHoYp3s4XZ2sz4WRPJXOawcae3JVp98Qmdo5s7INRKOeObG/GqFD6BPJ7nYqUHOtSLTulxa7eJknox3HoLmLIhnD5B7z+PhrNeRr5Nq3YR2vmDrWwmbg/PRQyeNynXKe9U2KZ/7NvApq/Gi8ym5+fPj68XfzdnorkZkUKTrrEhmXRQ8j+Fq3aLExkA5yhKP+MdgaqQo8nZo9gPtrJFouP+hp8GVvbq/FSpfHgB/jXyyocwsz0xtUef4lSVmlg9kML9FDkNNAN+k8GX+Zed3Odqe3VshLvF9lttt44PypbptlI520aUOlsNjEuuNsldbje1aSJsA7tmpIFxp9yQAA5IsNi9goec0E3vh99NTjfeKnabWJTHn1Qy/hbRQ9QyljFCxIw5YdLli2o8xzHTOH1cnP5CmcQ2yL7yQJb7C2OSvAaipV2oouMCc3Ot4MqsmyaL/kTSf1rb5NHAV1AB8nUnqVAg00cktT6tftvd2b1htUsBWaI5/w11SimtOCPx/lw7ckz81N5v5F4fy246Ku5jSUJYKu+aOrvlfvc/alKlfc5L6suPXB1Xz+8nAkS8VadrK3DenrDf212MR8nlJz5HwH1wLCkVho3vRSf7tMan5XWkzdgYe17G6OQjiB5ZBPwoQ9iEZruYxvvY+JRn5WCd8D1c5TvqlFon8C8F1DZVew+D3CxBwXhuO20bf/veQ9oSDOhYaM1oCGVSuZcx28z9hXDfxkhBdKH6ykxxW6wb0XVxbqdufv+F/urZcbZur7d4kgCKFFbmCGY72C81LrThuIyODTxem7RaC8LVpFRHX2C7e5gt/uibb7/4wxy3NB1/BgTkP/yP/b6tT/9se4nnSuuvdYFZlL1GcANHNLdagAGmqxDsIDisSfDJ1p+Ps4/k2+ffOdXnIsZLJBBZbzCKZajeG5lVRebXdid6c+tdiHl1HGgHcJKlfmlN/ahO5NVvRcvfwGioUmmmcprnKPASSlcRZn4kxqC9ZVt87a0P1sOLnQf3Bn8Dzo9COCP+KbD3onpBbuZz0YVtsp/yUJZ0X5cLcD8f3fgX6ndCNLphqPPNahZR+75wq7HB1W9eXh+9+7DbmI+uoJzswQUt8BZzLtur/6wUB6UeFeSIO93GBM0deXxPJkzAMqkxY/XrLSTK7TxOqRAPxGgY2Oj8W/2ByFax2Ddfq8bMqxaK1ktxeuGASbfSiigBpqQVSLjt2phwnh0LYNU8mn4zfxvLQms2qiLx6udoEUpMjrhY9MTjfBD3/3Om7dnlLWoD9Sk5bwLbSI0+IrFuxo2lrwK+h3puywwx88jhGnXbM+amOcJ0GHymU1La8viPQYWJ1IXYsjxM5M89bQOBJInLN78n7i4dax66q+hBvHGVd9fQIMnBLzC0ze9u70VE81gCEzVxjwJORaoKe+djRzSIgGYGdDZu/uunUSQwhow/8C/29TGfep7jI/vbvlc28BLSK+BUFsYPSWzdjC8zYj1CUuorXKxfMf7L7841aS5d/4l2uA3YQPB496gshDZBBx1ST/KN13Ka2wZBZe7/4m/uvKXOW6zPvtQcwxuRfl+91ENPUl5Ad/nAfXpjcjntgu686Yp9pG9WqzZonyLMiZCtYckSkbwFlqqvqxk4RRkj/h1xCdxsRSf/xudfyzIeCUtIh1gvYcz5wCtEt1HaTPKmnUE7xyDDlCZb0/OBwCrMZ0Ay2yn/MlHqQnT1dEqXrT24BIqoY7+3OSn7XLdlgZw4QpeZjPv43gNuUP84RPMFyrPNeDSSjs7RBWoqm/ulExximGXV991ZoH9sHRR53/An7zn4XDp6GpyhiVl/+hbYreFI+7C3HWVtbu/ru0u/BQlieb0WMaIi3YoYhgHjHJfn7wmV8GcbJFww6znQbA4me5XgR8mdqK5dq5V7hLaa5va1TBCBB8vGy9XtWWtB28YIgudqaem/zZ1t6ssUlokM73rAwWqbhSBwkd8FEfTcosuAdli9swE+JVdzDOxHncJGpv8c/DaFSqoaiU0S/Os9eLdoiKmDeRjUyzv+eCN0+N8JOL4dXwBPTXks8l3Kt02I8DH1peKQDn/5VLK8RRswTvf2ATaR1iyosBJS/niOlsdzHIZo/W7d+OP4oan4hs2Tfj0+OU6NWPgWFQ2md+AU7qOum3jrCGGyui9c+K0vzH375OM3fn++AE9eZhXeIgp86WiImQS95KMulFPMze3FNV1T+3SymeHvOKCayMcBnBfTZo495TbZOuezCjUtHWL6UvmS72LFqdo0IgRrdvFKSmfPezN5TwvQDuLFjRLUJQcQK3a+A1tAyK7ZbZwRk7j0cRbR1/b9/bcuNu8et4LLp5f8h38digOHjDW6T2NZ9oUJ/ei0JuIB6WASRRYmM5v25K12kgPtlGnGZXrQhAE2faNIywscjw5kBezGltPeuRr/13LW3rLMG9+IdlRfJmLaGbCoaLvdKRcA/YBEL9SQpV+V9flDUGZ9RWGWyCOlUqzrstldfJHNmTyjiS9lklbcE58Q+hQZhq0zOeouBXWuWpKbFq2rE4WRQiMn2u/T87JGvlAUi4UDb9jrHq9xmUz/bwwaP5qf7PbtbT2etezkx05JR+ISAbXFwKWa5EktSIDa3Cg5VBRtzrw9C1vcH7NbuyL5S0hytZ5rN+O6/GpD8/hdLUvKNh3coYoonFdsYYprGG6QBB7/mpvI2Z3i5PcUmNGp2RxU6V/b0MrraUlhe3fsxbp05LZCjH0d/0D1dss8oVlLhx5qKibosG4GhK/xcXZHx1JI7lAAIhhe2t3TDf5bAZJ+OnRU4EAsdYFOu4nQc9y+NXUL+zJBTlM3fJ4Mi147TrjoLMfkWHYdCulb6I+QqYnDZXn4Kq0Xi3VBRQeJ1uw2a5RppMsEUZqOBJtRGQu2u2Li7+GVNk/cuzRATLSjNVlV+2GrREuX3moSKQ1q4L7N9egyiJDtuoACYbByKZGIzwQNpv3A2cjheSaI6gNARIOW1mGwCQQW+khqymQTIO/nDu/B9UyUcQ3B+wFjnWNBNbGF2SKcEv6E7qIwyf08i7L9v2Su7AKx6im0c//R8UVqQjnc1+lb2p/KQXgAyQBcAAA=" alt="Potato SMP" width="38" height="38">
+    <span class="bn"><b>POTATO SMP</b><i>SURVIVAL</i></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="Navigasi utama">
+    <span class="navpill" id="navpill" aria-hidden="true"></span>
+    <a href="#server" data-go="server">Server</a>
+    <a href="#features" data-go="features">Fitur</a>
+    <a href="#store" data-go="store">Rank</a>
+    <a href="#vote" data-go="vote">Vote</a>
+    <a href="#donasi" data-go="donasi">Donasi</a>
+    <a href="#faq" data-go="faq">FAQ</a>
+  </nav>
+  <div class="hact">
+    <button class="chip" id="chip" data-go="login"><svg class="ico"><use href="#i-user"/></svg><span>Login</span></button>
+    <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet">
+  <nav aria-label="Menu">
+    <a href="#server" data-go="server"><svg class="ico"><use href="#i-globe"/></svg>Server<small>IP &amp; status</small></a>
+    <a href="#features" data-go="features"><svg class="ico"><use href="#i-spark"/></svg>Fitur<small>50 fitur</small></a>
+    <a href="#store" data-go="store"><svg class="ico"><use href="#i-crown"/></svg>Rank<small>10 tier</small></a>
+    <a href="#vote" data-go="vote"><svg class="ico"><use href="#i-gift"/></svg>Vote<small>Reward</small></a>
+    <a href="#gamemode" data-go="gamemode"><svg class="ico"><use href="#i-pad"/></svg>Gamemode<small>8 aktivitas</small></a>
+    <a href="#guide" data-go="guide"><svg class="ico"><use href="#i-book"/></svg>Panduan<small>Player baru</small></a>
+    <a href="#community" data-go="community"><svg class="ico"><use href="#i-chat"/></svg>Community<small>Grup</small></a>
+    <a href="#tips" data-go="tips"><svg class="ico"><use href="#i-bulb"/></svg>Tips<small>Biar cepat mapan</small></a>
+    <a href="#donasi" data-go="donasi"><svg class="ico"><use href="#i-heart"/></svg>Donasi<small>DANA &amp; GoPay</small></a>
+    <a href="#bantuan" data-go="bantuan"><svg class="ico"><use href="#i-life"/></svg>Bantuan<small>Ada kendala?</small></a>
+    <a href="#rules" data-go="rules"><svg class="ico"><use href="#i-doc"/></svg>Rules<small>24 aturan</small></a>
+    <a href="#faq" data-go="faq"><svg class="ico"><use href="#i-help"/></svg>FAQ<small>Tanya jawab</small></a>
+  </nav>
+</div>
+
+<main>
+<!-- ============ HOME ============ -->
+<section class="screen active" id="home">
+  <div class="wrap">
+    <div class="hero">
+      <span class="spark" style="top:22%;left:14%"></span><span class="spark" style="top:58%;right:16%"></span><span class="spark" style="top:74%;left:26%"></span><span class="spark" style="top:30%;right:30%"></span>
+
+      <div class="float f1"><span class="fi"><svg class="ico"><use href="#i-users"/></svg></span><span><small>Online</small><b id="floatOnline">—</b></span></div>
+      <div class="float f2"><span class="fi"><svg class="ico"><use href="#i-pad"/></svg></span><span><small>Versi</small><b>1.20 – 1.21+</b></span></div>
+      <div class="float f3"><span class="fi"><svg class="ico"><use href="#i-spark"/></svg></span><span><small>Fitur</small><b>120+</b></span></div>
+      <div class="float f4"><span class="fi"><svg class="ico"><use href="#i-cloud"/></svg></span><span><small>Platform</small><b>Java + Bedrock</b></span></div>
+
+      <div class="hero-in">
+        <span class="kick"><i class="dot"></i>Java &amp; Bedrock · Crossplay</span>
+        <h1>
+          <span class="ln"><span style="animation-delay:.18s">Server Minecraft Terbaik</span></span>
+          <span class="ln"><span class="gr" style="animation-delay:.3s">Di Indonesia</span></span>
+        </h1>
+        <p class="hero-sub">Yang Mempunyai Lebih Dari <b>120+ Fitur</b></p>
+        <p class="lead">Java sama Bedrock masuk lewat alamat yang sama. Salin IP-nya, tempel di Minecraft, udah bisa main.</p>
+        <div class="hero-cta">
+          <button class="btn pri mag" data-copy="potatosmp.fun"><svg class="ico"><use href="#i-copy"/></svg>Salin IP Server</button>
+          <button class="btn sec mag" data-go="server">Cara masuk<svg class="ico mv"><use href="#i-arrow"/></svg></button>
+        </div>
+        <div class="hero-meta">
+          <span><svg class="ico"><use href="#i-globe"/></svg><b>potatosmp.fun</b></span>
+          <span><svg class="ico"><use href="#i-phone"/></svg>Port <b>19132</b></span>
+          <span><svg class="ico"><use href="#i-signal"/></svg><b id="heroStatus">Cek status…</b></span>
+        </div>
+      </div>
+      <div class="scroll-hint"><i></i>SCROLL</div>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true"><ul id="ticker"></ul></div>
+
+  <div class="wrap">
+    <div class="connect rv">
+      <div class="connect-top">
+        <div>
+          <h3>Tinggal salin terus join</h3>
+          <p>Buka Minecraft, Add Server, tempel alamatnya. Udah, segitu aja.</p>
+        </div>
+        <div class="live wait" id="liveBox"><i></i><span id="liveText">Mengecek…</span></div>
+      </div>
+      <div class="conn-grid">
+        <div class="cbox"><small>Java Edition</small><b>potatosmp.fun</b><button class="cp" data-copy="potatosmp.fun"><svg class="ico"><use href="#i-copy"/></svg>Salin</button></div>
+        <div class="cbox"><small>Bedrock Edition</small><b>potatosmp.fun</b><button class="cp" data-copy="potatosmp.fun"><svg class="ico"><use href="#i-copy"/></svg>Salin</button></div>
+        <div class="cbox"><small>Port Bedrock</small><b>19132</b><button class="cp" data-copy="19132"><svg class="ico"><use href="#i-copy"/></svg>Salin</button></div>
+        <div class="cbox"><small>Versi</small><b>1.20+ / 1.21+</b><span class="tag">Java &amp; Bedrock</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:12px">
+    <div class="stats">
+      <div class="st rv-s"><b data-count="120" data-suffix="+">0</b><small>Fitur di dalam server</small></div>
+      <div class="st rv-s"><b data-count="10">0</b><small>Rank tersedia</small></div>
+      <div class="st rv-s"><b data-count="8">0</b><small>Aktivitas gameplay</small></div>
+      <div class="st rv-s"><b id="statOnline">—</b><small>Player online</small></div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:64px">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Jelajahi</span><h2>Semua yang kamu<br>butuhin, ada di sini.</h2></div>
+      <p>Sembilan pintu masuk. Ambil yang kamu perlu dulu, sisanya nanti.</p>
+    </div>
+    <div class="bento" id="bento"></div>
+  </div>
+
+  <div class="wrap" style="margin-top:64px">
+    <div class="sec-head rv">
+      <div><span class="eyebrow">Rank</span><h2>Pengin rank?<br>Ini daftar lengkapnya.</h2></div>
+      <p>Sepuluh tier, harganya ditulis apa adanya. Geser buat lihat.</p>
+    </div>
+    <div class="rail" id="rail"></div>
+    <button class="btn sec mag" data-go="store" style="margin-top:6px">Lihat semua rank<svg class="ico mv"><use href="#i-arrow"/></svg></button>
+  </div>
+
+  <div class="wrap" style="margin-top:64px">
+    <div class="cta rv">
+      <div>
+        <h2>Ramenya di luar server juga.</h2>
+        <p>Cari temen mabar, ikut event, atau cuma pengin ngobrol. Pilih aja tempatnya.</p>
+      </div>
+      <nav>
+        <a href="https://chat.whatsapp.com/DsOfXHhMbOPLukvvU7iYPk" target="_blank" rel="noopener"><svg class="ico"><use href="#i-users"/></svg>Grup WhatsApp<svg class="ico"><use href="#i-ext"/></svg></a>
+        <a href="https://discord.gg/PZ8gG2nkfb" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>Discord<svg class="ico"><use href="#i-ext"/></svg></a>
+        <a href="https://www.tiktok.com/@potatosmp7" target="_blank" rel="noopener"><svg class="ico"><use href="#i-music"/></svg>TikTok<svg class="ico"><use href="#i-ext"/></svg></a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVER ============ -->
+<section class="screen" id="server">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Server</span>
+      <h2>Alamat &amp; cara masuk.</h2>
+      <p class="lead">Semua data koneksi ada di bawah. Mending tap tombol salin daripada ngetik manual, sering typo soalnya.</p>
+    </div>
+    <div class="addr">
+      <div class="ad rv-s"><small>Java Edition</small><b>potatosmp.fun</b><button class="cp" data-copy="potatosmp.fun"><svg class="ico"><use href="#i-copy"/></svg>Salin alamat</button><svg class="ico wm"><use href="#i-cloud"/></svg></div>
+      <div class="ad rv-s"><small>Bedrock Edition</small><b>potatosmp.fun</b><button class="cp" data-copy="potatosmp.fun"><svg class="ico"><use href="#i-copy"/></svg>Salin alamat</button><svg class="ico wm"><use href="#i-phone"/></svg></div>
+      <div class="ad rv-s"><small>Port Bedrock</small><b>19132</b><button class="cp" data-copy="19132"><svg class="ico"><use href="#i-copy"/></svg>Salin port</button><svg class="ico wm"><use href="#i-signal"/></svg></div>
+      <div class="ad rv-s"><small>Versi yang dipakai</small><b>1.20+ / 1.21+</b><span class="btn sec sm" style="pointer-events:none">Java 1.20+ · Bedrock 1.21+</span><svg class="ico wm"><use href="#i-pad"/></svg></div>
+    </div>
+    <div class="status-box rv">
+      <span class="sb-ico"><svg class="ico"><use href="#i-signal"/></svg></span>
+      <div><h4 id="srvStatus">Belum dicek</h4><p id="srvPlayers">Tekan tombol di samping buat ambil status terbaru.</p></div>
+      <button class="btn pri mag" id="btnCheck"><svg class="ico"><use href="#i-zap"/></svg>Cek status</button>
+    </div>
+    <div class="fteaser rv">
+      <div class="ft-copy">
+        <span class="eyebrow">Isi server</span>
+        <h3>Fiturnya banyak. Ini sebagiannya.</h3>
+        <p>Claim land, ekonomi, quest, investasi, sampai anti-cheat — semuanya udah jalan di dalam.</p>
+      </div>
+      <div class="fchips" id="featChips"></div>
+      <button class="btn pri mag" data-go="features"><svg class="ico"><use href="#i-spark"/></svg>Lihat 50 fitur<svg class="ico mv"><use href="#i-arrow"/></svg></button>
+    </div>
+    <div class="note rv" style="margin-bottom:12px"><svg class="ico"><use href="#i-info"/></svg><span>Halaman ini isinya cuma data buat nyambung. Nggak ada yang perlu didaftar dulu — tinggal masukin alamatnya ke Minecraft.</span></div>
+    <div class="grid3">
+      <div class="tile rv-s"><span class="ti"><svg class="ico"><use href="#i-cloud"/></svg></span><span class="num">JAVA</span><h4>Masuk lewat Java</h4><p>Multiplayer → Add Server → tempel <b>potatosmp.fun</b> → Done. Port nggak perlu diisi.</p></div>
+      <div class="tile rv-s"><span class="ti"><svg class="ico"><use href="#i-phone"/></svg></span><span class="num">BEDROCK</span><h4>Masuk lewat Bedrock</h4><p>Servers → Add Server → alamat <b>potatosmp.fun</b>, port <b>19132</b> → Save.</p></div>
+      <div class="tile rv-s"><span class="ti"><svg class="ico"><use href="#i-warn"/></svg></span><span class="num">GAGAL?</span><h4>Kalau nggak connect</h4><p>Cek versi Minecraft kamu, pastikan port 19132 buat Bedrock, lalu coba restart game.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="screen" id="features">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Fitur Server</span>
+      <h2>Lima puluh fitur.<br>Dan itu belum semuanya.</h2>
+      <p class="lead">Ini yang sempat didaftar satu-satu. Di dalam masih ada yang nggak kesebut, jadi mending dicoba langsung.</p>
+    </div>
+
+    <div class="stats s3" style="margin-bottom:26px">
+      <div class="st rv-s"><b data-count="50">0</b><small>Fitur yang didaftar di sini</small></div>
+      <div class="st rv-s"><b data-count="120" data-suffix="+">0</b><small>Total fitur di dalam server</small></div>
+      <div class="st rv-s"><b data-count="8">0</b><small>Kategori</small></div>
+    </div>
+
+    <div class="tabs" id="featTabs"></div>
+    <div class="rnote rv" id="featNote"></div>
+    <div class="fgrid" id="featGrid"></div>
+
+    <div class="note rv" style="margin-top:18px"><svg class="ico"><use href="#i-info"/></svg><span>Daftar ini bisa nambah atau berubah sewaktu-waktu. Kalau ada fitur yang nggak jalan sesuai penjelasan di sini, kasih tahu staff lewat <b>Report</b> atau grup komunitas.</span></div>
+  </div>
+</section>
+
+<!-- ============ STORE ============ -->
+<section class="screen" id="store">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Rank Store</span>
+      <h2>Sepuluh tier,<br>harga apa adanya.</h2>
+      <p class="lead">Tiap kartu punya empat pilihan durasi. Tap durasinya dulu, harganya langsung ganti. Kalau udah sreg, tombol order bakal nyiapin pesan ke WhatsApp admin.</p>
+    </div>
+    <div class="pstrip rv-s" id="storeStrip">
+      <span class="av" id="storeAv"><svg class="ico"><use href="#i-user"/></svg></span>
+      <div><small>Player</small><b id="storeName">Belum login</b></div>
+      <div class="pmeta"><span id="storePlat">—</span><button class="btn sec sm mag" data-go="login">Atur profil</button></div>
+    </div>
+    <div class="rank-grid" id="rankGrid"></div>
+
+    <div class="sec-head rv" style="margin:56px 0 18px">
+      <div><span class="eyebrow">Gratis</span><h2>Dua cara dapat rank<br>tanpa bayar.</h2></div>
+      <p>Rajin vote atau bikin konten. Dua-duanya valid.</p>
+    </div>
+    <div class="free-grid">
+      <div class="free v rv-s">
+        <span class="tagf">GRATIS</span>
+        <h4>Rank Voter</h4>
+        <p>Vote server, reward-nya ngalir sendiri.</p>
+        <ul>
+          <li><svg class="ico"><use href="#i-check"/></svg>20K Money</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>1× Key Vote</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Fly 3 jam</li>
+        </ul>
+        <button class="btn mag" data-go="vote"><svg class="ico"><use href="#i-gift"/></svg>Ke halaman Vote</button>
+      </div>
+      <div class="free m rv-s">
+        <span class="tagf">GRATIS</span>
+        <h4>Rank Media</h4>
+        <p>Bikin konten Potato SMP di TikTok, terus ajukan ke staff.</p>
+        <ul>
+          <li><svg class="ico"><use href="#i-check"/></svg>Minimal 2 video promosi</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Tiap video 20–50 like, 800–2K view</li>
+          <li><svg class="ico"><use href="#i-check"/></svg>Tags: /nick /fly /anvil /skull</li>
+          <li><svg class="ico"><use href="#i-clock"/></svg>Aktif 18 bulan, lalu expired</li>
+        </ul>
+        <a class="btn mag" href="https://www.tiktok.com/@potatosmp7" target="_blank" rel="noopener"><svg class="ico"><use href="#i-music"/></svg>Lihat TikTok<svg class="ico"><use href="#i-ext"/></svg></a>
+      </div>
+    </div>
+    <div class="note rv" style="margin-top:12px"><svg class="ico"><use href="#i-info"/></svg><span>Pengajuan Rank Media diverifikasi staff dulu. Benefit dan harga bisa berubah kalau server mengubahnya.</span></div>
+  </div>
+</section>
+
+<!-- ============ VOTE ============ -->
+<section class="screen" id="vote">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Vote</span>
+      <h2>Vote sekali,<br>reward-nya lumayan.</h2>
+      <p class="lead">Nggak bayar apa-apa. Cuma sebentar, terus server ikut naik peringkat.</p>
+    </div>
+    <div class="pstrip rv-s">
+      <span class="av"><svg class="ico"><use href="#i-user"/></svg></span>
+      <div><small>Player</small><b id="voteName">Belum login</b></div>
+      <div class="pmeta"><span id="votePlat">—</span><button class="btn sec sm mag" data-go="login">Atur profil</button></div>
+    </div>
+    <div class="vote-hero">
+      <div class="vsteps">
+        <div class="vstep rv-s"><i></i><div><b>Simpan profil dulu</b><p>Nametag dan platform dipakai biar nggak ngetik ulang tiap vote.</p></div></div>
+        <div class="vstep rv-s"><i></i><div><b>Buka halaman voting</b><p>Tombol di bawah bakal buka Minecraft-MP di tab baru.</p></div></div>
+        <div class="vstep rv-s"><i></i><div><b>Isi nickname</b><p>Java: nickname biasa. Bedrock: pakai titik di depan sesuai instruksi di sana.</p></div></div>
+        <div class="vstep rv-s"><i></i><div><b>Balik ke server</b><p>Reward masuk lewat mekanisme vote yang berlaku di dalam.</p></div></div>
+      </div>
+      <div class="card pad rv-s" style="align-self:start">
+        <span class="eyebrow">Yang kamu dapat</span>
+        <div style="display:grid;gap:9px;margin-bottom:18px">
+          <div class="reward"><span class="ri"><svg class="ico"><use href="#i-coins"/></svg></span><div><b>20K Money</b><small>Masuk ke saldo in-game</small></div></div>
+          <div class="reward"><span class="ri"><svg class="ico"><use href="#i-gift"/></svg></span><div><b>1× Key Vote</b><small>Buat buka crate</small></div></div>
+          <div class="reward"><span class="ri"><svg class="ico"><use href="#i-zap"/></svg></span><div><b>Rank Voter + Fly 3 jam</b><small>Terbang bebas sementara</small></div></div>
+        </div>
+        <button class="btn pri wide mag" id="btnVote"><svg class="ico"><use href="#i-gift"/></svg>Vote sekarang<svg class="ico"><use href="#i-ext"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAMEMODE ============ -->
+<section class="screen" id="gamemode">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Gameplay</span>
+      <h2>Delapan hal yang<br>bisa kamu kerjain.</h2>
+      <p class="lead">Mau santai atau ngejar target, dua-duanya kepakai di sini. Ini gambaran kegiatan hariannya — daftar fitur lengkapnya ada di halaman <b>Fitur</b>.</p>
+    </div>
+    <div class="grid4" id="modeGrid"></div>
+  </div>
+</section>
+
+<!-- ============ GUIDE ============ -->
+<section class="screen" id="guide">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Panduan</span>
+      <h2>Baru join?<br>Enam langkah aja.</h2>
+      <p class="lead">Dari nol sampai bisa main. Kalau nurut urutan, nggak sampai lima menit.</p>
+    </div>
+    <div class="track" id="track"></div>
+    <div class="note rv" style="margin-top:16px"><svg class="ico"><use href="#i-info"/></svg><span>Masih bingung? Buka <b>FAQ</b> — pertanyaan yang sering muncul udah dijawab di sana.</span></div>
+  </div>
+</section>
+
+<!-- ============ COMMUNITY ============ -->
+<section class="screen" id="community">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Community</span>
+      <h2>Tempat ngumpul<br>di luar server.</h2>
+      <p class="lead">Info, event, sama obrolan random. Empat tautan di bawah semuanya resmi dari staff — hati-hati kalau ada yang ngaku-ngaku di luar ini.</p>
+    </div>
+    <div class="grid2">
+      <div class="com wa rv-s"><span class="ci"><svg class="ico"><use href="#i-users"/></svg></span><h4>Grup WhatsApp</h4><p>Ngobrol, cari partner mabar, tanya-tanya cepat.</p><a class="btn mag" href="https://chat.whatsapp.com/DsOfXHhMbOPLukvvU7iYPk" target="_blank" rel="noopener">Gabung grup<svg class="ico"><use href="#i-ext"/></svg></a></div>
+      <div class="com ch rv-s"><span class="ci"><svg class="ico"><use href="#i-msg"/></svg></span><h4>Saluran WhatsApp</h4><p>Khusus pengumuman resmi. Sepi notif, isinya penting.</p><a class="btn mag" href="https://whatsapp.com/channel/0029VbCPghX8KMqozpSyn724" target="_blank" rel="noopener">Ikuti saluran<svg class="ico"><use href="#i-ext"/></svg></a></div>
+      <div class="com dc rv-s"><span class="ci"><svg class="ico"><use href="#i-chat"/></svg></span><h4>Discord</h4><p>Voice bareng, share build, dan diskusi yang lebih panjang.</p><a class="btn mag" href="https://discord.gg/PZ8gG2nkfb" target="_blank" rel="noopener">Masuk Discord<svg class="ico"><use href="#i-ext"/></svg></a></div>
+      <div class="com tt rv-s"><span class="ci"><svg class="ico"><use href="#i-music"/></svg></span><h4>TikTok @potatosmp7</h4><p>Cuplikan event, update, dan momen absurd di server.</p><a class="btn mag" href="https://www.tiktok.com/@potatosmp7" target="_blank" rel="noopener">Follow<svg class="ico"><use href="#i-ext"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RULES ============ -->
+<section class="screen" id="rules">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Rules</span>
+      <h2>Aturan main.</h2>
+      <p class="lead">Baca sekali, kepakai seterusnya. Sanksinya nyesuaikan bukti, dampak, sama riwayat pelanggaran.</p>
+    </div>
+    <div class="filters" id="ruleFilters">
+      <button data-lv="1" class="on"><i style="background:#16a34a"></i>Ringan</button>
+      <button data-lv="2"><i style="background:#f59e0b"></i>Sedang</button>
+      <button data-lv="3"><i style="background:#dc2626"></i>Berat</button>
+      <button data-lv="0"><i style="background:#6f6455"></i>Semua</button>
+    </div>
+    <div class="rnote rv" id="ruleNote"></div>
+    <div class="rules" id="ruleGrid"></div>
+    <div class="grid3" style="margin-top:32px">
+      <div class="tile rv-s"><span class="ti" style="background:rgba(22,163,74,.12);color:#059669"><svg class="ico"><use href="#i-checkc"/></svg></span><h4>Ringan</h4><p>Teguran → mute → kick.</p></div>
+      <div class="tile rv-s"><span class="ti" style="background:rgba(245,158,11,.14);color:#b45309"><svg class="ico"><use href="#i-warn"/></svg></span><h4>Sedang</h4><p>Mute → kick → ban sementara → reset.</p></div>
+      <div class="tile rv-s"><span class="ti" style="background:rgba(220,38,38,.12);color:#dc2626"><svg class="ico"><use href="#i-ban"/></svg></span><h4>Berat</h4><p>Ban berat, rollback, sampai ban permanen.</p></div>
+    </div>
+    <div class="note rv" style="margin-top:12px"><svg class="ico"><use href="#i-info"/></svg><span>Staff boleh menyesuaikan hukuman sesuai kondisi kasus. Aturan bisa diperbarui kapan pun kalau memang perlu.</span></div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="screen" id="faq">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">FAQ</span>
+      <h2>Yang sering<br>ditanyain.</h2>
+      <p class="lead">Pilih kategorinya, jawabannya langsung kebuka di bawah.</p>
+    </div>
+    <div class="tabs" id="faqTabs"></div>
+    <div class="qa" id="faqList"></div>
+  </div>
+</section>
+
+<!-- ============ DONASI ============ -->
+<section class="screen" id="donasi">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Donasi</span>
+      <h2 class="split">Bantu server tetap nyala.</h2>
+      <p class="lead">Server ini ada biayanya tiap bulan. Kalau kamu betah main di sini dan mau nyumbang, bawahnya udah disiapin. Kalau lagi nggak ada, main aja terus — sama berharganya.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="donbox rv">
+        <span class="don-ring" aria-hidden="true"></span>
+        <span class="don-ring r2" aria-hidden="true"></span>
+        <div class="don-in">
+          <span class="don-tag"><svg class="ico"><use href="#i-wallet"/></svg>DANA &amp; GoPay</span>
+          <small>Nomor tujuan</small>
+          <b id="donNo">0823 4031 9193</b>
+          <div class="don-apps"><span>DANA</span><span>GoPay</span></div>
+          <button class="btn pri wide mag" data-copy="082340319193"><svg class="ico"><use href="#i-copy"/></svg>Salin nomor</button>
+          <button class="btn sec wide mag" id="btnDon"><svg class="ico"><use href="#i-send"/></svg>Konfirmasi ke admin</button>
+        </div>
+      </div>
+
+      <div style="display:grid;gap:12px;align-content:start">
+        <div class="vsteps">
+          <div class="vstep rv-s"><i></i><div><b>Salin nomornya</b><p>Tombol di samping langsung nyalin. Nggak usah diketik manual.</p></div></div>
+          <div class="vstep rv-s"><i></i><div><b>Kirim lewat DANA atau GoPay</b><p>Nominalnya bebas, seikhlasnya. Nggak ada minimal.</p></div></div>
+          <div class="vstep rv-s"><i></i><div><b>Screenshot buktinya</b><p>Simpen dulu, nanti dikirim bareng nama in-game kamu.</p></div></div>
+          <div class="vstep rv-s"><i></i><div><b>Konfirmasi ke admin</b><p>Tekan tombol konfirmasi, pesannya udah dirakit. Tinggal lampirin bukti.</p></div></div>
+        </div>
+        <div class="note"><svg class="ico"><use href="#i-info"/></svg><span>Donasi beda sama beli rank. Donasi itu sukarela dan nggak otomatis dapat rank. Kalau kamu emang mau rank, lewat halaman <b>Rank</b> aja biar jelas.</span></div>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:12px">
+      <div class="tile rv-s"><span class="ti"><svg class="ico"><use href="#i-signal"/></svg></span><span class="num">01</span><h4>Buat apa duitnya</h4><p>Sewa server, domain, sama biaya plugin. Itu yang bikin dunia kamu tetap kesimpen.</p></div>
+      <div class="tile rv-s"><span class="ti"><svg class="ico"><use href="#i-heart"/></svg></span><span class="num">02</span><h4>Nggak maksa</h4><p>Nggak ada fitur yang dikunci buat yang nggak donasi. Semua tetap bisa main penuh.</p></div>
+      <div class="tile rv-s"><span class="ti"><svg class="ico"><use href="#i-checkc"/></svg></span><span class="num">03</span><h4>Kalau salah kirim</h4><p>Chat admin sambil lampirin bukti. Diurus manual, jadi sabar ya.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIPS ============ -->
+<section class="screen" id="tips">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Tips</span>
+      <h2 class="split">Biar cepat mapan.</h2>
+      <p class="lead">Dua belas hal yang biasanya baru disadarin setelah main seminggu. Mending tahu dari sekarang.</p>
+    </div>
+    <div class="fgrid" id="tipGrid"></div>
+    <div class="note rv" style="margin-top:16px"><svg class="ico"><use href="#i-bulb"/></svg><span>Nggak harus diikutin semua. Ambil yang masuk sama gaya main kamu — ada yang suka dagang, ada yang cuma pengin bangun.</span></div>
+  </div>
+</section>
+
+<!-- ============ BANTUAN ============ -->
+<section class="screen" id="bantuan">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Bantuan</span>
+      <h2 class="split">Ada kendala? Ini tempatnya.</h2>
+      <p class="lead">Kasus yang paling sering kejadian, sama ke mana lapornya. Staff bukan bot, jadi balesnya pas lagi online — tapi biasanya nggak lama.</p>
+    </div>
+    <div class="grid2" id="helpGrid"></div>
+    <div class="cta rv" style="margin-top:22px">
+      <div>
+        <h2>Nggak nemu jawabannya?</h2>
+        <p>Tanya langsung aja. Lebih cepat daripada nebak-nebak sendiri sampai kesel.</p>
+      </div>
+      <nav>
+        <a href="https://chat.whatsapp.com/DsOfXHhMbOPLukvvU7iYPk" target="_blank" rel="noopener"><svg class="ico"><use href="#i-users"/></svg>Tanya di grup<svg class="ico"><use href="#i-ext"/></svg></a>
+        <a href="https://discord.gg/PZ8gG2nkfb" target="_blank" rel="noopener"><svg class="ico"><use href="#i-chat"/></svg>Discord<svg class="ico"><use href="#i-ext"/></svg></a>
+        <a href="#faq" data-go="faq"><svg class="ico"><use href="#i-help"/></svg>Baca FAQ dulu<svg class="ico"><use href="#i-arrow"/></svg></a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOGIN ============ -->
+<section class="screen" id="login">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="home"><svg class="ico"><use href="#i-home"/></svg>Beranda</button>
+      <span class="eyebrow">Profil</span>
+      <h2>Simpan sekali,<br>kepakai terus.</h2>
+      <p class="lead">Nggak pakai password, nggak pakai daftar. Datanya nyimpen di browser kamu doang.</p>
+    </div>
+    <div class="grid2">
+      <div class="card pad rv-s">
+        <div class="form">
+          <div class="field">
+            <label for="inName">Nametag Minecraft</label>
+            <input id="inName" maxlength="16" placeholder="Contoh: Steve_01" autocomplete="off" spellcheck="false">
+            <div class="hint">Huruf, angka, dan underscore. Maksimal 16 karakter.</div>
+          </div>
+          <div class="field">
+            <label>Platform</label>
+            <div class="seg" id="segPlat">
+              <button type="button" data-plat="Java" class="on"><svg class="ico"><use href="#i-cloud"/></svg>Java</button>
+              <button type="button" data-plat="Bedrock"><svg class="ico"><use href="#i-phone"/></svg>Bedrock</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="inVer">Versi Minecraft</label>
+            <input id="inVer" maxlength="12" placeholder="Contoh: 1.21.4" autocomplete="off" spellcheck="false">
+          </div>
+          <button class="btn pri wide mag" id="btnSave"><svg class="ico"><use href="#i-checkc"/></svg>Simpan profil</button>
+          <button class="btn gho wide" id="btnClear">Hapus profil</button>
+          <div class="note"><svg class="ico"><use href="#i-lock"/></svg><span>Ini bukan login akun Minecraft resmi. Nggak ada data yang dikirim ke mana-mana — semua nyimpen lokal di browser ini.</span></div>
+        </div>
+      </div>
+      <div class="prev rv-s">
+        <div class="pv-av" id="pvAv">P</div>
+        <small id="pvState">Belum login</small>
+        <b id="pvName">Player</b>
+        <div class="pv-row"><span id="pvPlat">JAVA</span><span id="pvVer">Versi —</span></div>
+        <div class="pv-foot">
+          <span><svg class="ico"><use href="#i-check"/></svg>Kepakai otomatis di Rank, Vote, sama Order</span>
+          <span><svg class="ico"><use href="#i-check"/></svg>Tersimpan di browser ini, bukan di server kami</span>
+          <span><svg class="ico"><use href="#i-check"/></svg>Bisa diubah atau dihapus kapan aja</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORDER ============ -->
+<section class="screen" id="order">
+  <div class="wrap">
+    <div class="phead">
+      <button class="back" data-go="store"><svg class="ico"><use href="#i-crown"/></svg>Kembali ke Rank</button>
+      <span class="eyebrow">Order</span>
+      <h2>Tinggal kirim<br>ke admin.</h2>
+      <p class="lead">Pesannya udah dirakit otomatis. Kamu tinggal cek, terus tekan kirim di WhatsApp.</p>
+    </div>
+    <div class="pstrip rv-s">
+      <span class="av"><svg class="ico"><use href="#i-user"/></svg></span>
+      <div><small>Player</small><b id="ordName">Belum login</b></div>
+      <div class="pmeta"><span id="ordPlat">—</span><button class="btn sec sm mag" data-go="login">Atur profil</button></div>
+    </div>
+    <div class="grid2">
+      <div class="card pad rv-s">
+        <div class="form">
+          <div class="field"><label for="selRank">Pilih rank</label><select id="selRank"></select></div>
+          <div class="field"><label for="selDur">Durasi</label><select id="selDur"></select></div>
+          <div class="bill">
+            <div class="row"><span>Rank</span><b id="bRank">—</b></div>
+            <div class="row"><span>Durasi</span><b id="bDur">—</b></div>
+            <div class="row"><span>Platform</span><b id="bPlat">—</b></div>
+            <div class="row tot"><span>Total</span><b id="bTotal">—</b></div>
+          </div>
+          <button class="btn pri wide mag" id="btnWa"><svg class="ico"><use href="#i-send"/></svg>Kirim ke WhatsApp admin</button>
+          <div class="note"><svg class="ico"><use href="#i-info"/></svg><span>Pembayaran nggak diproses di website ini. Website cuma nyiapin pesannya buat dikirim ke admin.</span></div>
+        </div>
+      </div>
+      <div class="card pad rv-s">
+        <span class="eyebrow">Preview pesan</span>
+        <div style="padding:17px;border-radius:18px;background:rgba(20,17,11,.04);font-size:13px;line-height:1.75;white-space:pre-wrap;font-family:ui-monospace,Menlo,monospace" id="waPreview">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <span class="ft-mark">P</span>
+        <div><b>POTATO SMP</b><span>Server survival Java &amp; Bedrock · 120+ fitur</span></div>
+      </div>
+      <div class="ft-act">
+        <button class="btn sec sm mag" data-copy="potatosmp.fun"><svg class="ico"><use href="#i-copy"/></svg>Salin IP</button>
+        <button class="btn pri sm mag" data-go="server">Cara masuk<svg class="ico mv"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <div class="ft-in">
+      <p>potatosmp.fun · Port Bedrock 19132 · Nggak berafiliasi sama Mojang atau Microsoft.</p>
+      <nav>
+        <a href="#server" data-go="server">Server</a>
+        <a href="#features" data-go="features">Fitur</a>
+        <a href="#store" data-go="store">Rank</a>
+        <a href="#vote" data-go="vote">Vote</a>
+        <a href="#donasi" data-go="donasi">Donasi</a>
+        <a href="#tips" data-go="tips">Tips</a>
+        <a href="#guide" data-go="guide">Panduan</a>
+        <a href="#bantuan" data-go="bantuan">Bantuan</a>
+        <a href="#rules" data-go="rules">Rules</a>
+        <a href="#faq" data-go="faq">FAQ</a>
+        <a href="#community" data-go="community">Community</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><svg class="ico"><use href="#i-checkc"/></svg><span id="toastText"></span></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="box">
+    <span class="mi"><svg class="ico"><use href="#i-lock"/></svg></span>
+    <h3 id="modalTitle">Simpan profil dulu</h3>
+    <p>Isi nametag, platform, dan versi sekali aja. Setelah itu Rank, Vote, dan Order jalan otomatis.</p>
+    <div class="mrow">
+      <button class="btn pri wide" id="modalGo">Ke halaman profil</button>
+      <button class="btn gho wide" id="modalClose">Nanti dulu</button>
+    </div>
+  </div>
+</div>
+
+<div class="cfx" id="cfx" aria-hidden="true"></div>
+<script>
+"use strict";
+/* ============ DATA ============ */
+var WA="6285137375162",HOST="potatosmp.fun",PORT=19132,KEY="potatosmp_profile_v1";
+var VOTE_URL="https://minecraft-mp.com/server-s353692";
+var DURS=["1 Bulan","3 Bulan","1 Tahun","Permanen"];
+
+var RANKS=[
+ {n:"Silver",c:["#a39587","#e7e0d7"],p:[5,7,10,15],k:["Prefix Silver di chat","SetHome tambahan","Player Vault & block limit naik"]},
+ {n:"Golden",c:["#d97706","#fcd34d"],p:[8,13,15,18],k:["Prefix Golden di chat","SetHome & vault lebih banyak","Bonus reward rank"]},
+ {n:"Elite",c:["#f97316","#fdba74"],p:[19,24,28,35],k:["Prefix Elite di chat","Slot home & vault naik","Kosmetik tambahan"]},
+ {n:"Legend",c:["#ea580c","#fb923c"],p:[32,38,44,55],k:["Prefix Legend di chat","Block limit lebih besar","Opsi chat & kosmetik lebih banyak"]},
+ {n:"Slayer",c:["#dc2626","#fca5a5"],p:[45,57,70,85],k:["Prefix Slayer di chat","Home & vault lebih luas","Akses fitur rank lanjutan"]},
+ {n:"Frozen",c:["#0284c7","#7dd3fc"],p:[75,100,125,142],k:["Prefix Frozen di chat","Fitur rank tingkat lanjut","Kosmetik eksklusif"]},
+ {n:"Mythic",c:["#9333ea","#d8b4fe"],p:[100,135,160,190],k:["Prefix Mythic di chat","Benefit premium tambahan","Block limit besar"]},
+ {n:"Immortal",c:["#be123c","#fb7185"],p:[135,173,225,252],k:["Prefix Immortal di chat","Benefit premium + kosmetik","Slot home & vault besar"]},
+ {n:"Celestial",c:["#0d9488","#5eead4"],p:[180,240,270,300],k:["Prefix Celestial di chat","Paket premium lebih lengkap","Kosmetik eksklusif"]},
+ {n:"Lunarlight",c:["#4338ca","#a5b4fc"],p:[275,302,370,425],k:["Prefix Lunarlight di chat","Paket benefit terlengkap","Prioritas layanan rank"]}
+];
+
+var BENTO=[
+ {g:"features",i:"i-spark",t:"Fitur Server",d:"50 fitur dipajang di sini. Di dalam masih ada lagi.",cls:"w2 feat",n:"01"},
+ {g:"server",i:"i-globe",t:"Server",d:"IP, port, versi, sama status live.",cls:"",n:"02"},
+ {g:"store",i:"i-crown",t:"Rank",d:"Sepuluh tier, harga apa adanya.",cls:"",n:"03"},
+ {g:"vote",i:"i-gift",t:"Vote",d:"Dukung server, ambil reward-nya.",cls:"",n:"04"},
+ {g:"donasi",i:"i-heart",t:"Donasi",d:"Bantu server tetap nyala. Seikhlasnya.",cls:"",n:"05"},
+ {g:"community",i:"i-chat",t:"Community",d:"WhatsApp, Discord, TikTok.",cls:"w2",n:"06"},
+ {g:"tips",i:"i-bulb",t:"Tips",d:"Jalan pintas biar cepat mapan.",cls:"",n:"07"},
+ {g:"gamemode",i:"i-pad",t:"Gamemode",d:"Delapan aktivitas harian.",cls:"",n:"08"},
+ {g:"guide",i:"i-book",t:"Panduan",d:"Baru join? Mulai dari sini.",cls:"",n:"09"},
+ {g:"bantuan",i:"i-life",t:"Bantuan",d:"Ada kendala? Lapor di sini.",cls:"",n:"10"},
+ {g:"rules",i:"i-doc",t:"Rules",d:"Biar main tetap nyaman buat semua.",cls:"w2",n:"11"},
+ {g:"faq",i:"i-help",t:"FAQ",d:"Nanya cepat, jawab cepat.",cls:"w2",n:"12"}
+];
+
+var MODES=[
+ {i:"i-gem",t:"Mining",d:"Turun ke cave, kumpulin resource."},
+ {i:"i-wheat",t:"Farming",d:"Tanam, panen, jual ke ekonomi."},
+ {i:"i-target",t:"PvP Arena",d:"Adu skill di area pertarungan."},
+ {i:"i-zap",t:"CPvP",d:"Pertarungan yang lebih intens."},
+ {i:"i-moon",t:"AFK Zone",d:"Area buat ditinggal sebentar."},
+ {i:"i-shield",t:"Claim",d:"Kunci lahan biar aman dari orang."},
+ {i:"i-coins",t:"Economy",d:"Survival economy, uang kepakai."},
+ {i:"i-home",t:"Survival",d:"Inti servernya. Bangun dari nol."}
+];
+
+var STEPS=[
+ {s:"Langkah 01",t:"Tentukan platform",d:"Java atau Bedrock. Dua-duanya masuk ke dunia yang sama."},
+ {s:"Langkah 02",t:"Cek versi Minecraft",d:"Java pakai <code>1.20+</code>, Bedrock pakai <code>1.21+</code>."},
+ {s:"Langkah 03",t:"Masukkan alamat server",d:"Isi <code>potatosmp.fun</code>. Bedrock tambah port <code>19132</code>."},
+ {s:"Langkah 04",t:"Mulai survival",d:"Cari tempat, tebang kayu, bikin base pertama. Standar."},
+ {s:"Langkah 05",t:"Claim lahan kamu",d:"Begitu base jadi, langsung claim biar nggak diutak-atik orang."},
+ {s:"Langkah 06",t:"Vote dan gabung grup",d:"Vote buat reward, masuk grup biar tahu event dan update."}
+];
+
+var RULES=[
+ [1,"Sopan ke sesama player","Nggak menghina atau bikin orang lain nggak nyaman.","Teguran → mute → kick"],
+ [1,"Jangan mancing ribut","Provokasi kecil yang sengaja bikin konflik tetap dihitung.","Teguran → mute → kick"],
+ [1,"Bahasa dijaga","Kata-kata kasar yang mengganggu komunitas nggak dipakai.","Teguran → mute"],
+ [1,"Dengar arahan staff","Ngeyel terus setelah diingatkan bakal naik jadi pelanggaran.","Teguran → mute/kick"],
+ [2,"Nggak ada bullying","Nargetin satu player berulang-ulang jelas dilarang.","Mute → kick → ban sementara"],
+ [2,"Pelecehan verbal","Menghina atau melecehkan lewat chat maupun voice.","Mute → ban sementara"],
+ [2,"Rasisme & diskriminasi","Menyerang orang karena ras, warna kulit, atau asal-usul.","Mute → kick → ban"],
+ [2,"Ujaran kebencian","Merendahkan kelompok tertentu dalam bentuk apa pun.","Ban sementara atau lebih berat"],
+ [2,"Ancaman ke player","Nakut-nakutin atau maksa orang pakai ancaman.","Ban sementara ke atas"],
+ [2,"Penipuan transaksi","Sengaja nipu pas tukar item atau jual beli.","Reset keuntungan → ban sementara"],
+ [2,"Griefing","Ngerusak bangunan atau ganggu area orang lain.","Rollback → ban sementara"],
+ [2,"Promosi tanpa izin","Nyebar link, server, atau komunitas lain tanpa izin staff.","Hapus pesan → mute → ban"],
+ [3,"Konten seksual","Membagikan, meminta, atau ngarahin ke konten pornografi.","Ban berat sampai permanen"],
+ [3,"Pelecehan seksual","Komentar atau perilaku seksual yang nggak diinginkan.","Ban berat sampai permanen"],
+ [3,"Perilaku seksual ke anak","Grooming atau eksploitasi pemain di bawah umur.","Ban permanen + tindakan lanjutan"],
+ [3,"Doxxing","Nyebar alamat, nomor, atau identitas orang tanpa izin.","Ban berat/permanen"],
+ [3,"Cheat & hack client","Pakai cheat, exploit, atau mod yang bikin nggak adil.","Ban berat sampai permanen"],
+ [3,"Eksploitasi bug besar","Manfaatin bug buat untung besar, apalagi disembunyikan.","Rollback → ban sementara/permanen"],
+ [3,"Duplikasi item","Gandain item atau manipulasi ekonomi skala besar.","Reset ekonomi → ban berat"],
+ [3,"Ngaku staff","Ngaku jadi owner, admin, atau helper buat nipu.","Ban berat sampai permanen"],
+ [3,"Nyerang server","Serangan, akses ilegal, atau sengaja ganggu layanan.","Ban permanen + tindakan lanjutan"],
+ [3,"Menghindari hukuman","Bikin akun alt buat kabur dari hukuman yang jalan.","Hukuman diperpanjang/dinaikkan"],
+ [3,"Ancaman serius","Ancaman ke keselamatan atau keamanan seseorang.","Ban berat/permanen"],
+ [3,"Ngulang pelanggaran berat","Tetap ngulang setelah dapat hukuman berat.","Ban permanen"]
+];
+
+
+var DONASI={no:"082340319193",pretty:"0823 4031 9193",apps:["DANA","GoPay"]};
+
+var TIPS=[
+ ["i-shield","Claim dulu, bangun belakangan","Begitu nemu lokasi enak, langsung claim. Bangun megah tapi lahan belum dikunci itu resiko."],
+ ["i-case","Ambil Jobs di hari pertama","Nambang sama nebang yang biasa kamu lakuin tetap jalan, bedanya sekarang dibayar."],
+ ["i-bank","Simpen duit di Bank","Uang di kantong bisa ilang kalau kenapa-napa. Di Bank aman."],
+ ["i-route","Pakai RTP buat cari lahan","Area deket spawn udah penuh. Sekali RTP kamu udah di tanah perawan."],
+ ["i-fire","Jangan putus login harian","Daily Reward plus Streak itu gratisan paling gede yang sering dilewatin orang."],
+ ["i-bot","Minion jalan pas kamu tidur","Pasang Minion sebelum logout. Bangun-bangun hasilnya udah numpuk."],
+ ["i-tag","Jual lewat Chestshop, bukan ke NPC","Harga dari player biasanya lebih tinggi. Buka lapak, tinggalin, cek besok."],
+ ["i-chart","Investasi pakai duit nganggur","Saham sama dolar bisa turun. Jangan pakai modal yang kamu butuhin besok."],
+ ["i-swap","Tukeran pakai fitur Trade","Jangan buang barang ke tanah sambil percaya orang. Trade dibikin biar kamu nggak ketipu."],
+ ["i-users","Masuk Clan atau cari temen","Sendirian itu lambat. Rame-rame, farm besar jadi masuk akal."],
+ ["i-home","Set home di tiap tempat penting","Base, farm, tambang. Biar nggak buang waktu jalan kaki."],
+ ["i-warn","Kalau ragu, Report aja","Lebih baik lapor terus ternyata aman, daripada diem terus kena rugi."]
+];
+
+var BANTUAN=[
+ ["i-globe","Nggak bisa masuk server","Cek versi Minecraft kamu dulu, terus pastiin port 19132 buat Bedrock. Kalau masih gagal, restart gamenya.","server","Buka halaman Server"],
+ ["i-crown","Rank belum masuk","Biasanya nunggu admin proses manual. Chat admin sambil lampirin bukti transfer.","wa","Chat admin"],
+ ["i-heart","Donasi udah kirim tapi belum kebaca","Sama, konfirmasi ke admin. Sertakan nama in-game biar gampang dicocokin.","donasi","Ke halaman Donasi"],
+ ["i-ban","Ada yang curang atau ganggu","Pakai fitur Report di dalam game. Kalau perlu bukti tambahan, kirim ke Discord.","dc","Lapor di Discord"],
+ ["i-zap","Fitur error atau bug","Ceritain kejadiannya sedetail mungkin di grup. Makin jelas, makin cepat dibenerin.","grup","Lapor di grup"],
+ ["i-user","Kena ban tapi ngerasa salah paham","Ajukan banding ke staff lewat Discord. Jelasin kronologinya, jangan spam.","dc","Ajukan banding"]
+];
+
+var FCATS=[
+ ["lahan","Lahan & Basis","i-shield","Urusan tempat tinggal: ngamanin lahan, nyimpen barang, sama bikin basis jalan sendiri."],
+ ["ekonomi","Ekonomi & Toko","i-tag","Cara muter duit di server. Jualan, beli, lelang, sampai buka jasa."],
+ ["investasi","Investasi","i-chart","Buat yang suka main angka. Ada yang untung gede, ada juga yang buntung."],
+ ["quest","Quest & Hadiah","i-gift","Semua yang bisa dapet gratisan: misi, login harian, gacha, sampai undian."],
+ ["sosial","Sosial","i-users","Server rame karena orangnya. Ini fitur buat ketemu dan nempel sama yang lain."],
+ ["gaya","Gaya & Tampilan","i-palette","Biar karakter kamu nggak sama kayak yang lain."],
+ ["tarung","Tarung","i-target","Buat yang gatel pengin berantem."],
+ ["aman","Aman & Nyaman","i-lock","Yang kerja di belakang layar biar main tetap enak."]
+];
+
+var FEATS=[
+ ["lahan","i-shield","Claim Land","Kunci lahanmu pakai sekop atau pagar. Orang lain nggak bisa ngutak-atik."],
+ ["lahan","i-route","Random Teleport","Ketik sekali, langsung dilempar ke tempat acak yang masih kosong."],
+ ["lahan","i-box","Backpack","Tas tambahan biar inventory nggak cepet penuh."],
+ ["lahan","i-lock","Vault","Brankas pribadi. Barang berharga aman disimpen di sini."],
+ ["lahan","i-bank","Bank","Nabung uang biar nggak ikut ilang kalau kenapa-napa."],
+ ["lahan","i-bot","Minion","Pekerja kecil yang tetap ngumpulin hasil walau kamu udah logout."],
+ ["lahan","i-gem","Smart Spawner","Spawner yang bisa diatur. Manen hasilnya jadi gampang."],
+ ["lahan","i-paw","Pickup Mob","Angkat mobnya, taruh di tempat lain. Nggak usah dituntun pakai tali."],
+ ["lahan","i-wheat","Farm Item","Item khusus yang bikin farm kamu jalan lebih ngebut."],
+
+ ["ekonomi","i-tag","Shop / Sell Item","Toko server. Jual hasil panen, beli kebutuhan, selesai."],
+ ["ekonomi","i-box","Chestshop","Bikin toko sendiri dari peti. Pasang harga, terus tinggal ditinggal."],
+ ["ekonomi","i-star","Auction House","Lelang barang langka. Yang nawar paling tinggi, dia yang bawa pulang."],
+ ["ekonomi","i-route","Player Warp","Buka jalan pintas ke tokomu biar gampang didatengin orang."],
+ ["ekonomi","i-moon","AFK Shop","Tokonya tetap jalan walaupun kamu lagi AFK."],
+ ["ekonomi","i-swap","Trade","Tukeran barang langsung sama player lain, aman dari tipu-tipu."],
+ ["ekonomi","i-zap","Sellwand","Tongkat sakti. Sekali klik, isi peti kejual semua."],
+ ["ekonomi","i-case","Jasa (Jobs)","Ambil kerjaan: nambang, nebang, bertani. Tiap kerjaan ada upahnya."],
+
+ ["investasi","i-chart","Saham","Beli saham, harganya naik turun tiap waktu. Untung rugi tanggung sendiri."],
+ ["investasi","i-coins","Dolar","Main kurs. Beli pas lagi murah, lepas pas lagi naik."],
+ ["investasi","i-gem","Emas","Pilihan paling kalem buat nyimpen nilai uang."],
+
+ ["quest","i-gift","Daily Reward","Login tiap hari, ada jatah hadiahnya."],
+ ["quest","i-fire","Streak","Login beruntun tanpa putus, bonusnya makin gede."],
+ ["quest","i-users","Quest Global","Misi bareng satu server. Kelar bareng, hadiahnya bareng."],
+ ["quest","i-checkc","Player Quest","Misi pribadi yang ngikutin progress kamu sendiri."],
+ ["quest","i-star","Vote Reward","Vote server, dapet money, key, plus Fly 3 jam."],
+ ["quest","i-box","Kits","Paket starter buat pemain baru, plus kit khusus tiap rank."],
+ ["quest","i-spark","Gacha","Tarik hadiah acak. Kadang zonk, kadang jackpot."],
+ ["quest","i-tag","Mystery Shop","Dagangannya ganti terus. Nggak pernah ketebak isinya apa."],
+ ["quest","i-gift","Mystery Gift","Kado misterius. Baru ketahuan isinya pas udah dibuka."],
+ ["quest","i-ticket","Lotre","Beli tiket, tunggu undian. Siapa tahu lagi hoki."],
+ ["quest","i-heart","Redeem Bansos","Lagi bokek? Tukar kodenya, balik punya modal."],
+
+ ["sosial","i-heart","Married","Nikah resmi in-game, ada bonus khusus buat pasangan."],
+ ["sosial","i-heart","Pacar","Belum siap nikah? Pacaran dulu aja."],
+ ["sosial","i-flower","Bouquet","Buket bunga buat dikasih ke orang yang kamu suka."],
+ ["sosial","i-users","Friend","Daftar teman. Gampang lihat siapa yang lagi online."],
+ ["sosial","i-shield","Team (Clan)","Bikin klan bareng temen, punya nama sama markas sendiri."],
+ ["sosial","i-star","Rating","Kasih nilai ke toko atau jasa punya player lain."],
+ ["sosial","i-chat","Chat Game","Kuis dadakan di chat. Paling cepet jawab, dia yang menang."],
+ ["sosial","i-warn","Report","Ada yang curang atau ganggu? Lapor langsung dari dalam game."],
+
+ ["gaya","i-crown","Role","Jabatan atau peran yang kelihatan di chat."],
+ ["gaya","i-chart","Skills","Naikin kemampuan: nambang, berantem, bertani, dan lainnya."],
+ ["gaya","i-user","Skin","Ganti skin langsung dari server, nggak usah ribet."],
+ ["gaya","i-palette","Chat Color","Warnain chat kamu biar beda dari yang lain."],
+ ["gaya","i-sit","Pose","Duduk, tiduran, muter. Buat foto atau sekadar santai."],
+ ["gaya","i-paw","Pet","Peliharaan yang ngikut ke mana pun kamu jalan."],
+
+ ["tarung","i-target","Duel PvP","Tantang orang duel satu lawan satu di arena khusus."],
+
+ ["aman","i-moon","Anti Kick AFK","Mau AFK selamanya juga boleh. Nggak bakal ditendang server."],
+ ["aman","i-shield","Anti Cheat","Cheater kebaca sistem, terus langsung ditindak."],
+ ["aman","i-lock","Anti Hacker","Lapisan pengaman tambahan buat server sama akun kamu."],
+ ["aman","i-bot","AI Tanya Jawab","Asisten dalam game buat jawab pertanyaan cepat.","SEGERA"]
+];
+
+var FAQ=[
+ ["server","Server","i-globe",[
+  ["Apa IP server Potato SMP?","IP-nya <code>potatosmp.fun</code>. Sama buat Java maupun Bedrock."],
+  ["Port Bedrock berapa?","Pakai <code>19132</code>. Java nggak perlu isi port."],
+  ["Java dan Bedrock bisa barengan?","Bisa. Crossplay, jadi kalian ketemu di dunia yang sama."],
+  ["Versi Minecraft yang dipakai?","Java <code>1.20+</code> dan Bedrock <code>1.21+</code>."],
+  ["Kenapa status kadang nggak kebaca?","Layanan cek status bisa gagal merespons sebentar. Coba lagi beberapa saat."],
+  ["Gimana cara salin IP?","Buka halaman Server, tekan tombol Salin. Jangan diketik manual biar nggak typo."]]],
+ ["login","Profil","i-user",[
+  ["Login ini akun resmi Minecraft?","Bukan. Ini cuma profil lokal buat nyimpen nametag, platform, dan versi."],
+  ["Perlu password atau daftar?","Nggak. Isi sekali, simpan, selesai."],
+  ["Data saya disimpan di mana?","Di browser kamu sendiri lewat localStorage. Nggak dikirim ke server mana pun."],
+  ["Kenapa Vote dan Order minta profil?","Biar nametag dan platform keisi otomatis, nggak perlu ngetik ulang."],
+  ["Gimana ganti atau hapus profil?","Buka halaman Profil, ubah datanya lalu simpan, atau tekan Hapus profil."],
+  ["Nametag boleh pakai spasi?","Nggak. Huruf, angka, dan underscore aja, maksimal 16 karakter."]]],
+ ["rank","Rank","i-crown",[
+  ["Rank itu apa?","Paket benefit tambahan di server, misalnya prefix, slot home, dan vault."],
+  ["Ada berapa rank?","Sepuluh: Silver sampai Lunarlight."],
+  ["Pilihan durasinya apa aja?","1 Bulan, 3 Bulan, 1 Tahun, dan Permanen."],
+  ["Harganya di mana?","Di halaman Rank. Tap durasi di kartunya, harga langsung berubah."],
+  ["Cara belinya gimana?","Pilih rank, pilih durasi, lalu kirim pesan ke WhatsApp admin lewat tombol Order."],
+  ["Wajib beli rank?","Nggak. Rank itu opsional. Main gratis tetap bisa sampai mana pun."]]],
+ ["vote","Vote","i-gift",[
+  ["Vote dapat apa?","20K Money, 1× Key Vote, plus Rank Voter dengan Fly 3 jam."],
+  ["Vote bayar?","Gratis. Cuma butuh sekitar satu menit."],
+  ["Format nickname Java?","Nickname biasa, sama persis kayak di game."],
+  ["Format nickname Bedrock?","Pakai titik di depan nickname sesuai instruksi di halaman voting."],
+  ["Reward-nya masuk kapan?","Ikut mekanisme reward yang berlaku di dalam server setelah vote terhitung."],
+  ["Kenapa harus vote?","Server naik peringkat, makin gampang ditemukan pemain baru."]]],
+ ["gameplay","Gameplay","i-pad",[
+  ["Aktivitasnya apa aja?","Mining, Farming, PvP Arena, CPvP, AFK Zone, Claim, Economy, dan Survival."],
+  ["Economy-nya gimana?","Survival economy. Hasil farming dan mining bisa jadi uang."],
+  ["Claim itu penting?","Penting. Claim ngelindungin area kamu dari orang lain."],
+  ["Ada PvP?","Ada. PvP Arena dan CPvP buat yang suka berantem."],
+  ["AFK Zone buat apa?","Area khusus kalau kamu mau ninggalin karakter sebentar."],
+  ["SetHome dan Player Vault itu apa?","SetHome nyimpen titik pulang, Player Vault nyimpen barang tambahan. Slotnya nambah sesuai rank."]]],
+ ["guide","Panduan","i-book",[
+  ["Saya baru, mulai dari mana?","Buka Panduan. Enam langkah dari pilih platform sampai claim lahan."],
+  ["Apa yang disiapin dulu?","Minecraft versi yang sesuai, lalu IP dan port server."],
+  ["Habis masuk ngapain?","Cari lokasi, bikin base, claim lahan, baru kembangin ekonomi."],
+  ["Perlu paham Claim dulu?","Sangat disarankan, terutama sebelum bangun base serius."],
+  ["Kalau nyasar atau bingung?","Tanya di grup WhatsApp atau Discord. Biasanya cepat dibales."],
+  ["Wajib vote atau beli rank?","Nggak wajib. Dua-duanya opsional."]]],
+ ["order","Order","i-send",[
+  ["Order rank lewat mana?","Lewat WhatsApp admin. Website cuma nyiapin isi pesannya."],
+  ["Apa yang otomatis masuk pesan?","Nametag, platform, versi, rank, dan durasi pilihan kamu."],
+  ["Bayar di website?","Nggak. Pembayaran diurus langsung sama admin."],
+  ["Bisa order dari HP?","Bisa, selama WhatsApp kebuka di HP atau browser."],
+  ["Pesannya bisa diedit?","Bisa. Sebelum kirim, teksnya masih bisa kamu ubah di WhatsApp."],
+  ["WhatsApp nggak kebuka?","Pastikan aplikasinya terpasang, atau coba buka lewat browser lain."]]],
+ ["website","Website","i-spark",[
+  ["Website ini butuh internet terus?","Buat status live dan vote, iya. Halaman lainnya tetap jalan."],
+  ["Kenapa halaman dipisah-pisah?","Biar beranda ringkas dan tiap topik gampang dicari."],
+  ["Datanya disimpan di database?","Nggak ada database. Profil cuma nyimpen di browser kamu."],
+  ["Bisa dibuka di HP?","Bisa. Tampilannya nyesuaikan layar HP, tablet, dan desktop."],
+  ["Kenapa animasinya banyak?","Biar enak dilihat. Kalau HP kamu set hemat animasi, otomatis dikurangi."],
+  ["Info di sini selalu terbaru?","Diusahakan. Kalau ada yang beda sama di dalam server, ikuti info dari staff."]]]
+];
+</script>
+<script>
+"use strict";
+var $=function(id){return document.getElementById(id)};
+var qa=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var REDUCE=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+var FINE=window.matchMedia&&matchMedia("(pointer:fine)").matches;
+var PAGES=["home","server","features","store","vote","donasi","tips","gamemode","guide","community","bantuan","rules","faq","login","order"];
+var TITLES={home:"Potato SMP — Server Survival Java & Bedrock",server:"Server & IP — Potato SMP",features:"50 Fitur Server — Potato SMP",store:"Rank Store — Potato SMP",vote:"Vote — Potato SMP",donasi:"Donasi — Potato SMP",tips:"Tips Main — Potato SMP",bantuan:"Bantuan — Potato SMP",gamemode:"Gamemode — Potato SMP",guide:"Panduan Player Baru — Potato SMP",community:"Community — Potato SMP",rules:"Rules — Potato SMP",faq:"FAQ — Potato SMP",login:"Profil Player — Potato SMP",order:"Order Rank — Potato SMP"};
+var ico=function(n){return '<svg class="ico"><use href="#'+n+'"/></svg>'};
+var esc=function(v){return String(v==null?"":v).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var rp=function(k){return "Rp"+(k*1000).toLocaleString("id-ID")};
+
+/* ---------- TOAST ---------- */
+var tTimer;
+function toast(msg){var t=$("toast");$("toastText").textContent=msg;t.classList.add("show");clearTimeout(tTimer);tTimer=setTimeout(function(){t.classList.remove("show")},2400)}
+
+/* ---------- PROFILE ---------- */
+function getP(){try{return JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){return null}}
+function setP(v){try{localStorage.setItem(KEY,JSON.stringify(v));return true}catch(e){return false}}
+var plat="Java";
+
+function syncProfile(){
+ var p=getP();
+ var nm=p?p.name:"Belum login",pl=p?p.platform:"—";
+ ["storeName","voteName","ordName"].forEach(function(i){if($(i))$(i).textContent=nm});
+ ["storePlat","votePlat","ordPlat"].forEach(function(i){var el=$(i);if(!el)return;el.textContent=p?pl.toUpperCase():"";el.style.display=p?"":"none"});
+ var c=$("chip");if(c)c.querySelector("span").textContent=p?p.name:"Login";
+ $("pvName").textContent=p?p.name:"Player";
+ $("pvPlat").textContent=(p?p.platform:plat).toUpperCase();
+ $("pvVer").textContent="Versi "+(p&&p.version?p.version:"—");
+ $("pvState").textContent=p?"Profil tersimpan":"Belum login";
+ $("pvAv").textContent=(p&&p.name?p.name:"P").charAt(0).toUpperCase();
+ buildBill();
+}
+function livePreview(){
+ var n=$("inName").value.trim(),v=$("inVer").value.trim();
+ $("pvName").textContent=n||"Player";
+ $("pvPlat").textContent=plat.toUpperCase();
+ $("pvVer").textContent="Versi "+(v||"—");
+ $("pvAv").textContent=(n||"P").charAt(0).toUpperCase();
+}
+
+/* ---------- RENDER ---------- */
+function renderTicker(){
+ var items=["Survival","Economy","Claim","PvP Arena","Mining","Farming","AFK Zone","CPvP","Crossplay"];
+ var html=items.map(function(t){return "<li>"+t+"</li>"}).join("");
+ $("ticker").innerHTML=html+html;
+}
+function renderBento(){
+ $("bento").innerHTML=BENTO.map(function(b){
+  return '<button class="bt rv-s '+b.cls+'" data-go="'+b.g+'"><span class="bi">'+ico(b.i)+'</span><em>'+b.n+'</em>'+
+   (b.cls.indexOf("feat")>-1?'<span class="orb"></span>':'')+
+   '<h3>'+b.t+'</h3><p>'+b.d+'</p><span class="go">Buka'+ico("i-arrow")+'</span></button>'}).join("");
+}
+function renderRail(){
+ $("rail").innerHTML=RANKS.slice(0,6).map(function(r){
+  return '<button class="rk rv-s" data-rank="'+r.n+'" style="--rc:'+r.c[0]+';--rc2:'+r.c[1]+'"><span class="glowbar"></span>'+
+   '<span class="crown">'+ico("i-crown")+'</span><h4>'+r.n+'</h4>'+
+   '<div class="pr">'+rp(r.p[0])+' <small>/ bulan</small></div>'+
+   '<div class="li">'+r.k.slice(0,2).map(function(k){return "<span>"+ico("i-check")+k+"</span>"}).join("")+'</div>'+
+   '<span class="btn sec sm wide">Lihat detail</span></button>'}).join("");
+}
+function renderRanks(){
+ $("rankGrid").innerHTML=RANKS.map(function(r,ri){
+  return '<article class="rc rv-s" style="--rc:'+r.c[0]+';--rc2:'+r.c[1]+'"><span class="bar"></span>'+
+   '<div class="rc-top"><span class="cr">'+ico("i-crown")+'</span><div><h4>'+r.n+'</h4><span>Tier '+(ri+1)+'</span></div></div>'+
+   '<div class="durs" data-r="'+ri+'">'+DURS.map(function(d,di){return '<button type="button" data-d="'+di+'"'+(di===0?' class="on"':'')+'>'+d.replace(" Bulan","B").replace("1 Tahun","1TH").replace("Permanen","PERM")+'</button>'}).join("")+'</div>'+
+   '<div class="price"><b id="p'+ri+'">'+rp(r.p[0])+'</b><small id="s'+ri+'">1 Bulan</small></div>'+
+   '<div class="perks">'+r.k.map(function(k){return "<span>"+ico("i-check")+k+"</span>"}).join("")+'</div>'+
+   '<button class="btn pri wide mag" data-order="'+r.n+'">'+ico("i-send")+'Order rank ini</button></article>'}).join("");
+}
+function renderModes(){
+ $("modeGrid").innerHTML=MODES.map(function(m,i){
+  return '<div class="tile rv-s"><span class="ti">'+ico(m.i)+'</span><span class="num">'+("0"+(i+1)).slice(-2)+'</span><h4>'+m.t+'</h4><p>'+m.d+'</p></div>'}).join("");
+}
+function renderSteps(){
+ $("track").innerHTML=STEPS.map(function(s){
+  return '<div class="tstep rv-s"><span>'+s.s.toUpperCase()+'</span><h4>'+s.t+'</h4><p>'+s.d+'</p></div>'}).join("");
+}
+var LVL={1:["l1","Ringan","#16a34a"],2:["l2","Sedang","#f59e0b"],3:["l3","Berat","#dc2626"]};
+var NOTES={
+ 1:["i-checkc","#16a34a","Pelanggaran ringan","Dampaknya kecil. Biasanya cukup diingatkan dulu sebelum naik ke sanksi lain."],
+ 2:["i-warn","#f59e0b","Pelanggaran sedang","Udah ngerugiin player lain. Sanksinya naik kalau diulang."],
+ 3:["i-ban","#dc2626","Pelanggaran berat","Bahaya buat player, komunitas, atau server. Bisa langsung permanen."],
+ 0:["i-doc","#6f6455","Semua aturan","Dua puluh empat aturan, dari yang ringan sampai yang berat."]
+};
+function renderRules(lv){
+ var n=NOTES[lv];
+ $("ruleNote").innerHTML='<span class="rni" style="background:'+n[1]+'1f;color:'+n[1]+'">'+ico(n[0])+'</span><div><b>'+n[2]+'</b><p>'+n[3]+'</p></div>';
+ var list=RULES.map(function(r,i){return {r:r,i:i}}).filter(function(o){return lv===0||o.r[0]===lv});
+ $("ruleGrid").innerHTML=list.map(function(o,idx){
+  var r=o.r,L=LVL[r[0]];
+  return '<article class="rule" style="animation-delay:'+Math.min(idx*35,420)+'ms"><div class="rtop"><span class="rn">'+("0"+(o.i+1)).slice(-2)+'</span><span class="lv '+L[0]+'">'+L[1].toUpperCase()+'</span></div>'+
+   '<h4>'+r[1]+'</h4><p>'+r[2]+'</p><span class="sanc"><b>Sanksi</b>'+r[3]+'</span></article>'}).join("");
+}
+function renderFeatures(cat){
+ var tabs=[["all","Semua","i-spark"]].concat(FCATS.map(function(c){return [c[0],c[1],c[2]]}));
+ $("featTabs").innerHTML=tabs.map(function(t){
+  var n=t[0]==="all"?FEATS.length:FEATS.filter(function(f){return f[0]===t[0]}).length;
+  return '<button data-fcat="'+t[0]+'"'+(t[0]===cat?' class="on"':"")+'>'+ico(t[2])+t[1]+' <small style="opacity:.6">'+n+'</small></button>'}).join("");
+ var info=cat==="all"?["i-spark","Semua fitur","Lima puluh fitur dari delapan kategori. Digeser aja kalau mau lihat per bagian."]
+  :(function(){var c=FCATS.filter(function(x){return x[0]===cat})[0];return [c[2],c[1],c[3]]})();
+ $("featNote").innerHTML='<span class="rni" style="background:rgba(234,88,12,.12);color:#c2410c">'+ico(info[0])+'</span><div><b>'+info[1]+'</b><p>'+info[2]+'</p></div>';
+ var list=FEATS.filter(function(f){return cat==="all"||f[0]===cat});
+ $("featGrid").innerHTML=list.map(function(f,i){
+  return '<article class="fc" style="animation-delay:'+Math.min(i*24,460)+'ms"><span class="fi">'+ico(f[1])+'</span><div><b>'+f[2]+(f[4]?'<span class="soon">'+f[4]+'</span>':"")+'</b><p>'+f[3]+'</p></div></article>'}).join("");
+}
+function renderFeatChips(){
+ var box=$("featChips");if(!box)return;
+ var pick=["Claim Land","Jasa (Jobs)","Auction House","Saham","Quest Global","Married","Pet","Duel PvP","Anti Cheat","Minion"];
+ var html=pick.map(function(n){var f=FEATS.filter(function(x){return x[2]===n})[0];
+  return f?'<span>'+ico(f[1])+f[2]+'</span>':""}).join("");
+ box.innerHTML=html+'<span class="more">+40 lainnya</span>';
+}
+function renderTips(){
+ $("tipGrid").innerHTML=TIPS.map(function(t,i){
+  return '<article class="fc" style="animation-delay:'+Math.min(i*32,440)+'ms"><span class="fi">'+ico(t[0])+'</span><div><b>'+t[1]+'</b><p>'+t[2]+'</p></div></article>'}).join("");
+}
+var HLINK={wa:"https://wa.me/"+WA,dc:"https://discord.gg/PZ8gG2nkfb",grup:"https://chat.whatsapp.com/DsOfXHhMbOPLukvvU7iYPk"};
+function renderHelp(){
+ $("helpGrid").innerHTML=BANTUAN.map(function(h,i){
+  var act=h[3],label=h[4],btn;
+  if(HLINK[act]){btn='<a class="btn sec sm mag" target="_blank" rel="noopener" href="'+HLINK[act]+'">'+label+ico("i-ext")+'</a>'}
+  else{btn='<button class="btn sec sm mag" data-go="'+act+'">'+label+ico("i-arrow")+'</button>'}
+  return '<article class="hcard" style="animation-delay:'+Math.min(i*55,440)+'ms"><span class="hi">'+ico(h[0])+'</span><h4>'+h[1]+'</h4><p>'+h[2]+'</p>'+btn+'</article>'}).join("");
+}
+function donMsg(){
+ var p=getP();
+ return "Halo admin Potato SMP, saya baru donasi buat server.\n\n"+
+  "Nama in-game : "+(p?p.name:"(isi nama kamu)")+"\n"+
+  "Lewat        : DANA / GoPay\n"+
+  "Nominal      : \n\n"+
+  "Bukti transfernya saya lampirin ya. Makasih.";
+}
+function renderFaq(cat){
+ $("faqTabs").innerHTML=FAQ.map(function(f){
+  return '<button data-cat="'+f[0]+'"'+(f[0]===cat?' class="on"':'')+'>'+ico(f[2])+f[1]+'</button>'}).join("");
+ var g=FAQ.filter(function(f){return f[0]===cat})[0];
+ $("faqList").innerHTML=g[3].map(function(q,i){
+  return '<div class="q'+(i===0?" open":"")+'" style="animation-delay:'+(i*45)+'ms"><button type="button">'+q[0]+'<span class="ch">'+ico("i-chev")+'</span></button><div class="ans"><div><p>'+q[1]+'</p></div></div></div>'}).join("");
+}
+function buildBill(){
+ var r=$("selRank").value,d=$("selDur").value,p=getP();
+ var rk=RANKS.filter(function(x){return x.n===r})[0]||RANKS[0];
+ var di=Math.max(0,DURS.indexOf(d));
+ $("bRank").textContent=rk.n;$("bDur").textContent=DURS[di];
+ $("bPlat").textContent=p?p.platform:"—";
+ $("bTotal").textContent=rp(rk.p[di]);
+ $("waPreview").textContent=waMsg(p,rk,di);
+}
+function waMsg(p,rk,di){
+ return "Halo admin Potato SMP, saya mau order rank.\n\n"+
+  "Nickname : "+(p?p.name:"-")+"\n"+
+  "Platform : "+(p?p.platform:"-")+"\n"+
+  "Versi    : "+(p?p.version:"-")+"\n"+
+  "Rank     : "+rk.n+"\n"+
+  "Durasi   : "+DURS[di]+"\n"+
+  "Harga    : "+rp(rk.p[di])+"\n\n"+
+  "Mohon dibantu prosesnya, terima kasih.";
+}
+
+/* ---------- ROUTER ---------- */
+var cur="home";
+function go(page,push){
+ if(PAGES.indexOf(page)<0)page="home";
+ if(page===cur&&push!==false){closeSheet();return}
+ var run=function(){
+  PAGES.forEach(function(id){var el=$(id);if(el)el.classList.toggle("active",id===page)});
+  cur=page;
+  document.title=TITLES[page]||TITLES.home;
+  if(location.hash!=="#"+page)history.replaceState(null,"","#"+page);
+  qa("#nav a").forEach(function(a){a.classList.toggle("on",a.dataset.go===page)});
+  movePill();
+  window.scrollTo(0,0);
+  closeSheet();closeModal();
+  scanReveal();
+  if(!REDUCE)splitHeads();
+  if(page==="order"&&!getP())openModal();
+ };
+ if(REDUCE||booting){run();return}
+ var w=$("wipe");w.classList.remove("go");void w.offsetWidth;w.classList.add("go");
+ setTimeout(run,290);
+ setTimeout(function(){w.classList.remove("go")},640);
+}
+function movePill(){
+ var a=document.querySelector("#nav a.on"),pill=$("navpill");
+ if(!a||!pill||window.innerWidth<1000){if(pill)pill.style.opacity=0;return}
+ pill.style.opacity=1;pill.style.width=a.offsetWidth+"px";pill.style.transform="translateX("+a.offsetLeft+"px)";
+}
+
+/* ---------- SHEET / MODAL ---------- */
+function openSheet(){$("sheet").classList.add("open");$("burger").classList.add("x");$("burger").setAttribute("aria-expanded","true");
+ qa("#sheet a").forEach(function(a,i){a.style.animationDelay=(i*45)+"ms"});document.body.style.overflow="hidden"}
+function closeSheet(){$("sheet").classList.remove("open");$("burger").classList.remove("x");$("burger").setAttribute("aria-expanded","false");document.body.style.overflow=""}
+function openModal(){$("modal").classList.add("show")}
+function closeModal(){$("modal").classList.remove("show")}
+
+/* ---------- COPY ---------- */
+function copy(txt,btn){
+ var ok=function(){
+  toast("Tersalin: "+txt);
+  if(btn){var old=btn.innerHTML;btn.classList.add("done");btn.innerHTML='<svg class="ico"><use href="#i-check"/></svg>Tersalin';
+   setTimeout(function(){btn.classList.remove("done");btn.innerHTML=old},1700)}
+ };
+ if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(txt).then(ok).catch(function(){fb()})}else fb();
+ function fb(){
+  try{var t=document.createElement("textarea");t.value=txt;t.style.cssText="position:fixed;opacity:0";document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);ok()}
+  catch(e){toast("Salin manual: "+txt)}
+ }
+}
+
+/* ---------- SERVER STATUS ---------- */
+var statusTimer;
+function paintStatus(state,count){
+ var box=$("liveBox"),txt=$("liveText"),hero=$("heroStatus"),fo=$("floatOnline"),so=$("statOnline");
+ box.classList.remove("off","wait");
+ if(state==="wait"){box.classList.add("wait");txt.innerHTML='<span class="skel"></span>';if(hero)hero.textContent="Cek status…";return}
+ if(state==="on"){
+  txt.textContent=count+" player online";
+  if(hero)hero.textContent=count+" online";
+  if(fo)fo.textContent=count;
+  if(so)so.textContent=count;
+  if($("srvStatus")){$("srvStatus").textContent="Server online";$("srvPlayers").textContent=count+" player lagi main sekarang.";}
+ }else{
+  box.classList.add("off");
+  txt.textContent=state==="off"?"Server offline":"Status nggak kebaca";
+  if(hero)hero.textContent=state==="off"?"Offline":"Status —";
+  if(fo)fo.textContent="—";if(so)so.textContent="—";
+  if($("srvStatus")){$("srvStatus").textContent=state==="off"?"Server offline":"Status belum kebaca";
+   $("srvPlayers").textContent=state==="off"?"Lagi offline atau restart. Coba lagi nanti.":"Layanan cek status lagi nggak merespons. Coba sebentar lagi.";}
+ }
+}
+function checkStatus(){
+ paintStatus("wait");
+ var url="https://api.mcsrvstat.us/bedrock/3/"+encodeURIComponent(HOST+":"+PORT);
+ fetch(url,{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+  if(d&&d.online){paintStatus("on",(d.players&&d.players.online)||0)}else paintStatus("off")
+ }).catch(function(){paintStatus("err")});
+}
+
+/* ---------- ANIMATION ENGINE ---------- */
+var io=null;
+function splitHeads(){
+ var root=document.querySelector(".screen.active");if(!root)return;
+ qa(".phead h2,.sec-head h2,.cta h2",root).forEach(function(h){
+  var i=0;
+  if(h.dataset.sp){qa(".wd",h).forEach(function(w){w.style.animation="none";void w.offsetWidth;w.style.animation="";w.style.animationDelay=(i++*52)+"ms"});return}
+  h.dataset.sp="1";
+  (function walk(node){
+   Array.prototype.slice.call(node.childNodes).forEach(function(n){
+    if(n.nodeType===3){
+     var parts=n.textContent.split(/(\s+)/),frag=document.createDocumentFragment();
+     parts.forEach(function(p){
+      if(!p)return;
+      if(/^\s+$/.test(p)){frag.appendChild(document.createTextNode(p));return}
+      var w=document.createElement("span");w.className="wd";w.style.animationDelay=(i++*52)+"ms";w.textContent=p;frag.appendChild(w);
+     });
+     node.replaceChild(frag,n);
+    }else if(n.nodeType===1&&n.tagName!=="BR"&&n.className!=="wd"){walk(n)}
+   });
+  })(h);
+ });
+}
+function scanReveal(){
+ var root=document.querySelector(".screen.active")||document;
+ var els=qa(".rv:not(.in),.rv-s:not(.in)",root);
+ if(REDUCE||!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});countAll();return}
+ if(!io)io=new IntersectionObserver(function(en){
+  en.forEach(function(e){
+   if(!e.isIntersecting)return;
+   var el=e.target,sibs=Array.prototype.slice.call(el.parentNode.children).filter(function(c){return c.classList.contains("rv")||c.classList.contains("rv-s")});
+   var i=Math.max(0,sibs.indexOf(el));
+   el.style.transitionDelay=Math.min(i*60,260)+"ms";
+   el.classList.add("in");io.unobserve(el);
+   if(el.querySelector("[data-count]")||el.hasAttribute("data-count"))countAll();
+  })
+ },{rootMargin:"0px 0px -24px 0px",threshold:0});
+ els.forEach(function(e){io.observe(e)});
+}
+function countAll(){
+ qa("[data-count]").forEach(function(el){
+  if(el.dataset.done)return;el.dataset.done="1";
+  var to=+el.dataset.count,st=null;
+  if(REDUCE){el.textContent=to+(el.dataset.suffix||"");return}
+  var sfx=el.dataset.suffix||"";
+  var step=function(ts){if(!st)st=ts;var p=Math.min((ts-st)/1100,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)))+sfx;if(p<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+ });
+}
+function magnetic(){
+ if(!FINE||REDUCE)return;
+ document.addEventListener("pointermove",function(e){
+  var b=e.target.closest?e.target.closest(".mag"):null;
+  if(!b)return;
+  var r=b.getBoundingClientRect();
+  b.style.transform="translate("+((e.clientX-r.left-r.width/2)*.14)+"px,"+((e.clientY-r.top-r.height/2)*.22)+"px)";
+ });
+ document.addEventListener("pointerout",function(e){var b=e.target.closest?e.target.closest(".mag"):null;if(b)b.style.transform=""});
+}
+function spotlight(){
+ if(!FINE)return;
+ document.addEventListener("pointermove",function(e){
+  var c=e.target.closest?e.target.closest(".bt,.fc,.tile,.hcard"):null;if(!c)return;
+  var r=c.getBoundingClientRect();
+  c.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");
+  c.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");
+ });
+}
+function ripples(){
+ document.addEventListener("pointerdown",function(e){
+  var t=e.target.closest?e.target.closest(".btn,.bt,.tile,.cp"):null;
+  if(!t||REDUCE)return;
+  var r=t.getBoundingClientRect(),d=Math.max(r.width,r.height)*1.5;
+  var s=document.createElement("span");s.className="rip";
+  s.style.cssText="width:"+d+"px;height:"+d+"px;left:"+(e.clientX-r.left-d/2)+"px;top:"+(e.clientY-r.top-d/2)+"px";
+  if(getComputedStyle(t).position==="static")t.style.position="relative";
+  t.appendChild(s);setTimeout(function(){s.remove()},660);
+ });
+}
+function cursorGlow(){
+ if(!FINE||REDUCE)return;
+ var g=$("glow"),x=0,y=0,cx=0,cy=0,on=false;
+ document.addEventListener("pointermove",function(e){x=e.clientX;y=e.clientY;if(!on){on=true;g.classList.add("on")}});
+ (function loop(){cx+=(x-cx)*.1;cy+=(y-cy)*.1;g.style.transform="translate("+cx+"px,"+cy+"px)";requestAnimationFrame(loop)})();
+}
+function scrollFx(){
+ var last=0,hdr=$("hdr"),prog=$("prog"),heroIn=document.querySelector(".hero-in");
+ var onScroll=function(){
+  var y=window.pageYOffset||document.documentElement.scrollTop;
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  
+  var ratio=h>0?Math.min(y/h,1):0;
+  prog.style.transform="scaleX("+ratio+")";
+  prog.classList.toggle("on",ratio>.004);
+  hdr.classList.toggle("stuck",y>14);
+  if(!REDUCE){hdr.classList.toggle("hide",y>260&&y>last+4);}
+  if(heroIn&&!REDUCE){
+   if(cur==="home"&&y<640){heroIn.style.transform="translateY("+(y*.16)+"px)";heroIn.style.opacity=String(Math.max(0,1-y/560))}
+   else if(cur!=="home"){heroIn.style.transform="";heroIn.style.opacity=""}
+  }
+  last=y;
+ };
+ window.addEventListener("scroll",onScroll,{passive:true});onScroll();
+}
+function parallax(){
+ if(!FINE||REDUCE)return;
+ var fl=qa(".float");if(!fl.length)return;
+ document.addEventListener("pointermove",function(e){
+  var dx=(e.clientX/window.innerWidth-.5),dy=(e.clientY/window.innerHeight-.5);
+  fl.forEach(function(f,i){var s=(i%2?-1:1)*(10+i*4);f.style.marginLeft=(dx*s)+"px";f.style.marginTop=(dy*s)+"px"});
+ });
+}
+function confetti(){
+ if(REDUCE)return;
+ var box=$("cfx"),cols=["#f97316","#fbbf24","#ea580c","#fcd34d","#c2410c","#fde68a","#16a34a"];
+ for(var i=0;i<46;i++){
+  var s=document.createElement("i");
+  s.style.cssText="left:"+(Math.random()*100)+"vw;top:-20px;background:"+cols[i%cols.length]+
+   ";animation-duration:"+(1.5+Math.random()*1.3)+"s;animation-delay:"+(Math.random()*.35)+"s;transform:rotate("+(Math.random()*360)+"deg)";
+  box.appendChild(s);
+ }
+ setTimeout(function(){box.innerHTML=""},3200);
+}
+
+/* ---------- EVENTS ---------- */
+var booting=true;
+
+document.addEventListener("click",function(e){
+ var t=e.target.closest?e.target.closest("[data-go]"):null;
+ if(t){e.preventDefault();go(t.dataset.go);return}
+ var c=e.target.closest?e.target.closest("[data-copy]"):null;
+ if(c){e.preventDefault();copy(c.dataset.copy,c.classList.contains("cp")?c:null);return}
+ var rk=e.target.closest?e.target.closest("[data-rank]"):null;
+ if(rk){go("store");return}
+ var od=e.target.closest?e.target.closest("[data-order]"):null;
+ if(od){
+  if(!requireProfile())return;
+  $("selRank").value=od.dataset.order;
+  var card=od.closest(".rc"),act=card?card.querySelector(".durs button.on"):null;
+  $("selDur").value=DURS[act?+act.dataset.d:0];
+  buildBill();go("order");return;
+ }
+ var du=e.target.closest?e.target.closest(".durs button"):null;
+ if(du){
+  var wrap=du.parentNode,ri=+wrap.dataset.r,di=+du.dataset.d;
+  qa("button",wrap).forEach(function(b){b.classList.toggle("on",b===du)});
+  var pb=$("p"+ri);pb.textContent=rp(RANKS[ri].p[di]);pb.classList.remove("flip");void pb.offsetWidth;pb.classList.add("flip");
+  $("s"+ri).textContent=DURS[di];return;
+ }
+ var fq=e.target.closest?e.target.closest("#featTabs button"):null;
+ if(fq){qa("#featTabs button").forEach(function(b){b.classList.toggle("on",b===fq)});renderFeatures(fq.dataset.fcat);return}
+ var ft=e.target.closest?e.target.closest("#faqTabs button"):null;
+ if(ft){renderFaq(ft.dataset.cat);return}
+ var qb=e.target.closest?e.target.closest(".q>button"):null;
+ if(qb){var q=qb.parentNode,was=q.classList.contains("open");
+  qa(".q",$("faqList")).forEach(function(x){x.classList.remove("open")});
+  if(!was)q.classList.add("open");return}
+ var rf=e.target.closest?e.target.closest("#ruleFilters button"):null;
+ if(rf){qa("#ruleFilters button").forEach(function(b){b.classList.toggle("on",b===rf)});renderRules(+rf.dataset.lv);return}
+ var sp=e.target.closest?e.target.closest("#segPlat button"):null;
+ if(sp){plat=sp.dataset.plat;qa("#segPlat button").forEach(function(b){b.classList.toggle("on",b===sp)});livePreview();return}
+ if(e.target===$("sheet"))closeSheet();
+ if(e.target===$("modal"))closeModal();
+});
+
+$("burger").addEventListener("click",function(){
+ if($("sheet").classList.contains("open"))closeSheet();else openSheet();
+});
+$("btnCheck").addEventListener("click",checkStatus);
+$("btnDon").addEventListener("click",function(){
+ window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(donMsg()),"_blank","noopener");
+ toast("WhatsApp kebuka. Lampirin bukti transfernya ya.");
+});
+$("modalClose").addEventListener("click",closeModal);
+$("modalGo").addEventListener("click",function(){closeModal();go("login")});
+$("btnVote").addEventListener("click",function(){
+ if(!requireProfile())return;
+ window.open(VOTE_URL,"_blank","noopener");
+ toast("Halaman vote kebuka di tab baru.");
+});
+$("inName").addEventListener("input",livePreview);
+$("inVer").addEventListener("input",livePreview);
+$("btnSave").addEventListener("click",function(){
+ var n=$("inName").value.trim(),v=$("inVer").value.trim();
+ if(!/^[A-Za-z0-9_]{3,16}$/.test(n)){toast("Nametag cuma huruf, angka, underscore (3–16).");$("inName").focus();return}
+ if(!v){toast("Versi Minecraft-nya diisi dulu.");$("inVer").focus();return}
+ if(!setP({name:n,platform:plat,version:v})){toast("Browser nolak nyimpen data.");return}
+ syncProfile();confetti();toast("Profil kesimpan. Sekarang tinggal main.");
+});
+$("btnClear").addEventListener("click",function(){
+ try{localStorage.removeItem(KEY)}catch(e){}
+ $("inName").value="";$("inVer").value="";plat="Java";
+ qa("#segPlat button").forEach(function(b){b.classList.toggle("on",b.dataset.plat==="Java")});
+ syncProfile();livePreview();toast("Profil udah dihapus.");
+});
+$("selRank").addEventListener("change",buildBill);
+$("selDur").addEventListener("change",buildBill);
+$("btnWa").addEventListener("click",function(){
+ var p=getP();if(!requireProfile())return;
+ var rk=RANKS.filter(function(x){return x.n===$("selRank").value})[0]||RANKS[0];
+ var di=Math.max(0,DURS.indexOf($("selDur").value));
+ window.open("https://wa.me/"+WA+"?text="+encodeURIComponent(waMsg(p,rk,di)),"_blank","noopener");
+ toast("WhatsApp kebuka. Tinggal tekan kirim.");
+});
+function requireProfile(){if(getP())return true;openModal();return false}
+
+window.addEventListener("keydown",function(e){if(e.key==="Escape"){closeModal();closeSheet()}});
+window.addEventListener("hashchange",function(){go(location.hash.replace("#",""))});
+window.addEventListener("resize",movePill);
+
+/* ---------- INIT ---------- */
+function init(){
+ renderTicker();renderBento();renderRail();renderRanks();renderModes();renderSteps();
+ renderRules(1);renderFaq("server");renderFeatures("all");renderFeatChips();renderTips();renderHelp();
+ $("selRank").innerHTML=RANKS.map(function(r){return '<option>'+r.n+'</option>'}).join("");
+ $("selDur").innerHTML=DURS.map(function(d){return '<option>'+d+'</option>'}).join("");
+ var p=getP();
+ if(p){$("inName").value=p.name;$("inVer").value=p.version;plat=p.platform;
+  qa("#segPlat button").forEach(function(b){b.classList.toggle("on",b.dataset.plat===p.platform)})}
+ syncProfile();
+ scrollFx();magnetic();spotlight();ripples();cursorGlow();parallax();
+ var want=location.hash.replace("#","");
+ go(PAGES.indexOf(want)>-1?want:"home",false);
+ booting=false;
+ if(!REDUCE)splitHeads();
+ window.scrollTo(0,0);
+ requestAnimationFrame(function(){window.scrollTo(0,0)});
+ setTimeout(function(){if(window.pageYOffset<40)window.scrollTo(0,0)},400);
+ scanReveal();
+ checkStatus();
+ statusTimer=setInterval(checkStatus,60000);
+ document.addEventListener("visibilitychange",function(){if(!document.hidden)checkStatus()});
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+</script>
+</body>
+</html>
